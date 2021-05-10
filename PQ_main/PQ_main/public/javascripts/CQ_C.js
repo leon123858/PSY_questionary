@@ -151,6 +151,8 @@ class C {
             //stage_1_1_~stage_2_1_~stage_1_0_
           }
 
+          eachLevelAccRate = (groupSet[4] / 20) * 100;
+
           allData.RT_count += groupSet[0];
           allData.RT_time += groupSet[1];
           allData.FA_RT_count += groupSet[2];
