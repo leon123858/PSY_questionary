@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style_CQ.css" />
   <link rel="stylesheet" type="text/css" href="/stylesheets/style_CQ_CDEF.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -49,13 +49,24 @@
     style="display: none;"></label>
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
+
   <!-- post form -->
   <form method="POST" action="/CQ/EQ" style="display: none;">
     <input name="ID" value="<%=ID%>">
     <input name="password" value="<%=password%>">
+    <input name="trial" value="<%=number%>" hidden>
   </form>
 </body>
 <script>
+
+
+
+  //  獲取歷史分數：/CQ/getHistory / <問卷號碼>
+  //    參數：ID,password
+  // 回傳：{result:“success”,data:[“上次分數”,“上上次分數”,…]//} 共9個, 若沒了則填入"NA"
+  // 注意：回傳陣列為字串陣列, 需自行進行型別轉換.
+
+  // constructor: id/password/type:A 
 
   //   $("btn").click(
   //     let a = A(btn.val(): boolean)
@@ -68,54 +79,58 @@
       backdrop: 'static',
       keyboard: false
     });
-    // if (localStorage.getItem("one") != null) { //check if have local storage
-    //   $.post("/CQ/SQ/saveData", {
-    //     ID: "<%=ID%>",
-    //     password: "<%=password%>",
-    //     one: localStorage.getItem("one"),
-    //     group: localStorage.getItem("group"),
-    //     type: 'A',
-    //   },
-    //     function (data, textStatus, jqXHR) {
-    //       if (textStatus == "success") {
-    //         if (data.result == "success") {
-    //           localStorage.removeItem("one");
-    //           localStorage.removeItem("group");
-    //           alert("上次未上傳資料上傳成功");
-    //         } else {
-    //           alert("資料上傳失敗,失敗原因 : " + data.result);
-    //         }
-    //       } else
-    //         alert("與伺服器斷訊")
-    //     },
-    //     "json"
-    //   );
-    // }
+    if (localStorage.getItem("one") != null) {
+      //  check if have local storage
+      $.post("/CQ/SQ/saveData", {
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: '<%=number%>',
+      },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+    }
 
-    // if (localStorage.getItem("pr") != null) {
-    //   $.post("/CQ/PR/savePR", {
-    //     ID: "<%=ID%>",
-    //     password: "<%=password%>",
-    //     data: localStorage.getItem("pr"),
-    //     type: 'A',
-    //   },
-    //     function (data, textStatus, jqXHR) {
-    //       if (textStatus == "success") {
-    //         if (data.result == "success") {
-    //           localStorage.removeItem("pr");
-    //           console.log("上次未上傳資料上傳成功");
-    //         } else {
-    //           console.log("資料上傳失敗,失敗原因 : " + data.result);
-    //         }
-    //       } else
-    //         console.log("與伺服器斷訊")
-    //     },
-    //     "json"
-    //   );
-    // }
+    function GetHistory(trialname) {
+      $.get("/CQ/getHistory/" + trialname, {
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: '<%=number%>',
+      },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+
+            }
+            else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+    };
+
   });
 
-  $('.btn-group').on('click', '.btn', function () { //practice reality change
+  $('.btn-group').on('click', '.btn', function () {
+    //practice reality change
     game_get = $(this).val();
     $(this).addClass('active').siblings().removeClass('active');
   });
@@ -133,63 +148,46 @@
   });
 
 
-  // $('#finish_btn').on('click', function () {
-  //   console.log(game.one);
-  //   console.log(game.group);
-  //   console.log(game.pr);
-  //   if (game_get == "reality") {
-  //     $('form').children('input[name="one"]').val(game.one);
-  //     $('form').children('input[name="group"]').val(game.group);
-  //     localStorage.setItem("one", game.one);
-  //     localStorage.setItem("group", game.group);
-  //     localStorage.setItem("pr", game.pr);
-  //     // $.post("/CQ/SQ/saveData", {
-  //     //   ID: "<%=ID%>",
-  //     //   password: "<%=password%>",
-  //     //   one: game.one,
-  //     //   group: game.group,
-  //     //   type: 'A',
-  //     // },
-  //     // function (data, textStatus, jqXHR) {
-  //     //   if (textStatus == "success") {
-  //     //     if (data.result == "success") {
-  //     //       localStorage.removeItem("one");
-  //     //       localStorage.removeItem("group");
-  //     //       $('form').submit();
-  //     //       alert("資料上傳成功");
-  //     //     } else {
-  //     //       alert("資料上傳失敗,失敗原因 : " + data.result);
-  //     //     }
-  //     //   } else
-  //     //     alert("與伺服器斷訊")
-  //     // },
-  //     // "json"
-  //     // );
-  //     //save pr
-  //     // $.post("/CQ/PR/savePR", {
-  //     //   ID: "<%=ID%>",
-  //     //   password: "<%=password%>",
-  //     //   data: game.pr,
-  //     //   type: 'A',
-  //     // },
-  //     //   function (data, textStatus, jqXHR) {
-  //     //     if (textStatus == "success") {
-  //     //       if (data.result == "success") {
-  //     //         localStorage.removeItem("pr");
-  //     //         $('form').submit();
-  //     //         console.log("資料上傳成功");
-  //     //       } else {
-  //     //         console.log("資料上傳失敗,失敗原因 : " + data.result);
-  //     //       }
-  //     //     } else
-  //     //       console.log("與伺服器斷訊")
-  //     //   },
-  //     //   "json"
-  //     // );
-  //   } else { // practice finish reload the page
-  //     location.reload();
-  //   }
-  // });
+  const trial_end_store_data = (trialName) => {
+    $('#finish_btn').on('click', function () {
+      console.log(game.one);
+      console.log(game.group);
+      //console.log(game.pr);
+      if (game_get == "reality") {
+        $('form').children('input[name="one"]').val(game.one);
+        $('form').children('input[name="group"]').val(game.group);
+        localStorage.setItem("one", game.one);
+        localStorage.setItem("group", game.group);
+        localStorage.setItem("pr", game.pr);
+        $.post("/CQ/SQ/saveData", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          one: game.one,
+          group: game.group,
+          type: `$'trialName'`,
+        },
+          function (data, textStatus, jqXHR) {
+            if (textStatus == "success") {
+              if (data.result == "success") {
+                localStorage.removeItem("one");
+                localStorage.removeItem("group");
+                $('form').submit();
+                alert("資料上傳成功");
+              } else {
+                alert("資料上傳失敗,失敗原因 : " + data.result);
+              }
+            } else
+              alert("與伺服器斷訊")
+          },
+          "json"
+        );
+
+      } else { // practice finish reload the page
+        location.reload();
+      }
+    });
+  }
+
 </script>
 
 </html>

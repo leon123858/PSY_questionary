@@ -1,10 +1,10 @@
 //_ => ~ => -
 class E {
   constructor(isExercise) {
-    this._one = '';
-    this._all = '';
-    this._mode = 'isExercise';
-    this._oneAndAll = '';
+    this._one = "";
+    this._all = "";
+    this._mode = "isExercise";
+    this._oneAndAll = "";
   }
   _start() {
     const randomList = (arr) => {
@@ -12,15 +12,19 @@ class E {
         return 0.5 - Math.random();
       });
     };
+    // total:200 rate 5:5 25%bee
     let questions = [];
-    for (let i = 0; i < 7; i++) {
-      questions[i] = '1';
+    for (let i = 0; i < 75; i++) {
+      questions[i] = "1";
     }
-    for (let i = 7; i < 14; i++) {
-      questions[i] = '2';
+    for (let i = 75; i < 150; i++) {
+      questions[i] = "2";
     }
-    for (let i = 14; i < 20; i++) {
-      questions[i] = '3';
+    for (let i = 150; i < 175; i++) {
+      questions[i] = "3";
+    }
+    for (let i = 175; i < 200; i++) {
+      questions[i] = "4";
     }
     questions = randomList(questions);
     return questions;
@@ -39,56 +43,61 @@ class E {
       }px"`;
     };
 
-    const duration = (level) => {
-      return 550 - level * 50;
+    // const duration = (level) => {
+    //   return 550 - level * 50;
+    // };
+
+    //0-450
+    const soundDelay = (correctnum, wrongnum) => {
+      return 200 + correctnum * 33 - wrongnum * 33;
     };
 
-    for (let i = 0; i < 20; i++) {
-      let ten = {
+    const eachduration = (playerRes) => {
+      return 500 - playerRes;
+    };
+
+    for (let i = 0; i < 200; i++) {
+      let cross = {
         type: "html-keyboard-response",
         stimulus:
           "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
         choices: jsPsych.NO_KEYS,
-        trial_duration: randomNum(200, 800),
+        trial_duration: 500,
       };
-      timeline.push(ten);
+      timeline.push(cross);
       if (questions[i] == "1") {
-        let white = {
+        let randomPicNum = Math.ceil(Math.random() * 10);
+        let dogs = {
           type: "html-keyboard-response",
-          stimulus:
-            '<img id="white_ball" src="/image/C/White.jpg"' +
-            randomPlaceCSS(500, 0, 1000) +
-            ">",
+          stimulus: `<img id="dog" src="/image/E/d${randomPicNum}.jpg"` + ">",
           choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
+          trial_duration: 500,
+          post_trial_gap: randomNum(100, 300), //100-300
         };
-        timeline.push(white);
+        timeline.push(dogs);
       }
       if (questions[i] == "2") {
-        let orange = {
+        let randomPicNum = Math.ceil(Math.random() * 10);
+        let cats = {
           type: "html-keyboard-response",
           stimulus:
-            '<img id="orange_ball" src="/image/C/Orange.jpg"' +
+            `<img id="cat" src="/image/E/c${randomPicNum}.jpg"` +
             randomPlaceCSS(500, 0, 1000) +
             ">",
           choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
+          trial_duration: 500,
+          post_trial_gap: randomNum(100, 300), //100-300
         };
-        timeline.push(orange);
+        timeline.push(cats);
       } else {
-        let racket = {
-          type: "html-keyboard-response",
-          stimulus:
-            '<img id="racket" src="/image/C/Racket.jpg"' +
-            randomPlaceCSS(500, 0, 1000) +
-            ">",
-          choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
+        let bee_sound = {
+          type: "audio-keyboard-response",
+          stimulus: "/voice/E/bee.mp3",
+          //choices: ["j", "f"],
+          //trial_duration: 500,
+          //post_trial_gap: randomNum(150, 300),
         };
-        timeline.push(racket);
+        timeline.push(bee_sound);
       }
     }
     console.log(timeline);
@@ -104,18 +113,21 @@ class E {
         timeline: timeline,
         on_finish: function () {
           let resultArray = [0, 0]; //最後結果陣列
-        
           let inner_data = "";
-          //[右且按j && 左且按f總次數, 右且按j && 左且按f的反應時間加總, stop卻按下次數, stop卻按下的反應時間加總, 正確次數(有車按對, stop沒按)]
+          //CorrAns 1[j] 2[f] 0[NR]
+          //Press
+          //[dog且按j&&cat且按f總次數, dog且按j&&cat且按f的反應時間加總, bee卻按下次數, bee卻按下的反應時間加總, 正確次數(有dog/cat按對, be沒按)]
           let groupSet = [0, 0, 0, 0, 0];
           //使用者按下的資訊
           let data = JSON.parse(jsPsych.data.get().json());
-          for (let i = 1; i < 40; i += 2) {//資訊
+          for (let i = 1; i < 40; i += 2) {
+            //資訊
             inner_data += stage + "_" + questions[parseInt(i / 2)] + "_";
             if (
               (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
               (questions[parseInt(i / 2)] == "2" && data[i].response == "f") ||
-              (questions[parseInt(i / 2)] == "3" && data[i].response == null)
+              (questions[parseInt(i / 2)] == "3" && data[i].response == null) ||
+              (questions[parseInt(i / 2)] == "4" && data[i].response == null)
             ) {
               inner_data += "1_";
               if (data[i].rt == null) {
@@ -200,13 +212,13 @@ class E {
       RT_time: 0,
       FA_RT_count: 0,
       FA_RT_time: 0,
-      SSD:0,    //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
-      SS_Acc:0,   //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
+      SSD: 0, //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
+      SS_Acc: 0, //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
     };
-    
-      this._oneAndAll = await this._round(allData);
-      this._one = this._oneAndAll[0];
-      this._all += this._allGenerate(this._oneAndAll);
+
+    this._oneAndAll = await this._round(allData);
+    this._one = this._oneAndAll[0];
+    this._all += this._allGenerate(this._oneAndAll);
 
     if (this._mode == false) {
       console.log(this._mode);
