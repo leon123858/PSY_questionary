@@ -184,6 +184,7 @@ class M {
 				on_finish: () => {
 					this._time = parseInt(new Date() - this._time);
 					const getDisAndUpdate = (lastMargin, newMargin) => {
+						if (newMargin == null) return 0;
 						const dx = Math.abs(lastMargin.X - newMargin.X);
 						const dy = Math.abs(lastMargin.Y - newMargin.Y);
 						const dis = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
@@ -193,6 +194,7 @@ class M {
 					};
 					const getNewPlace = (value) => {
 						const stimulus = value.stimulus;
+						if (stimulus == undefined) return null;
 						const x = stimulus.split('margin-left:')[1].split('px')[0];
 						const y = stimulus.split('margin-top:')[1].split('px')[0];
 						return { X: x, Y: y };

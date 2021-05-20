@@ -128,7 +128,7 @@ const whichScore = {
 	J: 'Score',
 	K: 'Score',
 	L: 'Score',
-	M: 'Level',
+	M: 'T_Taget',
 	N: 'Score',
 	O: 'Score',
 	P: 'Score',

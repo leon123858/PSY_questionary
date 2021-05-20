@@ -11,7 +11,6 @@ const type_licence = [
 	'F',
 	'G',
 	'H',
-	'I',
 	'J',
 	'K',
 	'L',
@@ -273,7 +272,6 @@ router.post('/saveData', function (req, res) {
 	var group = req.body.group; //string
 	var type = req.body.type;
 	var date = new Date().toLocaleDateString();
-	//console.log(req.body);
 	MongoClient.connect(
 		Get('mongoPath') + 'EW',
 		{ useNewUrlParser: true, useUnifiedTopology: true },

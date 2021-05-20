@@ -15,7 +15,9 @@
   <script src="/jspsych-6.3.0/plugins/jspsych-html-button-response.js"></script>
   <script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script>
   <link href="/jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css">
+  <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_M.js"></script>
+  <script src="/javascripts/CQ_DQ.js"></script>
   <title>M:手眼協調訓練</title>
 </head>
 
@@ -51,11 +53,7 @@
   </form>
 </body>
 <script>
-
-  //   $("btn").click(
-  //     let a = A(btn.val(): boolean)
-  //     a.process().then(item => console.log(item.one, item.all));
-  // )
+  const handler = new Handler('M', '<%=ID%>', '<%=password%>');
   var game_get = null;
   var game;
   $(window).on('load', function () {
@@ -63,51 +61,7 @@
       backdrop: 'static',
       keyboard: false
     });
-    // if (localStorage.getItem("one") != null) { //check if have local storage
-    //   $.post("/CQ/SQ/saveData", {
-    //     ID: "<%=ID%>",
-    //     password: "<%=password%>",
-    //     one: localStorage.getItem("one"),
-    //     group: localStorage.getItem("group"),
-    //     type: 'A',
-    //   },
-    //     function (data, textStatus, jqXHR) {
-    //       if (textStatus == "success") {
-    //         if (data.result == "success") {
-    //           localStorage.removeItem("one");
-    //           localStorage.removeItem("group");
-    //           alert("上次未上傳資料上傳成功");
-    //         } else {
-    //           alert("資料上傳失敗,失敗原因 : " + data.result);
-    //         }
-    //       } else
-    //         alert("與伺服器斷訊")
-    //     },
-    //     "json"
-    //   );
-    // }
-
-    // if (localStorage.getItem("pr") != null) {
-    //   $.post("/CQ/PR/savePR", {
-    //     ID: "<%=ID%>",
-    //     password: "<%=password%>",
-    //     data: localStorage.getItem("pr"),
-    //     type: 'A',
-    //   },
-    //     function (data, textStatus, jqXHR) {
-    //       if (textStatus == "success") {
-    //         if (data.result == "success") {
-    //           localStorage.removeItem("pr");
-    //           console.log("上次未上傳資料上傳成功");
-    //         } else {
-    //           console.log("資料上傳失敗,失敗原因 : " + data.result);
-    //         }
-    //       } else
-    //         console.log("與伺服器斷訊")
-    //     },
-    //     "json"
-    //   );
-    // }
+    handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 
   $('.btn-group').on('click', '.btn', function () { //practice reality change
@@ -120,71 +74,12 @@
 
     if (game_get == "reality") {
       let m = new M(false, "clock");
-      m.process().then(item => console.log(item.one, item.all)).then(item => window.history(-1));
+      handler.startTest({ questionary: m, isExercise: false })
     } else {
       let m = new M(true, "clock");
-      m.process().then(item => console.log(item.one, item.all)).then(item => location.reload());
+      handler.startTest({ questionary: m, isExercise: true });
     }
   });
-
-
-  // $('#finish_btn').on('click', function () {
-  //   console.log(game.one);
-  //   console.log(game.group);
-  //   console.log(game.pr);
-  //   if (game_get == "reality") {
-  //     $('form').children('input[name="one"]').val(game.one);
-  //     $('form').children('input[name="group"]').val(game.group);
-  //     localStorage.setItem("one", game.one);
-  //     localStorage.setItem("group", game.group);
-  //     localStorage.setItem("pr", game.pr);
-  //     // $.post("/CQ/SQ/saveData", {
-  //     //   ID: "<%=ID%>",
-  //     //   password: "<%=password%>",
-  //     //   one: game.one,
-  //     //   group: game.group,
-  //     //   type: 'A',
-  //     // },
-  //     // function (data, textStatus, jqXHR) {
-  //     //   if (textStatus == "success") {
-  //     //     if (data.result == "success") {
-  //     //       localStorage.removeItem("one");
-  //     //       localStorage.removeItem("group");
-  //     //       $('form').submit();
-  //     //       alert("資料上傳成功");
-  //     //     } else {
-  //     //       alert("資料上傳失敗,失敗原因 : " + data.result);
-  //     //     }
-  //     //   } else
-  //     //     alert("與伺服器斷訊")
-  //     // },
-  //     // "json"
-  //     // );
-  //     //save pr
-  //     // $.post("/CQ/PR/savePR", {
-  //     //   ID: "<%=ID%>",
-  //     //   password: "<%=password%>",
-  //     //   data: game.pr,
-  //     //   type: 'A',
-  //     // },
-  //     //   function (data, textStatus, jqXHR) {
-  //     //     if (textStatus == "success") {
-  //     //       if (data.result == "success") {
-  //     //         localStorage.removeItem("pr");
-  //     //         $('form').submit();
-  //     //         console.log("資料上傳成功");
-  //     //       } else {
-  //     //         console.log("資料上傳失敗,失敗原因 : " + data.result);
-  //     //       }
-  //     //     } else
-  //     //       console.log("與伺服器斷訊")
-  //     //   },
-  //     //   "json"
-  //     // );
-  //   } else { // practice finish reload the page
-  //     location.reload();
-  //   }
-  // });
 </script>
 
 </html>
