@@ -144,12 +144,13 @@ function GetScore(db, ID, which) {
 		table
 			.find({ ID: ID }, { projection: { _id: 0, ID: 0, Date: 0 } })
 			.sort({ _id: -1 })
-			.limit(9)
+			.limit(10)
 			.toArray(function (err, result) {
 				if (err) {
 					reject({ result: '伺服器連線錯誤' });
 					throw err;
 				}
+				result.shift();
 				let reArr = result.map((pkg) => {
 					return pkg.data[whichScore[which]];
 				});
