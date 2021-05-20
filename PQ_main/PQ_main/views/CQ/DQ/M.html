@@ -73,11 +73,11 @@
     $('#main-model').modal('hide');
 
     if (game_get == "reality") {
-      let m = new M(false, "clock");
-      handler.startTest({ questionary: m, isExercise: false })
+      let questionary = new M(false, "clock");
+      handler.startTest({ questionary: questionary, isExercise: false })
     } else {
-      let m = new M(true, "clock");
-      handler.startTest({ questionary: m, isExercise: true });
+      let questionary = new M(true, "clock");
+      handler.startTest({ questionary: questionary, isExercise: true });
     }
   });
 </script>
