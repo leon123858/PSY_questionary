@@ -62,7 +62,8 @@ class N {
 	}
 	_level(level, questions) {
 		const randomValue2Digit = () => parseInt(Math.random() * 100);
-		const randomCalculateSol = (a, b, isAdd) => (isAdd ? a + b : a - b);
+		const randomCalculateSol = (a, b, isAdd) =>
+			isAdd ? a + b : a > b ? a - b : b - a;
 		const generateRandomInt = (min, max) =>
 			Math.floor(Math.random() * (max - min) + min);
 		const lowLine = (level) => {
@@ -84,10 +85,15 @@ class N {
 					});
 					break;
 				case N_TYPE.CALCULATION_RIGHT:
-					const firstNum = randomValue2Digit();
-					const secondNum = randomValue2Digit();
+					let firstNum = randomValue2Digit();
+					let secondNum = randomValue2Digit();
 					const isAdd = Math.random() > 0.5;
 					const sol = randomCalculateSol(firstNum, secondNum, isAdd);
+					if (!isAdd && firstNum < secondNum) {
+						const tmp = firstNum;
+						firstNum = secondNum;
+						secondNum = tmp;
+					}
 					timeline.push({
 						type: 'html-keyboard-response',
 						stimulus: `<p>${firstNum} ${
