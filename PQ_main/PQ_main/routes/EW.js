@@ -292,7 +292,7 @@ const recordMail = (email) => {
 	const mailOtions = {
 		form: sendMailer, // 發信者是誰
 		to: email, // 發給誰，用逗號分開
-		subject: '桌球運動員精準計畫 系統管理員信件', // 信件標題
+		subject: '心智評估與訓練系統 系統管理員信件', // 信件標題
 		text: '系統定期回報：主系統,影片系統及郵件系統正常', // 單純文字內容
 	};
 	return new Promise((resolve, reject) => {
@@ -360,10 +360,10 @@ const sendMail = (token, email) => {
 	const mailOtions = {
 		form: sendMailer, // 發信者是誰
 		to: email, // 發給誰，用逗號分開
-		subject: '桌球運動員精準計畫 帳號啟用信', // 信件標題
+		subject: '心智評估與訓練系統 帳號啟用信', // 信件標題
 		//text: 'XXXX', // 單純文字內容
 		html:
-			'<h1>親愛的使用者您好</h1><h2>我們是桌球運動員精準計畫, 若您想使用本平台, 可點擊下方連接, 會獲得您的實驗編號與臨時密碼。</h2>' +
+			'<h1>親愛的使用者您好</h1><h2>我們是心智評估與訓練系統, 若您想使用本平台, 可點擊下方連接, 會獲得您的實驗編號與臨時密碼。</h2>' +
 			'<a href="' +
 			URL +
 			'">請點我(Click ME) [跳轉後即可看見您的實驗編號與臨時密碼]</a>', // 可寫入 HTML 格式
