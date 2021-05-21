@@ -137,12 +137,42 @@ const whichScore = {
 	S: 'Score',
 	T: 'Score',
 };
+const haveDifferentMode = {
+	M: 'Level',
+};
 
-function GetScore(db, ID, which) {
+function GetLevel(db, ID, which) {
 	return new Promise((resolve, reject) => {
 		var table = db.db('CQ_data').collection(which + '_group');
 		table
 			.find({ ID: ID }, { projection: { _id: 0, ID: 0, Date: 0 } })
+			.sort({ _id: -1 })
+			.limit(1)
+			.toArray(function (err, result) {
+				if (err) {
+					reject({ result: '伺服器連線錯誤' });
+					throw err;
+				}
+				resolve(result[0].data[haveDifferentMode[which]]);
+			});
+	});
+}
+
+function GetScore(db, ID, which, filterValue) {
+	return new Promise((resolve, reject) => {
+		var table = db.db('CQ_data').collection(which + '_group');
+		let filter = { ID: ID };
+		if (filterValue) {
+			const key = `data.${haveDifferentMode[which]}`;
+			const value = filterValue;
+			const tmp = {};
+			tmp[key] = value;
+			filter = {
+				$and: [{ ID: ID }, tmp],
+			};
+		}
+		table
+			.find(filter, { projection: { _id: 0, ID: 0, Date: 0 } })
 			.sort({ _id: -1 })
 			.limit(10)
 			.toArray(function (err, result) {
@@ -177,6 +207,15 @@ router.post('/GetHistory/:which', function (req, res) {
 			if (err) {
 				res.json({ result: '伺服器連線錯誤' });
 				throw err;
+			}
+			if (Object.keys(haveDifferentMode).includes(which)) {
+				CheckPassword(db, ID, password)
+					.then((pkg) => GetLevel(db, ID, which))
+					.then((filterValue) => GetScore(db, ID, which, filterValue))
+					.then((pkg) => res.json(pkg))
+					.catch((err) => res.json(err))
+					.finally((pkg) => db.close());
+				return;
 			}
 			CheckPassword(db, ID, password)
 				.then((pkg) => GetScore(db, ID, which))
