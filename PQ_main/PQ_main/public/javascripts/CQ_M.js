@@ -383,6 +383,7 @@ class M {
 			const questionsCount = questionsCountBase * (1 + i);
 			const resultLength = await this._round(i);
 			if (resultLength < questionsCount) break;
+			await waitNextLevel(true);
 		}
 		const clock = document.getElementById(this._clockId);
 		clock.innerHTML = '<br>';

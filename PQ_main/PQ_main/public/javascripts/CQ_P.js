@@ -239,6 +239,7 @@ class P {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(false);
 		}
 		const {
 			_tmpAll: { totalScore: score, totalQuestionCount: count },

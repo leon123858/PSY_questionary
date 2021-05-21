@@ -253,10 +253,11 @@ class T {
 		await this._chooseMode();
 		this._listener();
 		let level = 1; //從level 1開始
-		let isNext;
-		do {
-			isNext = await this._round(level++);
-		} while (isNext);
+		while (true) {
+			const isNext = await this._round(level++);
+			if (!isNext) break;
+			await waitNextLevel(false);
+		}
 		const { Count, Speed, Score, Level } = this._tmpAll;
 		this._all = `${Count}_${Speed}_${Level}_${Score}`;
 		if (this._mode) return { one: this._one, all: this._all };

@@ -241,6 +241,7 @@ class N {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(false);
 		}
 		this._all = `${this._tmpAll.finalLevel}_${this._tmpAll.Num_Score}_${this._tmpAll.Letter_Score}_${this._tmpAll.Score}`;
 		if (this._mode) {

@@ -302,6 +302,7 @@ class Q {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(false);
 		}
 		this._tmpAll.Acc =
 			(this._tmpAll.score / (this._tmpAll.finalLevel * this._questionsNum)) *

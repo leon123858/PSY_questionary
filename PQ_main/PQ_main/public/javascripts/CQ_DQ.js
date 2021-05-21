@@ -215,3 +215,38 @@ class Handler {
 		} else questionary.process().then((tmp) => location.reload());
 	}
 }
+
+function waitNextLevel(isDisplay) {
+	return isDisplay
+		? new Promise((resolve) => {
+				jsPsych.init({
+					timeline: [
+						{
+							type: 'html-keyboard-response',
+							stimulus:
+								'<h1>正確率達標</h1><h2>按下鍵盤"enter"進入下一輪測試</h2>',
+							choices: ['Enter'],
+						},
+					],
+					display_element: 'jspsych-experiment',
+					on_finish: () => {
+						resolve('end');
+					},
+				});
+		  })
+		: new Promise((resolve) => {
+				jsPsych.init({
+					timeline: [
+						{
+							type: 'html-keyboard-response',
+							stimulus:
+								'<h1>正確率達標</h1><h2>按下鍵盤"enter"進入下一輪測試</h2>',
+							choices: ['Enter'],
+						},
+					],
+					on_finish: () => {
+						resolve('end');
+					},
+				});
+		  });
+}
