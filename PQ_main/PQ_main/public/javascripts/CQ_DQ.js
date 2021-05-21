@@ -150,7 +150,7 @@ class Handler {
 			this._history.unshift(item);
 		});
 		$('#jspsych-content').html(
-			`<canvas id='chartJs' style='width:${this._chartWidth}px;height:${this._chartHeight}px;background-color:white;'></canvas><form method="POST" action="/CQ/EQ" style="background-color:white;">
+			`<h1 style="background-color:white;">測驗結束</h1><canvas id='chartJs' style='width:${this._chartWidth}px;height:${this._chartHeight}px;background-color:white;'></canvas><form method="POST" action="/CQ/EQ" style="background-color:white;">
 			<input name="ID" value="${this._ID}" style="display:none;">
 			<input name="password" value="${this._password}" style="display:none;">
 			<input type="submit" value="回首頁" style="font-size:20px">
