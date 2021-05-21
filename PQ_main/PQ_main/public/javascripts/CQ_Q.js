@@ -82,6 +82,7 @@ class Q {
 		};
 		const generateRandomInt = (min, max) =>
 			Math.floor(Math.random() * (max + 1 - min) + min);
+		const animal = generateRandomInt(1, 5);
 		let timeline = [];
 		let animalList = [];
 		questions.map((value, index) => {
@@ -120,7 +121,7 @@ class Q {
 					animalList.push({
 						row: shouldSame.row,
 						col: shouldSame.col,
-						path: `/image/CQ_Q_animal/${generateRandomInt(1, 5)}.jpg`,
+						path: `/image/CQ_Q_animal/${animal}.jpg`,
 					});
 					timeline.push({
 						type: 'html-keyboard-response',
@@ -134,7 +135,7 @@ class Q {
 						animalList.push({
 							row: generateRandomInt(0, tableLength - 1),
 							col: generateRandomInt(0, tableLength - 1),
-							path: `/image/CQ_Q_animal/${generateRandomInt(1, 5)}.jpg`,
+							path: `/image/CQ_Q_animal/${animal}.jpg`,
 						});
 					} else {
 						const shouldNotSame = animalList[animalList.length - level];
@@ -147,7 +148,7 @@ class Q {
 							animalList.push({
 								row: newRow,
 								col: newCol,
-								path: `/image/CQ_Q_animal/${generateRandomInt(1, 5)}.jpg`,
+								path: `/image/CQ_Q_animal/${animal}.jpg`,
 							});
 							break;
 						}
@@ -302,6 +303,7 @@ class Q {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(false);
 		}
 		this._tmpAll.Acc =
 			(this._tmpAll.score / (this._tmpAll.finalLevel * this._questionsNum)) *

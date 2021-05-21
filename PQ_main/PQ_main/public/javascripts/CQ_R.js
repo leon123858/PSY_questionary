@@ -302,6 +302,7 @@ class R {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(true);
 		}
 		const { totalScore, final_level } = this._tmpAll;
 		this._all = `${final_level}_${totalScore}`;

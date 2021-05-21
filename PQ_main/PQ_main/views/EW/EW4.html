@@ -1,42 +1,50 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title>桌球運動員精準計畫</title>
+    <title>心智評估與訓練系統</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
             <div class="text-center  align-self-center">
-                <h1>桌球運動員精準計畫</h1>
+                <h1>心智評估與訓練系統</h1>
             </div>
         </div>
     </header>
     <div class="container">
         <div>
             <button class="w-100 list-group-item list-group-item-action list-group-item-primary text-center"
-                    data-toggle="collapse" data-target="#inform-data">
-                <strong>修改密碼</strong><i class="fa fa-chevron-circle-down"
-                                        aria-hidden="true"></i>
+                data-toggle="collapse" data-target="#inform-data">
+                <strong>修改密碼</strong><i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
             </button>
             <div id="inform-data" class="row m-auto collapse w-100" style="background-color: rgb(231, 242, 255);">
-                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4" placeholder="新密碼" /></div>
-                <div class="col-md-4 mb-1"><input id="passwordConfirm" type="password" class="col-md-4" placeholder="確認新密碼" /></div>
-                <div class="col-md-4 mb-1"><input id="updatePassword" type="button" class="btn btn-success col-md-4" value="更新" /></div>
+                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4" placeholder="新密碼" />
+                </div>
+                <div class="col-md-4 mb-1"><input id="passwordConfirm" type="password" class="col-md-4"
+                        placeholder="確認新密碼" /></div>
+                <div class="col-md-4 mb-1"><input id="updatePassword" type="button" class="btn btn-success col-md-4"
+                        value="更新" /></div>
             </div>
         </div>
         <div style="font-size:200%;">
-            <br><h2>基本資料填寫</h2><br>
+            <br>
+            <h2>基本資料填寫</h2><br>
             <div class="row">
-                <span class="person_data  col-md-5">1.編號:</span><input type="text" readonly name="q1" class="in_text col-md-6 " placeholder="ex:S01" maxlength="7" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+                <span class="person_data  col-md-5">1.編號:</span><input type="text" readonly name="q1"
+                    class="in_text col-md-6 " placeholder="ex:S01" maxlength="7"
+                    onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">2.姓名:</span><input type="text" name="q2" class="in_text  col-md-6" placeholder="ex:王小明">
+                <span class="person_data  col-md-5">2.姓名:</span><input type="text" name="q2" class="in_text  col-md-6"
+                    placeholder="ex:王小明">
                 <br>
             </div>
             <div class="row">
@@ -47,77 +55,92 @@
                 </select>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">4.年齡:</span><input type="text" name="q4" class="in_text col-md-6" placeholder="ex:20" input="" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="2">
+                <span class="person_data  col-md-5">4.年齡:</span><input type="text" name="q4" class="in_text col-md-6"
+                    placeholder="ex:20" input="" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="2">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">5.生日:</span><input type="date" name="q5" class="in_text col-md-6">
                 <br>
             </div>
-            <div class="row">
-                <span class="person_data  col-md-5 ">6.身分證字號:</span><input type="text" name="q6" class="in_text col-md-6 " placeholder="ex:A123456789" maxlength="10" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5 ">6.身分證字號:</span><input type="text" name="q6"
+                    class="in_text col-md-6 " placeholder="ex:A123456789" maxlength="10"
+                    onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">7.身高 (cm) :</span><input type="text" name="q7" class="in_text col-md-6" placeholder="ex:168.9" onkeyup="if(isNaN(value))execCommand('undo')">
+                <span class="person_data  col-md-5">6.身高 (cm) :</span><input type="text" name="q7"
+                    class="in_text col-md-6" placeholder="ex:168.9" onkeyup="if(isNaN(value))execCommand('undo')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">8.體重 (kg) :</span><input type="text" name="q8" class="in_text col-md-6" placeholder="ex:70.5" onkeyup="if(isNaN(value))execCommand('undo')">
+                <span class="person_data  col-md-5">7.體重 (kg) :</span><input type="text" name="q8"
+                    class="in_text col-md-6" placeholder="ex:70.5" onkeyup="if(isNaN(value))execCommand('undo')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">9.電話 :</span><input type="text" name="q9" class="in_text col-md-6" placeholder="ex:0912345678" onkeyup="this.value=this.value.replace(/\D/g,'')">
+                <span class="person_data  col-md-5">8.電話 :</span><input type="text" name="q9" class="in_text col-md-6"
+                    placeholder="ex:0912345678" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">10.聯絡地址 :</span><input type="text" name="q10" class="in_text col-md-6" placeholder="">
+                <span class="person_data  col-md-5">9.聯絡地址 :</span><input type="text" name="q10"
+                    class="in_text col-md-6" placeholder="">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">11.常用Email :</span><input type="text" name="q11" class="in_text col-md-6" placeholder="ex:abcd@gmail.com">
+                <span class="person_data  col-md-5">10.常用Email :</span><input type="text" name="q11"
+                    class="in_text col-md-6" placeholder="ex:abcd@gmail.com">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">12.就讀學校 :</span><input type="text" name="q12" class="in_text col-md-6" placeholder="ex:國立成功大學">
+                <span class="person_data  col-md-5">11.就讀學校 :</span><input type="text" name="q12"
+                    class="in_text col-md-6" placeholder="ex:國立成功大學">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">13.系級 :</span><input type="text" name="q13" class="in_text col-md-6" placeholder="ex:心理三">
+                <span class="person_data  col-md-5">12.系級 :</span><input type="text" name="q13" class="in_text col-md-6"
+                    placeholder="ex:心理三">
+                <br>
+            </div>
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5">14.球齡 (年)(可不填):</span><input type="text" name="q14"
+                    class="in_text col-md-6" placeholder="ex:10" onkeyup="this.value=this.value.replace(/\D/g,'')">
+                <br>
+            </div>
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15"
+                    class="in_text col-md-6 " placeholder="ex:107 全國大專盃女團第三">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">14.球齡 (年)(可不填):</span><input type="text" name="q14" class="in_text col-md-6" placeholder="ex:10" onkeyup="this.value=this.value.replace(/\D/g,'')">
-                <br>
-            </div>
-            <div class="row">
-                <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15" class="in_text col-md-6 " placeholder="ex:107 全國大專盃女團第三">
-                <br>
-            </div>
-            <div class="row">
-                <span class="person_data  col-md-5">16.平時慣用手 :</span>
+                <span class="person_data  col-md-5">13.平時慣用手 :</span>
                 <select name="q16" class="in_text  col-md-6">
                     <option value="0">左</option>
                     <option value="1">右</option>
                 </select>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">17.打球慣用手 :</span>
+                <span class="person_data  col-md-5">14.打球慣用手 :</span>
                 <select name="q17" class="in_text  col-md-6">
                     <option value="0">左</option>
                     <option value="1">右</option>
                 </select>
             </div>
-            <div class="row">
-                <span class="person_data  col-md-5">18.教練(可不填) :</span><input type="text" name="q18" class="in_text col-md-6" placeholder="ex:張大強">
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5">18.教練(可不填) :</span><input type="text" name="q18"
+                    class="in_text col-md-6" placeholder="ex:張大強">
                 <br>
             </div>
-            <div class="row">
-                <span class="person_data  col-md-5">19.一對一練習時數(可不填) :</span><input type="text" name="q19" class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5">19.一對一練習時數(可不填) :</span><input type="text" name="q19"
+                    class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
-            <div class="row">
-                <span class="person_data  col-md-5">20.團練時數(可不填) :</span><input type="text" name="q20" class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
+            <div class="row" style="display: none;">
+                <span class="person_data  col-md-5">20.團練時數(可不填) :</span><input type="text" name="q20"
+                    class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <br>
@@ -179,7 +202,7 @@
             //更新資料
             $("#updateData").click(function () {
                 var unWrite = [];
-                var NoNeedList = [14, 15, 18, 19, 20];
+                var NoNeedList = [6, 14, 15, 18, 19, 20];
                 for (var i = 1; i < 21; i++) {
                     if (NoNeedList.indexOf(i) > - 1) {
                         //允許部分題目不填
@@ -226,4 +249,5 @@
         });
     </script>
 </body>
+
 </html>

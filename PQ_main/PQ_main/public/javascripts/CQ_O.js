@@ -83,7 +83,7 @@ class O {
 						type: 'survey-html-form',
 						html: `<label id="userInput">${lowLine(
 							level
-						)}</label><input id="userAns" name="response" value="" style="display:none" disable>`,
+						)}</label><input id="userAns" name="response" value="" style="display:none" disable><br><img id="list" src="/image/CQ_O_picture/list.jpg">`,
 					});
 					break;
 				case TYPE.SCORE:
@@ -206,7 +206,10 @@ class O {
 			for (let i = 0; i < value.length; i++) {
 				if (value[i] == '_') {
 					input.value += key[0];
-					return value.slice(0, i) + key[0] + value.slice(i + 1, value.length);
+					$('#userInput').before(
+						`<img id="ansImg" src="/image/CQ_O_picture/${key[0]}.jpg">`
+					);
+					return value.slice(i + 1, value.length);
 				}
 			}
 			return value;
@@ -237,6 +240,7 @@ class O {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
+			await waitNextLevel(false);
 		}
 		const {
 			_tmpAll: { totalScore: score, totalQuestionCount: count },

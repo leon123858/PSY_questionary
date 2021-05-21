@@ -150,7 +150,7 @@ class Handler {
 			this._history.unshift(item);
 		});
 		$('#jspsych-content').html(
-			`<canvas id='chartJs' style='width:${this._chartWidth}px;height:${this._chartHeight}px;background-color:white;'></canvas><form method="POST" action="/CQ/EQ" style="background-color:white;">
+			`<h1 style="background-color:white;">測驗結束</h1><canvas id='chartJs' style='width:${this._chartWidth}px;height:${this._chartHeight}px;background-color:white;'></canvas><form method="POST" action="/CQ/EQ" style="background-color:white;">
 			<input name="ID" value="${this._ID}" style="display:none;">
 			<input name="password" value="${this._password}" style="display:none;">
 			<input type="submit" value="回首頁" style="font-size:20px">
@@ -214,4 +214,39 @@ class Handler {
 				.catch((err) => $('form').submit());
 		} else questionary.process().then((tmp) => location.reload());
 	}
+}
+
+function waitNextLevel(isDisplay) {
+	return isDisplay
+		? new Promise((resolve) => {
+				jsPsych.init({
+					timeline: [
+						{
+							type: 'html-keyboard-response',
+							stimulus:
+								'<h1>正確率達標</h1><h2>按下鍵盤"enter"進入下一輪測試</h2>',
+							choices: ['Enter'],
+						},
+					],
+					display_element: 'jspsych-experiment',
+					on_finish: () => {
+						resolve('end');
+					},
+				});
+		  })
+		: new Promise((resolve) => {
+				jsPsych.init({
+					timeline: [
+						{
+							type: 'html-keyboard-response',
+							stimulus:
+								'<h1>正確率達標</h1><h2>按下鍵盤"enter"進入下一輪測試</h2>',
+							choices: ['Enter'],
+						},
+					],
+					on_finish: () => {
+						resolve('end');
+					},
+				});
+		  });
 }

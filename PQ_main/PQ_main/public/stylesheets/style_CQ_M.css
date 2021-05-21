@@ -10,13 +10,13 @@ p {
 	border-color: red;
 	border-width: 3px;
 	border-style: solid;
-	width: 20px;
-	height: 40px;
+	width: 40px;
+	height: 80px;
 }
 
 #ball {
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
 	border-radius: 50%;
 }
 
