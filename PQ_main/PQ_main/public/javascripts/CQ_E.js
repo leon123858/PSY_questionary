@@ -3,8 +3,43 @@ class E {
   constructor(isExercise) {
     this._one = "";
     this._all = "";
+<<<<<<< Updated upstream
     this._mode = "isExercise";
     this._oneAndAll = "";
+=======
+    this._tmpRecord = {
+      //過程資料記錄指標
+      CorrAns: 0,
+      Press: 0,
+      Acc: 0,
+      RT: 0,
+      SSD: 0,
+      SS_Acc: 0,
+    };
+    this._tmpAll = {
+      //整合資料記錄指標
+      Acc: 0,
+      RT: 0,
+      GO_Acc: 0,
+      GO_RT: 0,
+      NCRate: 0,
+      NC_RT: 0,
+      mSSD: 0,
+      SSRT: 0, //SSRT = Go_RT – mSSD
+      Score: 0,
+    };
+    //this._score = "";
+    this._mode = "isExercise";
+    this._oneAndAll = "";
+    this._questionsNum = 200;
+    this._questionType = {
+      CROSS: 0,
+      DOGS: 1,
+      CATS: 2,
+      DOGS_WITH_SOUND: 3,
+      CATS_WITH_SOUND: 4,
+    };
+>>>>>>> Stashed changes
   }
   _start() {
     const randomList = (arr) => {
@@ -27,6 +62,7 @@ class E {
       questions[i] = "4";
     }
     questions = randomList(questions);
+    console.log(questions);
     return questions;
   }
   _full_trail(stage) {
@@ -56,8 +92,17 @@ class E {
       return 500 - playerRes;
     };
 
+<<<<<<< Updated upstream
     for (let i = 0; i < 200; i++) {
       let cross = {
+=======
+    const sound_duration = (CorrAns_Count) => {
+      200 + 33 * CorrAns_Count;
+    };
+
+    for (let i = 0; i < 20; i++) {
+      let fixation = {
+>>>>>>> Stashed changes
         type: "html-keyboard-response",
         stimulus:
           "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
@@ -66,6 +111,7 @@ class E {
       };
       timeline.push(cross);
       if (questions[i] == "1") {
+<<<<<<< Updated upstream
         let randomPicNum = Math.ceil(Math.random() * 10);
         let dogs = {
           type: "html-keyboard-response",
@@ -82,20 +128,51 @@ class E {
           type: "html-keyboard-response",
           stimulus:
             `<img id="cat" src="/image/E/c${randomPicNum}.jpg"` +
+=======
+        let DOGS = {
+          type: "html-keyboard-response",
+          stimulus:
+            '<img id="dog" src="/image/E/White.jpg"' +
+            randomPlaceCSS(500, 0, 1000) +
+            ">",
+          choices: ["j", "f"],
+          trial_duration: duration(stage), //response~500ms
+          post_trial_gap: randomNum(150, 300), //補足不滿500ms
+        };
+        timeline.push(DOGS);
+      }
+      if (questions[i] == "2") {
+        let CATS = {
+          type: "html-keyboard-response",
+          stimulus:
+            '<img id="cat" src="/image/E/Orange.jpg"' +
+>>>>>>> Stashed changes
             randomPlaceCSS(500, 0, 1000) +
             ">",
           choices: ["j", "f"],
           trial_duration: 500,
           post_trial_gap: randomNum(100, 300), //100-300
         };
+<<<<<<< Updated upstream
         timeline.push(cats);
+=======
+        timeline.push(CATS);
+>>>>>>> Stashed changes
       } else {
         let bee_sound = {
           type: "audio-keyboard-response",
+<<<<<<< Updated upstream
           stimulus: "/voice/E/bee.mp3",
           //choices: ["j", "f"],
           //trial_duration: 500,
           //post_trial_gap: randomNum(150, 300),
+=======
+          stimulus: "voice/bee.mp3",
+          choices: ["j", "f"],
+          trial_duration: duration(stage),
+          post_trial_gap: randomNum(150, 300),
+          response_ends_trial: false,
+>>>>>>> Stashed changes
         };
         timeline.push(bee_sound);
       }
@@ -103,8 +180,6 @@ class E {
     console.log(timeline);
     return timeline;
   }
-
-  //利用_trail組成很多題目的回合, 回傳整理好的one,all 資料
   _round(allData) {
     let timeline = this._full_trail();
     let questions = this._start();
