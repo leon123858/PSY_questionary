@@ -139,6 +139,8 @@ const whichScore = {
 };
 const haveDifferentMode = {
 	M: 'Level',
+	Q: 'Level',
+	T: 'Speed',
 };
 
 function GetLevel(db, ID, which) {
