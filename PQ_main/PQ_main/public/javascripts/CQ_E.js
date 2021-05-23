@@ -1,10 +1,20 @@
 //_ => ~ => -
 class E {
   constructor(isExercise) {
-    this._one = '';
-    this._all = '';
-    this._mode = 'isExercise';
-    this._oneAndAll = '';
+    this._one = "";
+    this._all = "";
+    this._score = "";
+    this._mode = "isExercise";
+    this._oneAndAll = "";
+    this._questionsNum = 200;
+    this._questionType = {
+      CROSS: 0,
+      RIGHT_ARROW: 1,
+      LEFT_ARROW: 2,
+      RIGHT_ARROW_WITH_CIRCLE: 3,
+      LEFT_ARROW_WITH_CIRCLE: 4,
+      EMPTY: 5,
+    };
   }
   _start() {
     const randomList = (arr) => {
@@ -14,13 +24,13 @@ class E {
     };
     let questions = [];
     for (let i = 0; i < 7; i++) {
-      questions[i] = '1';
+      questions[i] = "1";
     }
     for (let i = 7; i < 14; i++) {
-      questions[i] = '2';
+      questions[i] = "2";
     }
     for (let i = 14; i < 20; i++) {
-      questions[i] = '3';
+      questions[i] = "3";
     }
     questions = randomList(questions);
     return questions;
@@ -44,14 +54,14 @@ class E {
     };
 
     for (let i = 0; i < 20; i++) {
-      let ten = {
+      let fixation = {
         type: "html-keyboard-response",
         stimulus:
           "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
         choices: jsPsych.NO_KEYS,
         trial_duration: randomNum(200, 800),
       };
-      timeline.push(ten);
+      timeline.push(fixation);
       if (questions[i] == "1") {
         let white = {
           type: "html-keyboard-response",
@@ -78,17 +88,14 @@ class E {
         };
         timeline.push(orange);
       } else {
-        let racket = {
-          type: "html-keyboard-response",
-          stimulus:
-            '<img id="racket" src="/image/C/Racket.jpg"' +
-            randomPlaceCSS(500, 0, 1000) +
-            ">",
+        let sound_trial = {
+          type: "audio-keyboard-response",
+          stimulus: "voice/bee.mp3",
           choices: ["j", "f"],
           trial_duration: duration(stage),
           post_trial_gap: randomNum(150, 300),
         };
-        timeline.push(racket);
+        timeline.push(sound_trial);
       }
     }
     console.log(timeline);
@@ -104,13 +111,14 @@ class E {
         timeline: timeline,
         on_finish: function () {
           let resultArray = [0, 0]; //最後結果陣列
-        
+
           let inner_data = "";
           //[右且按j && 左且按f總次數, 右且按j && 左且按f的反應時間加總, stop卻按下次數, stop卻按下的反應時間加總, 正確次數(有車按對, stop沒按)]
           let groupSet = [0, 0, 0, 0, 0];
           //使用者按下的資訊
           let data = JSON.parse(jsPsych.data.get().json());
-          for (let i = 1; i < 40; i += 2) {//資訊
+          for (let i = 1; i < 40; i += 2) {
+            //資訊
             inner_data += stage + "_" + questions[parseInt(i / 2)] + "_";
             if (
               (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
@@ -200,13 +208,13 @@ class E {
       RT_time: 0,
       FA_RT_count: 0,
       FA_RT_time: 0,
-      SSD:0,    //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
-      SS_Acc:0,   //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
+      SSD: 0, //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
+      SS_Acc: 0, //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
     };
-    
-      this._oneAndAll = await this._round(allData);
-      this._one = this._oneAndAll[0];
-      this._all += this._allGenerate(this._oneAndAll);
+
+    this._oneAndAll = await this._round(allData);
+    this._one = this._oneAndAll[0];
+    this._all += this._allGenerate(this._oneAndAll);
 
     if (this._mode == false) {
       console.log(this._mode);
