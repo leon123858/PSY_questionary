@@ -1,18 +1,21 @@
-#right {
-  height: 100px;
-  width: 100px;
-}
-
+#right,
 #left {
+  /* transform: rotate(180deg); */
   height: 100px;
   width: 100px;
-  /* transform: rotate(180deg); */
 }
 
-#circle_right,
+#white,
+#orange,
+#racket {
+  height: 100px;
+  width: 100px;
+}
+
+/* #circle_right,
 #circle_left {
   height: 100px;
   width: 100px;
   border: 1px solid red;
   border-radius: 50%;
-}
+} */
