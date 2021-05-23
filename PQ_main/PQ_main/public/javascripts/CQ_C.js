@@ -151,6 +151,8 @@ class C {
             //stage_1_1_~stage_2_1_~stage_1_0_
           }
 
+          eachLevelAccRate = (groupSet[4] / 20) * 100;
+
           allData.RT_count += groupSet[0];
           allData.RT_time += groupSet[1];
           allData.FA_RT_count += groupSet[2];
@@ -167,18 +169,18 @@ class C {
     });
   }
 
-  // _allGenerate(oneAndAll) {
-  //   let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
-  //   let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
-  //   let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
-  //   let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
-  //   let finalScore = oneAndAll[1].Acc;
-  //   if (finalFA_RT == 0) {
-  //     finalFA_RT = "NS";
-  //   }
-  //   this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
-  //   return this._all;
-  // }
+  _allGenerate(oneAndAll, stage) {
+    let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
+    let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
+    let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
+    let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
+    let finalScore = oneAndAll[1].Acc;
+    if (finalFA_RT == 0) {
+      finalFA_RT = "NS";
+    }
+    this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
+    return this._all;
+  }
 
   async process() {
     let stage = 1;
@@ -200,7 +202,7 @@ class C {
       ++stage;
     }
 
-    // this._all += this._allGenerate(this._oneAndAll, this.stage);
+    this._all += this._allGenerate(this._oneAndAll, stage);
 
     if (this._mode == false) {
       console.log(this._mode);
