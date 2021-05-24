@@ -71,11 +71,20 @@ class D {
     // });
   }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
   _full_trail(stage) {
 =======
   _full_trail(level) {
     const { _questionType: TYPE } = this;
+>>>>>>> Stashed changes
+=======
+  _full_trail(level) {
+    const {
+      _questionType: TYPE,
+      //_imgPath: path,
+      //_bounder: { x: bounderX, y: bounderY },
+    } = this;
 >>>>>>> Stashed changes
     let timeline = [];
     let questions = this._start();
@@ -264,13 +273,21 @@ class D {
       type: "html-keyboard-response",
       stimulus: '<img id="right" src="/image/D/Arrow.jpg"/>',
       choices: ["j", "f"],
+<<<<<<< Updated upstream
       trial_duration: 500 - circleDuration(level),
+=======
+      trial_duration: 500 - (level - 1) * 50,
+>>>>>>> Stashed changes
     };
     let left_arrow = {
       type: "html-keyboard-response",
       stimulus: '<img id="left" src="/image/D/Arrow_left.jpg"/>',
       choices: ["j", "f"],
+<<<<<<< Updated upstream
       trial_duration: 500 - circleDuration(level),
+=======
+      trial_duration: 500 - (level - 1) * 50,
+>>>>>>> Stashed changes
     };
     let right_arrow_with_circle = {
       type: "html-keyboard-response",
@@ -354,9 +371,18 @@ class D {
   }
 
   _round(level, allData) {
+<<<<<<< Updated upstream
     const questions = this._start();
     const timeline = this._full_trail(level);
 
+=======
+    const { _questionTYPE: TYPE } = this;
+    let { _tmpAll: tmpAll } = this;
+    const levelStr = level.toString();
+    let questions = this._start();
+    let timeline = this._full_trail(level);
+    //const timeline = this._level(level,questions);
+>>>>>>> Stashed changes
     console.log(timeline);
     let questionsIndex = 0;
     const score = document.getElementById(this._clockId);
@@ -380,7 +406,7 @@ class D {
           }
           questionsIndex++;
         },
-        on_finish: function () {
+        on_finish: () => {
           //jsPsych.data.displayData();
           const { _questionType: TYPE } = this;
           const data = JSON.parse(jsPsych.data.get().json());
@@ -391,8 +417,13 @@ class D {
             switch (questions[index]) {
               case TYPE.CROSS:
                 if (index > 0) this._one += "~";
+<<<<<<< Updated upstream
                 break;
 
+=======
+                this._one += `${level}_`;
+                break;
+>>>>>>> Stashed changes
               case TYPE.RIGHT_ARROW:
                 typeJ = "j";
               case TYPE.LEFT_ARROW:
@@ -445,6 +476,7 @@ class D {
   async process() {
     // console.log(this._mode);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     let stage = 1; //從level 1開始
     let allData = {
       Acc: 0,
@@ -453,6 +485,8 @@ class D {
       FA_RT_count: 0, //加總所有炸彈有出現卻按了的次數
       FA_RT_time: 0, //加總所有炸彈有出現卻按了的反應時間
 =======
+=======
+>>>>>>> Stashed changes
     let level = 8; //從level 1開始
     let allData = {
       Level: 1,
