@@ -1,15 +1,17 @@
 #right,
 #left {
-  /* transform: rotate(180deg); */
-  height: 100px;
-  width: 100px;
+	/* transform: rotate(180deg); */
+	height: 100px;
+	width: 100px;
 }
 
+#white_ball,
+#orange_ball,
 #white,
 #orange,
 #racket {
-  height: 100px;
-  width: 100px;
+	height: 100px;
+	width: 100px;
 }
 
 /* #circle_right,
