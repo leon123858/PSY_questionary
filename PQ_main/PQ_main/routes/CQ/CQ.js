@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 var SQ = require('./SQ');
 
 const DQ_licence = [65, 84];
-const SW_licence = [1, 10];
+const SW_licence = ['SW1', 'SW2', 'SW3', 'SW4', 'SW5', 'SW6', 'SW7', 'SW8'];
 
 /**********************
 use sub route
@@ -39,9 +39,8 @@ router.post('/DQ/:which', function (req, res) {
  ***********************/
 
 router.post('/SW/:which', function (req, res) {
-	const whichNum = parseInt(req.params.which);
-	if (whichNum >= SW_licence[0] && whichNum <= SW_licence[1])
-		res.render('CQ/SW/SW' + req.params.which, {
+	if (SW_licence.includes(req.params.which))
+		res.render('CQ/SW/' + req.params.which, {
 			ID: req.body.ID,
 			password: req.body.password,
 		});

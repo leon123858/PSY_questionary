@@ -22,7 +22,7 @@
         <br>
         <div class="row text-center">
             <label class="col-4"></label>
-            <label name="null" class="col-4" style="font-size:100%"></label>
+            <label name="emotion" class="col-4 btn btn-link" style="font-size:100%">情緒</label>
             <label class="col-4"></label>
         </div>
         <div class="row text-center">
@@ -43,7 +43,7 @@
         <div class="row text-center">
             <label class="col-4 btn btn-primary btn-bg" style="font-size:100%">回首頁</label>
             <label name="null" class="col-4" style="font-size:100%"></label>
-            <label class="col-4 btn btn-secondary btn-bg" style="font-size:100%">訓練教學</label>
+            <label class="col-4" style="font-size:100%"></label>
         </div>
         <br>
     </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
             F: '未有填寫紀錄',
             G: '未有填寫紀錄',
             H: '未有填寫紀錄',
-            I: '未有填寫紀錄',
+            I: '',
             J: '未有填寫紀錄',
             K: '未有填寫紀錄',
             L: '未有填寫紀錄',
@@ -122,15 +122,30 @@
             watch: {
                 S: "蓋博圖像訓練",
                 T: "點協調訓練",
+                SW1: "頻閃眼鏡",
+                SW2: "視覺訓練"
             },
+            emotion: {
+                SW3: "運動/動作 意象訓練",
+                SW4: "比賽當日計畫",
+                SW5: "目標設定",
+                SW6: "賽前例行性動作",
+                SW7: "最佳覺醒程度",
+                SW8: "神經回饋訓練"
+            }
         }
         //跳問卷
         function movePage(name) {
-            $("#form").attr("action", "DQ/" + name).submit();
+            if (Object.keys(eachDate).indexOf(name) > -1) {
+                $("#form").attr("action", "DQ/" + name).submit();
+                return;
+            }
+            $("#form").attr("action", "SW/" + name).submit();
         }
         function createTag(which) {
             return Object.keys(boardNameTable[which]).reduce((pre, cur) => {
-                return pre + `<input onclick='movePage(this.name)' type='button' value='${boardNameTable[which][cur]}' name='${cur}' />` + eachDate[cur] + "<br>";
+                const date = eachDate[cur] || "";
+                return pre + `<input onclick='movePage(this.name)' type='button' value='${boardNameTable[which][cur]}' name='${cur}' />` + date + "<br>";
             }, "");
         }
         $(document).ready(function () {
@@ -151,10 +166,6 @@
             //跳功能頁
             $(".btn-primary").click(function () {
                 $("#form").attr("action", "/EW/jumpBoard").submit();
-            });
-            $(".btn-secondary").click(function () {
-                //$("#form").attr("action", "/GQ/PR").submit();
-                alert("本功能尚未開放, 敬請期待！");
             });
         });
     </script>
