@@ -111,7 +111,7 @@ class T {
 						coherence: difficulty[level],
 						move_distance: ballVelocity,
 						dot_color: 'blue',
-						background_color: 'white',
+						background_color: 'gray',
 						response_ends_trial: false,
 						dot_radius: 5,
 						aperture_width: 700,

@@ -101,6 +101,7 @@ class G {
 					timeline.push({
 						type: 'html-button-response',
 						stimulus: `<img src="${imgPath}${goalBaby}.jpg">`,
+						prompt: '點擊滑鼠左鍵開始',
 						choices: ['success'],
 					});
 					break;
