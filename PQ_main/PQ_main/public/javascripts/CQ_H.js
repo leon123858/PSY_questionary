@@ -18,7 +18,7 @@ const showImgs = (imgList, canvas) => {
 		const img = new Image();
 		img.className = 'baby';
 		img.src = value.src;
-		img.style = `margin-left:${-500 + value.x}px;padding-top:${value.y}px;${
+		img.style = `margin-left:${value.x - 25}px;padding-top:${225 + value.y}px;${
 			index < 3 ? `z-index:1;` : ''
 		};`;
 		canvas.appendChild(img);
@@ -32,19 +32,20 @@ const showBalls = (imgList, canvas, path) => {
 		img.name = value.name;
 		img.className = 'baby';
 		img.src = path;
-		img.style = `margin-left:${-500 + value.x}px;padding-top:${value.y}px;${
-			index < 3 ? `z-index:1;` : ''
+		img.style = `margin-left:${value.x - 25}px;padding-top:${225 + value.y}px;${
+			index == 0 ? `z-index:1;` : ''
 		};`;
 		canvas.appendChild(img);
 	});
 };
-class G {
+class H {
 	constructor(isExercise) {
 		this._one = '';
 		this._all = '';
 		this._score = 0;
 		this._mode = isExercise;
-		this._questionsNum = 4;
+		this._questionsNum = 5;
+		this._ballWidth = 200;
 		this._imgPath = '/image/G/';
 		this._questionType = {
 			TEN: 0,
@@ -57,11 +58,11 @@ class G {
 			MOVE: 2,
 			CLICK: 3,
 		};
-		this._speed = 7;
+		this._speed = 0.1;
 		this._tmpGoalBaby = [];
 		this._tmpStatus = this._questionType.TEN;
 		this._gameStatus = this._gameStatusType.END;
-		this._gameClickCount = 3;
+		this._gameClickCount = 1;
 		this._bounder = { x: 950, y: 450 };
 		this.statistic = {
 			all: { finalLevel: 0, finalScore: 0, Acc: 0 },
@@ -126,20 +127,23 @@ class G {
 		const generateImgsList = () => {
 			const goalBaby = this._tmpGoalBaby.shift();
 			this._tmpGoalBaby.push(goalBaby);
+			const count = Math.floor((level - 1) / 3) + 3;
+			const bonus = ((level - 1) % 3) / 4;
+			const delta = generateRandomInt(0, 365) / 57.29;
 			let imgList = [];
-			for (let i = 0; i < level + 5; i++) {
-				const name = i < 3 ? goalBaby : generateRandomInt(1, 9, goalBaby);
+			for (let i = 0; i < count; i++) {
+				const name = i == 0 ? goalBaby : generateRandomInt(1, 9, goalBaby);
 				const src = `${imgPath}${name}.jpg`;
-				const angle = generateRandomInt(0, 355) / 57.29;
-				const xPlus = this._speed * Math.cos(angle);
-				const yPlus = this._speed * Math.sin(angle);
+				const angle = (360 / count / 57.29) * i + delta;
+				const r = (this._ballWidth / 2) * (1 / Math.tan(180 / count / 57.29));
 				imgList.push({
 					src: src,
 					name: name,
-					x: generateRandomInt(0, xBound),
-					y: generateRandomInt(0, yBound),
-					Vx: xPlus,
-					Vy: yPlus,
+					angle: angle,
+					bonus: bonus,
+					r: r,
+					x: r * Math.cos(angle),
+					y: r * Math.sin(angle),
 				});
 			}
 			return imgList;
@@ -176,7 +180,7 @@ class G {
 					console.log(data);
 					this.statistic.all.finalLevel = this._nowLevel;
 					this.statistic.all.finalScore += this._score;
-					const nextLevel = this._score >= 10;
+					const nextLevel = this._score >= 4;
 					this._score = 0;
 					resolve(nextLevel);
 				},
@@ -237,29 +241,20 @@ class G {
 			showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
 			timer = setInterval(() => {
 				this._imgList.map((value, index) => {
-					this._imgList[index].x += value.Vx;
-					this._imgList[index].y += value.Vy;
-					if (
-						this._imgList[index].x > this._bounder.x ||
-						this._imgList[index].x < 0
-					) {
-						this._imgList[index].x -= value.Vx;
-						this._imgList[index].Vx *= -1;
-					} else if (
-						this._imgList[index].y > this._bounder.y ||
-						this._imgList[index].y < 0
-					) {
-						this._imgList[index].y -= value.Vy;
-						this._imgList[index].Vy *= -1;
-					}
+					this._imgList[index].angle += (1 + value.bonus) * this._speed;
+					this._imgList[index].x =
+						value.r * Math.cos(this._imgList[index].angle);
+					this._imgList[index].y =
+						value.r * Math.sin(this._imgList[index].angle);
 				});
 				showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
 			}, 15);
 			setTimeout(() => {
-				this._gameClickCount = 3;
+				this._gameClickCount = 1;
 				this._gameStatus = this._gameStatusType.CLICK;
 				clearInterval(timer);
-			}, 5000);
+			}, generateRandomInt(2500, 5500));
+			//}, 30);
 		});
 	}
 	async process() {
@@ -268,7 +263,7 @@ class G {
 		while (true) {
 			const isNext = await this._round(level++);
 			if (!isNext) break;
-			await waitNextLevel(false);
+			//await waitNextLevel(false);
 		}
 		const {
 			all: { finalLevel, finalScore },
@@ -278,11 +273,11 @@ class G {
 			if (index > 0) this._one += '-';
 			Object.values(one[level]).map((point, innerIndex) => {
 				if (innerIndex > 0) this._one += '~';
-				this._one += `${level}_${point}`;
+				this._one += `${level}_${Math.floor((level - 1) / 3) + 3}_${point}`;
 			});
 		});
 		this._all = `${finalLevel}_${finalScore}_${Math.floor(
-			(finalScore * 100) / (finalLevel * 4 * 3)
+			(finalScore * 100) / (finalLevel * 5)
 		)}`;
 		if (this._mode) {
 			return { one: this._one, all: this._all };
