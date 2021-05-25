@@ -238,6 +238,7 @@ class A {
 				break;
 			} else if (stage < 7) {
 				this._one += '_';
+				await waitNextLevel(true);
 			}
 			++stage;
 		}

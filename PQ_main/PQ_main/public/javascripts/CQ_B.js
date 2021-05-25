@@ -77,7 +77,7 @@ class B {
 							this._randomPlaceCSSParameter.MAX
 						) +
 						'>',
-					choices: ['j'],
+					choices: ['j', 'f'],
 					trial_duration: 500, //持續時間
 					post_trial_gap: randomNum(80, 320), //間隔時間
 				};
@@ -94,7 +94,7 @@ class B {
 							this._randomPlaceCSSParameter.MAX
 						) +
 						'>',
-					choices: ['f'],
+					choices: ['j', 'f'],
 					trial_duration: 500, //持續時間
 					post_trial_gap: randomNum(80, 320), //間隔時間
 				};
