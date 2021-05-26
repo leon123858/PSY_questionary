@@ -130,7 +130,6 @@
       return output;
     }
     function AllOneData(mode, data, moreTitle) {
-      //console.log(data);
       var output = "";
       if (!moreTitle)
         output += AllOneAddTitle(data, mode, 0);
@@ -216,6 +215,7 @@
         alert("請存入csv格式文件");
       }
     }
+    const levelList = ["A", "C", "D", "F", "G", "H", "M", "N", "O", "P", "Q", "R", "S"];
     function transferCSV(mode, data, moreTitle) {
       //console.log(data);
       var CSVstr = "\uFEFF";
@@ -241,29 +241,10 @@
       else {
         var type = mode.split('_');
         if (type[1] == "one") {
-          switch (type[0]) {
-            case 'A':
-            case 'B':
-            case 'E':
-            case 'F':
-            case 'I':
-            case 'K':
-            case 'L':
-            case 'M':
-              if (data.length > 0)
-                CSVstr += AllOneData("list", data, moreTitle);
-              break;
-            case 'C':
-            case 'D':
-            case 'G':
-            case 'H':
-            case 'J':
-              if (data.length > 0)
-                CSVstr += AllOneData('json', data, moreTitle);
-              break;
-            default:
-              break;
-          }
+          if (levelList.indexOf(type[0]) == -1 && data.length > 0)
+            CSVstr += AllOneData("list", data, moreTitle);
+          else if (data.length > 0)
+            CSVstr += AllOneData('json', data, moreTitle);
         }
         else {
           if (data.length > 0)
@@ -341,7 +322,7 @@
                   fillterKey: "ID", fillterValue: $("#PersonalID").val(),
                   type: 2
                 }, function (result) {
-                  console.log(result.data);
+                  //console.log(result.data);
                   if (result.result == 'success') {
                     makeLink($("#Personal_link"), transferCSV($("#PersonalWhich").val() + '_' + $("#PersonalMode").val(), result.data, true), $("#PersonalID").val() + '_' + $("#PersonalWhich").val() + '_' + $("#PersonalMode").val());
                   }
