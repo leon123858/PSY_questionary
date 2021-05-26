@@ -110,7 +110,7 @@ class B {
 							this._randomPlaceCSSParameter.MAX
 						) +
 						'>',
-					choices: ['j, f'],
+					choices: ['j', 'f'],
 					trial_duration: 500,
 					post_trial_gap: randomNum(80, 320),
 				};
@@ -181,7 +181,7 @@ class B {
 							if (data[i].rt == null) {
 								inner_data += 'NS';
 							} else {
-								inner_data += data[i].rt;
+								inner_data += Math.floor(data[i].rt);
 							}
 							groupSet[4]++;
 						} else {
@@ -189,7 +189,7 @@ class B {
 							if (data[i].rt == null) {
 								inner_data += 'NS';
 							} else {
-								inner_data += data[i].rt;
+								inner_data += Math.floor(data[i].rt);
 							}
 						}
 						if (i != 199) inner_data += '~';
@@ -228,14 +228,14 @@ class B {
 		});
 	}
 	_allGenerate(oneAndAll) {
-		let finalAcc = (oneAndAll[1].Acc / 100) * 100;
-		let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
-		let finalFA = (oneAndAll[1].FA_RT_count / 30) * 100;
-		let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
+		let finalAcc = Math.floor((oneAndAll[1].Acc / 100) * 100);
+		let finalRT =
+			Math.floor(oneAndAll[1].RT_time / oneAndAll[1].RT_count) || 'NS';
+		let finalFA = Math.floor((oneAndAll[1].FA_RT_count / 30) * 100);
+		let finalFA_RT =
+			Math.floor(oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count) || 'NS';
 		let finalScore = oneAndAll[1].Acc;
-		if (finalFA_RT == 0) {
-			finalFA_RT = 'NS';
-		}
+
 		this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
 		return this._all;
 	}

@@ -99,17 +99,10 @@ describe.skip('test if A data is right => have level', () => {
 	});
 });
 
-describe.skip('test if B data is right => no level', () => {
-	let one = '',
-		all = '';
-	before(() => {
-		fs.readFile('data/oneB.txt', function (err, buf) {
-			one = buf.toString();
-		});
-		fs.readFile('data/allB.txt', function (err, buf) {
-			all = buf.toString();
-		});
-	});
+describe('test if B data is right => no level', () => {
+	let one =
+		'2_1_472~1_1_337~1_1_358~2_1_354~1_1_313~1_1_407~1_1_393~2_1_430~1_1_336~1_0_318~2_1_471~1_1_486~1_1_393~2_1_357~2_0_349~2_1_466~1_1_399~1_0_313~1_1_420~2_1_357~2_1_445~2_1_400~1_1_346~1_1_312~2_1_311~1_1_346~1_1_483~3_0_305~1_1_429~2_0_328~1_1_360~2_0_363~3_1_NS~1_1_477~2_1_319~2_1_468~1_1_402~2_1_340~2_0_372~1_1_439~3_0_508~3_0_445~1_1_302~1_1_393~3_0_384~3_0_362~2_1_386~1_1_378~2_1_400~1_1_367~1_1_405~1_0_NS~1_1_374~3_0_486~3_1_NS~2_1_358~2_1_378~1_1_410~3_0_368~2_1_499~3_1_NS~2_1_362~2_0_NS~3_1_NS~2_0_NS~3_1_NS~3_1_NS~3_1_NS~2_0_NS~1_0_NS~1_0_NS~2_0_NS~2_0_NS~3_1_NS~3_1_NS~1_0_NS~1_0_NS~3_1_NS~1_0_NS~1_0_NS~2_0_NS~3_1_NS~3_1_NS~2_0_NS~3_1_NS~3_1_NS~2_0_NS~3_1_NS~2_0_NS~3_1_NS~3_1_NS~3_1_NS~2_0_NS~3_1_NS~3_1_NS~3_1_NS~2_0_NS~3_1_NS~3_1_NS~2_0_NS';
+	let all = '68_391_23_408_68';
 
 	it('if one is right', () => {
 		let questionList = one.split('~');
@@ -177,13 +170,13 @@ describe.skip('test if B data is right => no level', () => {
 			Math.floor((100 * right) / totalCount)
 		);
 		Math.floor(parseFloat(ans[1])).should.equal(
-			Math.floor((100 * sumRt) / RtCount)
+			Math.floor((1 * sumRt) / RtCount)
 		);
 		Math.floor(parseFloat(ans[2])).should.equal(
 			Math.floor((100 * bombPush) / bombCount)
 		);
-		Math.floor(parseFloat(ans[3])).should.equal(
-			Math.floor((100 * bombAndPushRtSum) / bombCount)
+		(Math.floor(parseFloat(ans[3])) || 'NS').should.equal(
+			Math.floor((1 * bombAndPushRtSum) / bombPush) || 'NS'
 		);
 		ans[4].should.equal(score.toString());
 	});
