@@ -73,10 +73,10 @@
     $('#main-model').modal('hide');
 
     if (game_get == "reality") {
-      let questionary = new E(false, "clock");
+      let questionary = new E(false);
       handler.startTest({ questionary: questionary, isExercise: false })
     } else {
-      let questionary = new E(true, "clock");
+      let questionary = new E(true);
       handler.startTest({ questionary: questionary, isExercise: true });
     }
   });
