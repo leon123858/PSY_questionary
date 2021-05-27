@@ -22,6 +22,8 @@
 </head>
 
 <body>
+  <div id="clock"></div>
+  <div id="jspsych-experiment"></div>
   <!-- main modal -->
   <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -44,13 +46,6 @@
       </div>
     </div>
   </div>
-  <!-- cross -->
-  <ten id="cross" class="center-screen ">+</ten>
-  <!-- result label -->
-  <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-    style="display: none;"></label>
-  <!-- finish btn for game -->
-  <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
   <form method="POST" action="/CQ/EQ" style="display: none;">
     <input name="ID" value="<%=ID%>">
@@ -79,10 +74,10 @@
     $('#main-model').modal('hide');
 
     if (game_get == "reality") {
-      let questionary = new C(false);
+      let questionary = new C(false, "clock");
       handler.startTest({ questionary: questionary, isExercise: false })
     } else {
-      let questionary = new C(true);
+      let questionary = new C(true, "clock");
       handler.startTest({ questionary: questionary, isExercise: true });
     }
   });

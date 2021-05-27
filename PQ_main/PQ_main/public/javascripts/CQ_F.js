@@ -633,7 +633,7 @@ class F {
 		)}${buildAllCmp(2, Cong)}${buildAllCmp(2, Ing)}${buildAllCmp(
 			1,
 			Alert
-		)}${buildAllCmp(1, Orientation)}${buildAllCmp(2, Conflict)}_${Score}`;
+		)}${buildAllCmp(1, Orientation)}${buildAllCmp(2, Conflict)}${Score}`;
 		return this._mode
 			? { one: this._one, all: this._all }
 			: { one: this._one, all: this._all };
