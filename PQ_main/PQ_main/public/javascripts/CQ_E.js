@@ -49,23 +49,23 @@ class E {
         return 0.5 - Math.random();
       });
     };
-    let questions = [];
+    let questionsBasis = [];
     for (let i = 0; i < 75; i++) {
-      questions[i] = "1";
+      questionsBasis[i] = "1";
     }
     for (let i = 75; i < 150; i++) {
-      questions[i] = "2";
+      questionsBasis[i] = "2";
     }
     for (let i = 150; i < 175; i++) {
-      questions[i] = "3";
+      questionsBasis[i] = "3";
     }
     for (let i = 175; i < 200; i++) {
-      questions[i] = "4";
+      questionsBasis[i] = "4";
     }
-    questions = randomList(questions);
+    let questions = randomList(questionsBasis);
 
-    questions.map(() => {
-      const trail = [TYPE.CROSS, questions];
+    questions.map((questionsBasis) => {
+      const trail = [TYPE.CROSS, questionsBasis];
       questions = questions.concat(trail);
     });
     return questions;
@@ -168,76 +168,29 @@ class E {
         on_trial_start: () => {
           score.innerHTML = this._tmpAll.Score;
         },
-        on_finish: function () {
-          // let resultArray = [0, 0];
-          // let inner_data = "";
-          // let groupSet = [0, 0, 0, 0, 0];
-          // //使用者按下的資訊
-          // let data = JSON.parse(jsPsych.data.get().json());
-          // for (let i = 1; i < 40; i += 2) {
-          //   //資訊
-          //   inner_data += stage + "_" + questions[parseInt(i / 2)] + "_";
-          //   if (
-          //     (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
-          //     (questions[parseInt(i / 2)] == "2" && data[i].response == "f") ||
-          //     (questions[parseInt(i / 2)] == "3" && data[i].response == null)
-          //   ) {
-          //     inner_data += "1_";
-          //     if (data[i].rt == null) {
-          //       inner_data += "NS";
-          //     } else {
-          //       inner_data += data[i].rt;
-          //     }
-          //     groupSet[4]++;
-          //   } else {
-          //     inner_data += "0_";
-          //     if (data[i].rt == null) {
-          //       inner_data += "NS";
-          //     } else {
-          //       inner_data += data[i].rt;
-          //     }
-          //   }
-          //   if (i != 39) inner_data += "~";
-          //   if (
-          //     (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
-          //     (questions[parseInt(i / 2)] == "2" && data[i].response == "f")
-          //   ) {
-          //     groupSet[0]++;
-          //     groupSet[1] += data[i].rt;
-          //   } else if (
-          //     questions[parseInt(i / 2)] == "3" &&
-          //     data[i].response != null
-          //   ) {
-          //     groupSet[2]++;
-          //     groupSet[3] += data[i].rt;
-          //   }
-          //   //stage_1_1_~stage_2_1_~stage_1_0_
-          // }
-          // allData.RT_count += groupSet[0];
-          // allData.RT_time += groupSet[1];
-          // allData.FA_RT_count += groupSet[2];
-          // allData.FA_RT_time += groupSet[3];
-          // allData.Acc += groupSet[4]; //加總每一回合正確題數 同時最後也是 Score
-          // resultArray[0] = inner_data; //this._one
-          // resultArray[1] = allData; //this._all
-          // resolve(resultArray);
+        //============
+        on_trial_finish: () => {
+          if (
+            questions[questionsIndex] == this._questionType.DOGS ||
+            questions[questionsIndex] == this._questionType.CATS
+          ) {
+            const lastData = JSON.parse(jsPsych.data.getLastTrialData().json());
+            const localType =
+              questions[questionsIndex] == this._questionType.DOGS ? "j" : "f";
+            this._tmpAll.Score += localType == lastData[0].response ? 1 : 0;
+          }
+          questionsIndex++;
+        },
+        //============
+        on_finish: () => {
+          const { _questionType: TYPE } = this;
+          const data = JSON.parse(jsPsych.data.get().json());
+          console.log(data);
+          let tmpAll = this._tmpAll;
         },
       });
     });
   }
-
-  // _allGenerate(oneAndAll) {
-  //   let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
-  //   let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
-  //   let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
-  //   let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
-  //   let finalScore = oneAndAll[1].Acc;
-  //   if (finalFA_RT == 0) {
-  //     finalFA_RT = "NS";
-  //   }
-  //   this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
-  //   return this._all;
-  // }
 
   async process() {
     await this._round();
@@ -245,7 +198,9 @@ class E {
       this._tmpAll;
     this._all = `${Math.floor(Acc * 100) / this._questionsNum}_${Math.floor(
       RT / Acc
-    )}_${Math.floor(Go_Acc * 100)}_`;
+    )}_${Math.floor(Go_Acc * 100)}_${Math.floor(
+      Go_RT / this.corrAnsCount
+    )}_${Math.floor(NCRate * 100)}_${Math.floor(NC_RT)}_${Score}`;
     // let allData = {
     //   Acc: 0,
     //   RT_count: 0,
