@@ -282,16 +282,8 @@ describe('test if C data is right => have level', () => {
 });
 
 describe.skip('test if D data is right => have level', () => {
-	let one = '',
-		all = '';
-	before(() => {
-		fs.readFile('data/oneD.txt', function (err, buf) {
-			one = buf.toString();
-		});
-		fs.readFile('data/allD.txt', function (err, buf) {
-			all = buf.toString();
-		});
-	});
+	const one = '';
+	const all = '';
 
 	it('one data situation', () => {
 		const levels = one.split('-');
@@ -350,5 +342,55 @@ describe.skip('test if D data is right => have level', () => {
 			if (i == 'NA') countNA++;
 		}
 		countNA.should.equal(5 * delta);
+	});
+});
+
+describe.skip('test if E data is right => no level', () => {
+	const one = '';
+	const all = '';
+
+	it('if one is right', () => {
+		let questionList = one.split('~');
+		questionList.length.should.equal(200);
+		questionList.map((questions, index) => {
+			const question = questions.split('_');
+			question.length.should.equal(7);
+			question[0].should.oneOf(['D', 'C']);
+			question[1].should.oneOf(['0', '1', '2']);
+			question[2].should.oneOf(['0', '1', '2']);
+			question[3].should.oneOf(['0', '1']);
+			expect(question[4]).to.satisfy((x) => {
+				if (x == 'NS') {
+					return true;
+				}
+				if (parseInt(x).toString() !== 'NaN') {
+					return true;
+				}
+				return false;
+			});
+			expect(question[5]).to.satisfy((x) => {
+				if (x == 'NS') {
+					return true;
+				}
+				if (parseInt(x).toString() !== 'NaN') {
+					return true;
+				}
+				return false;
+			});
+			expect(question[6]).to.satisfy((x) => {
+				if (x == 'NS') {
+					return true;
+				}
+				if (parseInt(x).toString() !== 'NaN') {
+					return true;
+				}
+				return false;
+			});
+		});
+	});
+
+	it('if all data is right', () => {
+		const ans = all.split('_');
+		ans.length.should.equal(8);
 	});
 });

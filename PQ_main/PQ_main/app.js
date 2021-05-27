@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const { Get } = require('./routes/GetConst');
 
 var routes = require('./routes/index');
 var EW = require('./routes/EW');
@@ -34,12 +35,12 @@ app.use('/GQ', GQ);
 app.use('/QQ', QQ);
 app.use('/CQ', CQ);
 
-//// catch 404 and forward to error handler
-//app.use(function (req, res, next) {
-//    var err = new Error('Not Found');
-//    err.status = 404;
-//    next(err);
-//});
+// catch 404 and forward to error handler
+app.use(function (req, res) {
+	res.render('goto', {
+		url: Get('local_uri'),
+	});
+});
 
 //// error handlers
 
