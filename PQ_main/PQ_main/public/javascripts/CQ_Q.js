@@ -305,9 +305,10 @@ class Q {
 			if (!isNext) break;
 			await waitNextLevel(false);
 		}
-		this._tmpAll.Acc =
+		this._tmpAll.Acc = Math.floor(
 			(this._tmpAll.score / (this._tmpAll.finalLevel * this._questionsNum)) *
-			100;
+				100
+		);
 		const {
 			_tmpAll: { difficulty, finalLevel, Acc, score, score1, score2 },
 		} = this;

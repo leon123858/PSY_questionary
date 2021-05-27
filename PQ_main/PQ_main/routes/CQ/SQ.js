@@ -55,7 +55,7 @@ const namesList_one = {
 	N: ['Level', 'CalculateRight', 'CharRight', 'Score'],
 	O: ['Level', 'CorrAns', 'PressAns', 'Accuracy', 'Sum', 'Time'],
 	P: ['Level', 'CorrAns', 'PressAns', 'Accuracy', 'Sum', 'Time'],
-	Q: ['Level', 'N', 'Taget', 'Position', 'CorrAns', 'Press', 'Accuracy'],
+	Q: ['Level', 'N', 'Position', 'CorrAns', 'Press', 'Accuracy'],
 	R: ['Level', 'Time', 'Score'],
 	S: ['Level', 'Time', 'Score'],
 	T: ['Count', 'Speed', 'A', 'Direction', 'PressKey', 'Acc', 'RT'],
