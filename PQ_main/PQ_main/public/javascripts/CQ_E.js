@@ -5,42 +5,77 @@ class E {
     this._all = "";
     this._score = "";
     this._mode = "isExercise";
-    this._oneAndAll = "";
+    this._progressDta = {
+      //Class:呈現的是狗(D)還是貓(C)
+      //CorrAns: 1(J) 2(F) 0(NR)
+      //Press: 1(J) 2(F) 0(NR)
+      //------------------------------
+      Class: 0,
+      CorrAns: 0,
+      Press: 0,
+      Acc: 0,
+      RT: 0,
+      SSD: 0,
+      SS_Acc: 0,
+      //提示音正確率
+    };
+    this._tmpAll = {
+      Acc: 0,
+      RT: 0,
+      SSD: 0,
+      Go_Acc: 0,
+      Go_RT: 0,
+      NCRate: 0,
+      NC_RT: 0,
+      mSSD: 0,
+      SSRT: 0,
+      //SSRT = Go_RT – mSSD
+      Score: 0,
+    };
+    this._clockId = clockId || "clock";
     this._questionsNum = 200;
     this._questionType = {
       CROSS: 0,
-      RIGHT_ARROW: 1,
-      LEFT_ARROW: 2,
-      RIGHT_ARROW_WITH_CIRCLE: 3,
-      LEFT_ARROW_WITH_CIRCLE: 4,
-      EMPTY: 5,
+      CATS: 1,
+      DOGS: 2,
+      DOGS_WITH_SOUND: 3,
+      CATS_ARROW_WITH_SOUND: 4,
     };
   }
   _start() {
+    const { _questionType: TYPE, _questionsNum: questionsNum } = this;
     const randomList = (arr) => {
       return arr.sort(function () {
         return 0.5 - Math.random();
       });
     };
     let questions = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 75; i++) {
       questions[i] = "1";
     }
-    for (let i = 7; i < 14; i++) {
+    for (let i = 75; i < 150; i++) {
       questions[i] = "2";
     }
-    for (let i = 14; i < 20; i++) {
+    for (let i = 150; i < 175; i++) {
       questions[i] = "3";
     }
+    for (let i = 175; i < 200; i++) {
+      questions[i] = "4";
+    }
     questions = randomList(questions);
+
+    questions.map(() => {
+      const trail = [TYPE.CROSS, questions];
+      questions = questions.concat(trail);
+    });
     return questions;
   }
-  _full_trail(stage) {
+  _full_trail() {
     let timeline = [];
     let questions = this._start();
 
     const randomNum = (min, max) => {
-      return Math.floor(Math.random() * (max - min) + min);
+      return Math.floor(Math.random() * (max + 1 - min) + min);
     };
 
     const randomPlaceCSS = (basis, min, max) => {
@@ -49,125 +84,143 @@ class E {
       }px"`;
     };
 
-    const duration = (level) => {
-      return 550 - level * 50;
+    let corrAnsCount = 0;
+    // let correct = true;
+    // const CorrAnsCount= ()=>{
+    //   if(correct)
+    //   {
+
+    //   }
+    // }
+
+    const sound_duration = (CorrAns) => {
+      200 + 33 * CorrAns;
+    };
+    //0~450ms
+
+    let dogs = {
+      type: "html-keyboard-response",
+      stimulus:
+        '<img id="dog" src="/image/E/e01.jpg"' +
+        randomPlaceCSS(500, 0, 1000) +
+        ">",
+      choices: ["j", "f"],
+      trial_duration: 500,
+      post_trial_gap: randomNum(100, 300),
+    };
+    let cats = {
+      type: "html-keyboard-response",
+      stimulus:
+        '<img id="cat" src="/image/E/c01.jpg"' +
+        randomPlaceCSS(500, 0, 1000) +
+        ">",
+      choices: ["j", "f"],
+      trial_duration: 500,
+      post_trial_gap: randomNum(100, 300),
+    };
+    let sound_trial = {
+      type: "audio-keyboard-response",
+      stimulus: "voice/bee.mp3",
+      choices: ["j", "f"],
+      trial_duration: sound_duration(corrAnsCount),
+      post_trial_gap: randomNum(150, 300),
     };
 
-    for (let i = 0; i < 20; i++) {
-      let fixation = {
-        type: "html-keyboard-response",
-        stimulus:
-          "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
-        choices: jsPsych.NO_KEYS,
-        trial_duration: randomNum(200, 800),
-      };
-      timeline.push(fixation);
-      if (questions[i] == "1") {
-        let white = {
-          type: "html-keyboard-response",
-          stimulus:
-            '<img id="white_ball" src="/image/C/White.jpg"' +
-            randomPlaceCSS(500, 0, 1000) +
-            ">",
-          choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
-        };
-        timeline.push(white);
+    let fixation = {
+      type: "html-keyboard-response",
+      stimulus:
+        "<p style='font-size: 30px; font-weight: bold; color: black'>+</p>",
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 500,
+    };
+    timeline.push(fixation);
+
+    questions.map((value, index) => {
+      switch (value) {
+        case TYPE.DOGS:
+          timeline.push(dogs);
+          break;
+        case TYPE.CATS:
+          timeline.push(cats);
+          break;
+        case TYPE.DOGS_WITH_SOUND:
+          timeline.push([dogs, sound_trial]);
+          break;
+        case TYPE.CATS_WITH_SOUND:
+          timeline.push([cats, sound_trial]);
+          break;
       }
-      if (questions[i] == "2") {
-        let orange = {
-          type: "html-keyboard-response",
-          stimulus:
-            '<img id="orange_ball" src="/image/C/Orange.jpg"' +
-            randomPlaceCSS(500, 0, 1000) +
-            ">",
-          choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
-        };
-        timeline.push(orange);
-      } else {
-        let sound_trial = {
-          type: "audio-keyboard-response",
-          stimulus: "voice/bee.mp3",
-          choices: ["j", "f"],
-          trial_duration: duration(stage),
-          post_trial_gap: randomNum(150, 300),
-        };
-        timeline.push(sound_trial);
-      }
-    }
-    console.log(timeline);
+    });
+    //console.log(timeline);
     return timeline;
   }
 
   //利用_trail組成很多題目的回合, 回傳整理好的one,all 資料
-  _round(allData) {
-    let timeline = this._full_trail();
+  _round() {
     let questions = this._start();
+    let timeline = this._full_trail();
+    console.log(timeline);
+    let questionsIndex = 0;
+    const score = document.getElementById(this._clockId);
     return new Promise((resolve) => {
       jsPsych.init({
         timeline: timeline,
+        on_trial_start: () => {
+          score.innerHTML = this._tmpAll.Score;
+        },
         on_finish: function () {
-          let resultArray = [0, 0]; //最後結果陣列
-
-          let inner_data = "";
-          //[右且按j && 左且按f總次數, 右且按j && 左且按f的反應時間加總, stop卻按下次數, stop卻按下的反應時間加總, 正確次數(有車按對, stop沒按)]
-          let groupSet = [0, 0, 0, 0, 0];
-          //使用者按下的資訊
-          let data = JSON.parse(jsPsych.data.get().json());
-          for (let i = 1; i < 40; i += 2) {
-            //資訊
-            inner_data += stage + "_" + questions[parseInt(i / 2)] + "_";
-            if (
-              (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
-              (questions[parseInt(i / 2)] == "2" && data[i].response == "f") ||
-              (questions[parseInt(i / 2)] == "3" && data[i].response == null)
-            ) {
-              inner_data += "1_";
-              if (data[i].rt == null) {
-                inner_data += "NS";
-              } else {
-                inner_data += data[i].rt;
-              }
-              groupSet[4]++;
-            } else {
-              inner_data += "0_";
-              if (data[i].rt == null) {
-                inner_data += "NS";
-              } else {
-                inner_data += data[i].rt;
-              }
-            }
-            if (i != 39) inner_data += "~";
-
-            if (
-              (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
-              (questions[parseInt(i / 2)] == "2" && data[i].response == "f")
-            ) {
-              groupSet[0]++;
-              groupSet[1] += data[i].rt;
-            } else if (
-              questions[parseInt(i / 2)] == "3" &&
-              data[i].response != null
-            ) {
-              groupSet[2]++;
-              groupSet[3] += data[i].rt;
-            }
-            //stage_1_1_~stage_2_1_~stage_1_0_
-          }
-
-          allData.RT_count += groupSet[0];
-          allData.RT_time += groupSet[1];
-          allData.FA_RT_count += groupSet[2];
-          allData.FA_RT_time += groupSet[3];
-          allData.Acc += groupSet[4]; //加總每一回合正確題數 同時最後也是 Score
-
-          resultArray[0] = inner_data; //this._one
-          resultArray[1] = allData; //this._all
-
-          resolve(resultArray);
+          // let resultArray = [0, 0];
+          // let inner_data = "";
+          // let groupSet = [0, 0, 0, 0, 0];
+          // //使用者按下的資訊
+          // let data = JSON.parse(jsPsych.data.get().json());
+          // for (let i = 1; i < 40; i += 2) {
+          //   //資訊
+          //   inner_data += stage + "_" + questions[parseInt(i / 2)] + "_";
+          //   if (
+          //     (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
+          //     (questions[parseInt(i / 2)] == "2" && data[i].response == "f") ||
+          //     (questions[parseInt(i / 2)] == "3" && data[i].response == null)
+          //   ) {
+          //     inner_data += "1_";
+          //     if (data[i].rt == null) {
+          //       inner_data += "NS";
+          //     } else {
+          //       inner_data += data[i].rt;
+          //     }
+          //     groupSet[4]++;
+          //   } else {
+          //     inner_data += "0_";
+          //     if (data[i].rt == null) {
+          //       inner_data += "NS";
+          //     } else {
+          //       inner_data += data[i].rt;
+          //     }
+          //   }
+          //   if (i != 39) inner_data += "~";
+          //   if (
+          //     (questions[parseInt(i / 2)] == "1" && data[i].response == "j") ||
+          //     (questions[parseInt(i / 2)] == "2" && data[i].response == "f")
+          //   ) {
+          //     groupSet[0]++;
+          //     groupSet[1] += data[i].rt;
+          //   } else if (
+          //     questions[parseInt(i / 2)] == "3" &&
+          //     data[i].response != null
+          //   ) {
+          //     groupSet[2]++;
+          //     groupSet[3] += data[i].rt;
+          //   }
+          //   //stage_1_1_~stage_2_1_~stage_1_0_
+          // }
+          // allData.RT_count += groupSet[0];
+          // allData.RT_time += groupSet[1];
+          // allData.FA_RT_count += groupSet[2];
+          // allData.FA_RT_time += groupSet[3];
+          // allData.Acc += groupSet[4]; //加總每一回合正確題數 同時最後也是 Score
+          // resultArray[0] = inner_data; //this._one
+          // resultArray[1] = allData; //this._all
+          // resolve(resultArray);
         },
       });
     });
@@ -186,43 +239,28 @@ class E {
   //   return this._all;
   // }
 
-  //Class:呈現的是狗(D)還是貓(C)
-  //CorrAns: 1(J) 2(F) 0(NR)
-  //Press: 1(J) 2(F) 0(NR)
-  //------------------------------
-  //Acc
-  //RT
-  //SSD
-  //SS_Acc
-  //Go_Acc
-  //Go_RT
-  //NCRate
-  //NC_RT
-  //mSSD
-  //SSRT  SSRT = Go_RT – mSSD
-
   async process() {
-    let allData = {
-      Acc: 0,
-      RT_count: 0,
-      RT_time: 0,
-      FA_RT_count: 0,
-      FA_RT_time: 0,
-      SSD: 0, //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
-      SS_Acc: 0, //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
-    };
+    await this._round();
+    const { Acc, RT, SSD, Go_Acc, Go_RT, NCRate, NC_RT, mSSD, SSRT, Score } =
+      this._tmpAll;
+    this._all = `${Math.floor(Acc * 100) / this._questionsNum}_${Math.floor(
+      RT / Acc
+    )}_${Math.floor(Go_Acc * 100)}_`;
+    // let allData = {
+    //   Acc: 0,
+    //   RT_count: 0,
+    //   RT_time: 0,
+    //   FA_RT_count: 0,
+    //   FA_RT_time: 0,
+    //   SSD: 0, //延遲時間(SSD)：記錄題示音出現的延遲時間，單位為毫秒(ms)。如果該題沒有題示音，則延遲時間紀錄為 NS。
+    //   SS_Acc: 0, //題示音正確率(SS_Acc)：計算僅題示音出現的題目(200*25% = 50 題)，使用者的反應正確率，單位為百分比(%)。
+    // };
 
     this._oneAndAll = await this._round(allData);
     this._one = this._oneAndAll[0];
     this._all += this._allGenerate(this._oneAndAll);
 
-    if (this._mode == false) {
-      console.log(this._mode);
-      window.location.reload();
-      // return { one: null, all: null };
-    } else {
-      console.log(this._mode);
-      return { one: this._one, all: this._all };
-    }
+    if (this._mode) return { one: this._one, all: this._all };
+    return { one: this._one, all: this._all };
   }
 }
