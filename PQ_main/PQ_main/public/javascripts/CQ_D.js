@@ -40,7 +40,7 @@ class D {
 
     return questions;
   }
-  _full_trail(stage) {
+  _full_trail(level) {
     const {
       _questionType: TYPE,
       //_imgPath: path,
@@ -66,13 +66,13 @@ class D {
       type: "html-keyboard-response",
       stimulus: '<img id="right" src="/image/D/Arrow.jpg" style=""' + ">",
       choices: ["j", "f"],
-      trial_duration: 500 - (stage - 1) * 50,
+      trial_duration: 500 - (level - 1) * 50,
     };
     let left_arrow = {
       type: "html-keyboard-response",
       stimulus: '<img id="left" src="/image/D/Arrow_left.jpg" style=""' + ">",
       choices: ["j", "f"],
-      trial_duration: 500 - (stage - 1) * 50,
+      trial_duration: 500 - (level - 1) * 50,
     };
     let right_arrow_with_circle = {
       type: "html-keyboard-response",
@@ -80,7 +80,7 @@ class D {
         '<img id="right" src="/image/D/Arrow.jpg" style=" border:5px solid red;border-radius:50%;"' +
         ">",
       choices: ["j", "f"],
-      trial_duration: circleDuration(stage),
+      trial_duration: circleDuration(level),
       post_trial_gap: randomNum(100, 300),
     };
 
@@ -90,7 +90,7 @@ class D {
         '<img id="left" src="/image/D/Arrow_left.jpg" style=" border:5px solid red;border-radius:50%;"' +
         ">",
       choices: ["j", "f"],
-      trial_duration: circleDuration(stage),
+      trial_duration: circleDuration(level),
       post_trial_gap: randomNum(100, 300),
     };
 
@@ -134,29 +134,29 @@ class D {
           });
           break;
         case TYPE.RIGHT_ARROW_WITH_CIRCLE:
-          var test_procedure = {
+          let test_procedure_R = {
             timeline: [right_arrow, right_arrow_with_circle],
             //timeline_variables: test_stimuli,
             //repetitions: 1,
           };
-          timeline.push(test_procedure);
+          timeline.push(test_procedure_R);
           break;
         case TYPE.LEFT_ARROW_WITH_CIRCLE:
-          var test_procedure = {
+          let test_procedure_L = {
             timeline: [left_arrow, left_arrow_with_circle],
             //timeline_variables: test_stimuli,
             //repetitions: 1,
           };
-          timeline.push(test_procedure);
+          timeline.push(test_procedure_L);
           break;
-        case TYPE.EMPTY:
-          timeline.push({
-            type: "html-keyboard-response",
-            stimulus: `<label id="score"><label>`,
-            choices: jsPsych.NO_KEYS,
-            trial_duration: randomNum(100, 300),
-          });
-          break;
+        // case TYPE.EMPTY:
+        //   timeline.push({
+        //     type: "html-keyboard-response",
+        //     stimulus: `<label id="score"><label>`,
+        //     choices: jsPsych.NO_KEYS,
+        //     trial_duration: randomNum(100, 300),
+        //   });
+        //   break;
       }
     });
 
@@ -164,10 +164,13 @@ class D {
     return timeline;
   }
 
-  _round(stage, allData) {
-    let timeline = this._full_trail(stage);
-    //const timeline = this._level(questions);
+  _round(level, allData) {
+    const { _questionTYPE: TYPE } = this;
+    let { _tmpAll: tmpAll } = this;
+    const levelStr = level.toString();
     let questions = this._start();
+    let timeline = this._full_trail(level);
+    //const timeline = this._level(level,questions);
     console.log(timeline);
     let questionsIndex = 0;
     //const score = document.getElementById(this._clockId);
@@ -191,7 +194,7 @@ class D {
           }
           questionsIndex++;
         },
-        on_finish: function () {
+        on_finish: () => {
           //jsPsych.data.displayData();
           const { _questionType: TYPE } = this;
           const data = JSON.parse(jsPsych.data.get().json());
@@ -213,10 +216,10 @@ class D {
 
           data.map((value, index) => {
             switch (questions[index]) {
-              // case TYPE.CROSS:
-              //   if (index > 0) this._one += "~";
-              //   break;
-
+              case TYPE.CROSS:
+                if (index > 0) this._one += "~";
+                this._one += `${level}_`;
+                break;
               case TYPE.RIGHT_ARROW:
                 typeJ = "j";
               case TYPE.LEFT_ARROW:
@@ -251,10 +254,10 @@ class D {
     });
   }
   //帶修改
-  _allGenerate(oneAndAll, stage) {
-    let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
+  _allGenerate(oneAndAll, level) {
+    let finalAcc = (oneAndAll[1].Acc / (level * 20)) * 100;
     let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
-    let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
+    let finalFA = (oneAndAll[1].FA_RT_count / (level * 6)) * 100;
     let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
     let finalScore = oneAndAll[1].Acc;
     if (finalFA_RT == 0) {
@@ -266,7 +269,7 @@ class D {
 
   async process() {
     // console.log(this._mode);
-    let stage = 8; //從level 1開始
+    let level = 8; //從level 1開始
     let allData = {
       Level: 1,
       Level_Acc: 0,
@@ -281,18 +284,18 @@ class D {
       //FA_RT_count: 0, //加總所有炸彈有出現卻按了的次數
       //FA_RT_time: 0, //加總所有炸彈有出現卻按了的反應時間
     };
-    while (stage < 10) {
-      this._oneAndAll = await this._round(stage, allData);
+    while (level < 10) {
+      this._oneAndAll = await this._round(level, allData);
       this._one += this._oneAndAll[0];
       if (this._oneAndAll[2] < 80) {
         break;
-      } else if (stage < 9) {
+      } else if (level < 9) {
         this._one += "_";
       }
-      ++stage;
+      ++level;
     }
 
-    this._all = this._allGenerate(this._oneAndAll, stage);
+    this._all = this._allGenerate(this._oneAndAll, level);
 
     if (this._mode == false) {
       console.log(this._mode);
