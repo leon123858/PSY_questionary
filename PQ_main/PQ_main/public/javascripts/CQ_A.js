@@ -227,8 +227,8 @@ class A {
 			},
 		} = this;
 		this._all = `${Math.floor((finalScore * 100) / (stage * num))}_${
-			Math.floor(RT_total / RT_count) || 'NS'
-		}_${Math.floor((FA_total * 100) / FA_count) || 'NS'}_${
+			Math.floor(RT_total / RT_count) || 0
+		}_${Math.floor((FA_total * 100) / FA_count) || 0}_${
 			Math.floor(FA_rt_total / FA_total) || 'NS'
 		}_${finalScore}`;
 		if (this._mode == false) {
