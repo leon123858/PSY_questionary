@@ -70,7 +70,7 @@ class E {
     });
     return questions;
   }
-  _full_trail() {
+  _full_trail(questions) {
     let timeline = [];
     let questions = this._start();
 
@@ -120,7 +120,7 @@ class E {
     };
     let sound_trial = {
       type: "audio-keyboard-response",
-      stimulus: "voice/bee.mp3",
+      stimulus: '<source src="voice/bee.mp3" type="audio/mpeg"></source>',
       choices: ["j", "f"],
       trial_duration: sound_duration(corrAnsCount),
       post_trial_gap: randomNum(150, 300),
@@ -155,7 +155,6 @@ class E {
     return timeline;
   }
 
-  //利用_trail組成很多題目的回合, 回傳整理好的one,all 資料
   _round() {
     let questions = this._start();
     let timeline = this._full_trail();

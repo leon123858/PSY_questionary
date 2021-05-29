@@ -279,16 +279,16 @@ class D {
       NC_RT: 0,
       //Score:0,
       //Acc: 0,
-      //RT_count: 0, //加總所有水果出現有按的次數
-      //RT_time: 0, //加總所有水果出現有按的反應時間
-      //FA_RT_count: 0, //加總所有炸彈有出現卻按了的次數
-      //FA_RT_time: 0, //加總所有炸彈有出現卻按了的反應時間
+      //RT_count: 0,
+      //RT_time: 0,
+      //FA_RT_count: 0,
+      //FA_RT_time: 0,
     };
     while (level < 10) {
       this._oneAndAll = await this._round(level, allData);
       this._one += this._oneAndAll[0];
       if (this._oneAndAll[2] < 80) {
-        break;
+        break; //如果答對率小於80%會改
       } else if (level < 9) {
         this._one += "_";
       }
