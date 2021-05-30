@@ -245,7 +245,7 @@ class O {
 		const {
 			_tmpAll: { totalScore: score, totalQuestionCount: count },
 		} = this;
-		this._all += score + '_' + score / count;
+		this._all += score + '_' + Math.floor((score * 100) / count);
 		if (this._mode) {
 			return { one: this._one, all: this._all };
 		} else {

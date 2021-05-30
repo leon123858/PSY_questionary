@@ -1,208 +1,231 @@
 //_ => ~ => -
 class C {
-	constructor(isExercise) {
+	constructor(isExercise, clockId) {
 		this._one = '';
 		this._all = '';
 		this._mode = isExercise;
-		this._oneAndAll = '';
+		this._clockId = clockId;
+		this._tmpScore = 0;
+		this._tmpAll = {
+			RT: {
+				total: 0,
+				count: 0,
+			},
+			FA: {
+				total: 0,
+				count: 0,
+				rt_total: 0,
+			},
+		};
+		const border = {
+			basis: 500,
+			min: 0,
+			max: 1000,
+		};
+		this._imgPath = '/image/C/';
+		this._BORDER = border;
+		this._questionType = {
+			TEN: 0,
+			WHITE: 1,
+			ORANGE: 2,
+			RACKET: 3,
+			SPACE: 4,
+		};
 	}
 	_start() {
-		const randomList = (arr) => {
-			return arr.sort(function () {
-				return 0.5 - Math.random();
+		const { _questionType: TYPE } = this;
+		const generateRandomBallList = () => {
+			let li = [];
+			for (let i = 0; i < 7; i++)
+				li.push(Math.random() > 0.5 ? TYPE.WHITE : TYPE.ORANGE);
+			return li;
+		};
+		const getQuestions = (questionsList) => {
+			let questions = [];
+			questionsList.map((value) => {
+				questions = questions.concat([TYPE.TEN, value, TYPE.SPACE]);
 			});
+			return questions;
 		};
-		let questions = [];
-		for (let i = 0; i < 7; i++) {
-			questions[i] = '1';
-		}
-		for (let i = 7; i < 14; i++) {
-			questions[i] = '2';
-		}
-		for (let i = 14; i < 20; i++) {
-			questions[i] = '3';
-		}
-		questions = randomList(questions);
-		return questions;
+		const questionsListBasis = [TYPE.RACKET, TYPE.RACKET, TYPE.RACKET].concat(
+			generateRandomBallList()
+		);
+		const questionsList = questionsListBasis
+			.concat(questionsListBasis)
+			.sort(() => 0.5 - Math.random());
+		return getQuestions(questionsList);
 	}
-	_full_trail(stage) {
-		let timeline = [];
-		let questions = this._start();
 
-		const randomNum = (min, max) => {
-			return Math.floor(Math.random() * (max - min) + min);
-		};
-
-		const randomPlaceCSS = (basis, min, max) => {
+	_full_trail(stage, questions) {
+		const {
+			_BORDER: { basis, min, max },
+			_imgPath: imgPath,
+		} = this;
+		const randomNum = (min, max) =>
+			Math.floor(Math.random() * (max + 1 - min) + min);
+		const randomPlaceCSS = () => {
 			return `style="margin-left:${-basis + randomNum(min, max)}px;margin-top:${
 				-basis + randomNum(min, max)
 			}px"`;
 		};
-
-		const duration = (level) => {
-			return 550 - level * 50;
-		};
-
-		for (let i = 0; i < 20; i++) {
-			let ten = {
+		const duration = (level) => 550 - level * 50;
+		const ten = () => {
+			return {
 				type: 'html-keyboard-response',
 				stimulus:
 					"<p style='font-size: 30px; font-weight: bold; color: black'>+</p>",
 				choices: jsPsych.NO_KEYS,
 				trial_duration: randomNum(200, 800),
 			};
-			timeline.push(ten);
-			if (questions[i] == '1') {
-				let white = {
-					type: 'html-keyboard-response',
-					stimulus:
-						'<img id="white_ball" src="/image/C/White.jpg"' +
-						randomPlaceCSS(500, 0, 1000) +
-						'>',
-					choices: ['j', 'f'],
-					trial_duration: duration(stage),
-					post_trial_gap: randomNum(150, 300),
-				};
-				timeline.push(white);
-			}
-			if (questions[i] == '2') {
-				let orange = {
-					type: 'html-keyboard-response',
-					stimulus:
-						'<img id="orange_ball" src="/image/C/Orange.jpg"' +
-						randomPlaceCSS(500, 0, 1000) +
-						'>',
-					choices: ['j', 'f'],
-					trial_duration: duration(stage),
-					post_trial_gap: randomNum(150, 300),
-				};
-				timeline.push(orange);
-			} else {
-				let racket = {
-					type: 'html-keyboard-response',
-					stimulus:
-						'<img id="racket" src="/image/C/Racket.jpg"' +
-						randomPlaceCSS(500, 0, 1000) +
-						'>',
-					choices: ['j', 'f'],
-					trial_duration: duration(stage),
-					post_trial_gap: randomNum(150, 300),
-				};
-				timeline.push(racket);
-			}
-		}
-		console.log(timeline);
+		};
+		const whiteBall = () => {
+			return {
+				type: 'html-keyboard-response',
+				stimulus:
+					`<img id="white_ball" src="${imgPath}White.jpg"` +
+					randomPlaceCSS() +
+					'>',
+				choices: ['j', 'f'],
+				trial_duration: duration(stage),
+			};
+		};
+		const orangeBall = () => {
+			return {
+				type: 'html-keyboard-response',
+				stimulus:
+					`<img id="orange_ball" src="${imgPath}Orange.jpg"` +
+					randomPlaceCSS() +
+					'>',
+				choices: ['j', 'f'],
+				trial_duration: duration(stage),
+			};
+		};
+		const racket = () => {
+			return {
+				type: 'html-keyboard-response',
+				stimulus:
+					`<img id="racket" src="${imgPath}Racket.jpg"` +
+					randomPlaceCSS() +
+					'>',
+				choices: ['j', 'f'],
+				trial_duration: duration(stage),
+			};
+		};
+		const space = () => {
+			return {
+				type: 'html-keyboard-response',
+				stimulus: '',
+				choices: jsPsych.NO_KEYS,
+				trial_duration: randomNum(150, 300),
+			};
+		};
+		const timelineObjectTable = [ten, whiteBall, orangeBall, racket, space];
+
+		let timeline = [];
+		questions.map((value) => {
+			timeline.push(timelineObjectTable[value]());
+		});
 		return timeline;
 	}
 
 	//利用_trail組成很多題目的回合, 回傳整理好的one,all 資料
-	_round(stage, allData) {
-		let timeline = this._full_trail(stage);
-		let questions = this._start();
+	_round(stage) {
+		const { _questionType: TYPE } = this;
+		const isAnsCorrect = (status, response) => {
+			return (
+				(status == TYPE.WHITE && response == 'j') ||
+				(status == TYPE.ORANGE && response == 'f') ||
+				(status == TYPE.RACKET && response == null)
+			);
+		};
+		const questions = this._start();
+		console.log(questions);
+		const timeline = this._full_trail(stage, questions);
+		console.log(timeline);
+		const clock = document.getElementById(this._clockId);
+		if (clock) clock.innerHTML = '<br>';
+		let questionsIndex = 0;
+		let local_score = 0;
+		if (stage > 1) this._one += '-';
 		return new Promise((resolve) => {
 			jsPsych.init({
 				timeline: timeline,
-				on_finish: function () {
-					let resultArray = [0, 0, 0]; //最後結果陣列
-					let eachLevelAccRate; //判斷該不該進到下一個level
-					let inner_data = '';
-					//[右且按j && 左且按f總次數, 右且按j && 左且按f的反應時間加總, stop卻按下次數, stop卻按下的反應時間加總, 正確次數(有車按對, stop沒按)]
-					let groupSet = [0, 0, 0, 0, 0];
-					//使用者按下的資訊
-					let data = JSON.parse(jsPsych.data.get().json());
-					for (let i = 1; i < 40; i += 2) {
-						inner_data += stage + '_' + questions[parseInt(i / 2)] + '_';
-						if (
-							(questions[parseInt(i / 2)] == '1' && data[i].response == 'j') ||
-							(questions[parseInt(i / 2)] == '2' && data[i].response == 'f') ||
-							(questions[parseInt(i / 2)] == '3' && data[i].response == null)
-						) {
-							inner_data += '1_';
-							if (data[i].rt == null) {
-								inner_data += 'NS';
-							} else {
-								inner_data += data[i].rt;
-							}
-							groupSet[4]++;
-						} else {
-							inner_data += '0_';
-							if (data[i].rt == null) {
-								inner_data += 'NS';
-							} else {
-								inner_data += data[i].rt;
-							}
-						}
-						if (i != 39) inner_data += '~';
-
-						//球出現 白or橘 以及 球拍 卻按錯的統計
-						if (
-							(questions[parseInt(i / 2)] == '1' && data[i].response == 'j') ||
-							(questions[parseInt(i / 2)] == '2' && data[i].response == 'f')
-						) {
-							groupSet[0]++;
-							groupSet[1] += data[i].rt;
-						} else if (
-							questions[parseInt(i / 2)] == '3' &&
-							data[i].response != null
-						) {
-							groupSet[2]++;
-							groupSet[3] += data[i].rt;
-						}
-						//stage_1_1_~stage_2_1_~stage_1_0_
+				display_element: 'jspsych-experiment',
+				on_trial_finish: () => {
+					const response = JSON.parse(jsPsych.data.getLastTrialData().json())[0]
+						.response;
+					const status = questions[questionsIndex];
+					if (isAnsCorrect(status, response)) {
+						local_score++;
+						this._tmpScore++;
 					}
+					if (clock) clock.innerHTML = this._tmpScore;
+					questionsIndex++;
+				},
+				on_finish: () => {
+					const data = JSON.parse(jsPsych.data.get().json());
+					console.log(data);
+					data.map((value, index) => {
+						switch (questions[index]) {
+							case TYPE.TEN:
+								if (index > 0) this._one += '~';
+								break;
+							case TYPE.WHITE:
+							case TYPE.ORANGE:
+							case TYPE.RACKET:
+								const status = questions[index];
+								const response = value.response;
+								const rt = value.rt == null ? 'NS' : Math.floor(value.rt);
+								this._one += `${stage}_${status}_${
+									isAnsCorrect(status, response) ? 1 : 0
+								}_${rt}`;
 
-					eachLevelAccRate = (groupSet[4] / 20) * 100;
+								if (
+									(status == TYPE.WHITE || status == TYPE.ORANGE) &&
+									isAnsCorrect(status, response)
+								) {
+									this._tmpAll.RT.total += rt;
+									this._tmpAll.RT.count++;
+								}
+								if (status == TYPE.RACKET) this._tmpAll.FA.count++;
+								if (status == TYPE.RACKET && response != null) {
+									this._tmpAll.FA.rt_total += rt;
+									this._tmpAll.FA.total++;
+								}
 
-					allData.RT_count += groupSet[0];
-					allData.RT_time += groupSet[1];
-					allData.FA_RT_count += groupSet[2];
-					allData.FA_RT_time += groupSet[3];
-					allData.Acc += groupSet[4]; //加總每一回合正確題數 同時最後也是 Score
+								break;
+							case TYPE.SPACE:
+								break;
+						}
+					});
 
-					resultArray[0] = inner_data; //this._one
-					resultArray[1] = allData; //this._all
-					resultArray[2] = eachLevelAccRate; //judge go to next level or not
-
-					resolve(resultArray);
+					const isNextRound = local_score >= 16;
+					resolve(isNextRound);
 				},
 			});
 		});
 	}
 
-	_allGenerate(oneAndAll, stage) {
-		let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
-		let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
-		let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
-		let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
-		let finalScore = oneAndAll[1].Acc;
-		if (finalFA_RT == 0) {
-			finalFA_RT = 'NS';
-		}
-		this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
-		return this._all;
-	}
-
 	async process() {
-		let stage = 1;
-		let allData = {
-			Acc: 0,
-			RT_count: 0,
-			RT_time: 0,
-			FA_RT_count: 0,
-			FA_RT_time: 0,
-		};
-		while (stage < 8) {
-			this._oneAndAll = await this._round(stage, allData);
-			this._one = this._oneAndAll[0];
-			if (this._oneAndAll[2] < 80) {
-				break;
-			} else if (stage < 7) {
-				this._one += '_';
-			}
-			++stage;
+		let stage;
+		for (stage = 1; stage < 8; stage++) {
+			const isNext = await this._round(stage);
+			if (!isNext) break;
+			await waitNextLevel(true);
 		}
+		const {
+			_tmpScore: finalScore,
+			_tmpAll: {
+				RT: { total: RT_total, count: RT_count },
+				FA: { total: FA_total, count: FA_count, rt_total: FA_rt_total },
+			},
+		} = this;
 
-		this._all += this._allGenerate(this._oneAndAll, stage);
+		this._all = `${Math.floor((finalScore * 100) / (stage * 20))}_${
+			Math.floor(RT_total / RT_count) || 0
+		}_${Math.floor((FA_total * 100) / FA_count) || 0}_${
+			Math.floor(FA_rt_total / FA_total) || 'NS'
+		}_${finalScore}`;
 
 		if (this._mode == false) {
 			return { one: this._one, all: this._all };

@@ -10,7 +10,7 @@ class Handler {
 			C: 4,
 			D: 51,
 			E: 0,
-			F: 11,
+			F: 41,
 			G: 1,
 			H: 1,
 			I: null,
