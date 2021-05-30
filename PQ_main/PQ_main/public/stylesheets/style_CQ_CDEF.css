@@ -16,7 +16,7 @@
   width: 100px;
 }
 
-.red-border {
+.red-circle {
   height: 100px;
   width: 100px;
   border: 5px solid red;
@@ -34,14 +34,14 @@
 }
 
 #clock {
-	text-align: center;
-	color: red;
-	font-size: 50px;
+  text-align: center;
+  color: red;
+  font-size: 50px;
 }
 
 #jspsych-experiment {
-	width: 100%;
-	height: 80vh;
+  width: 100%;
+  height: 80vh;
 }
 
 /* #circle_right,
