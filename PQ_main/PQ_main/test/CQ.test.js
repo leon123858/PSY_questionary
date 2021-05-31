@@ -182,7 +182,7 @@ describe.skip('test if B data is right => no level', () => {
 	});
 });
 
-describe('test if C data is right => have level', () => {
+describe.skip('test if C data is right => have level', () => {
 	let one =
 		'1_3_1_NS~1_3_1_NS~1_3_0_373~1_2_0_408~1_3_1_NS~1_2_0_NS~1_2_1_354~1_3_1_NS~1_1_0_354~1_2_0_NS~1_3_1_NS~1_1_0_NS~1_2_0_441~1_2_1_351~1_1_1_434~1_1_1_359~1_2_0_340~1_2_1_452~1_2_0_442~1_2_1_307';
 	all = '55_376_16_373_11';
@@ -282,11 +282,14 @@ describe('test if C data is right => have level', () => {
 });
 
 describe.skip('test if D data is right => have level', () => {
-	const one = '';
-	const all = '';
+	const one =
+		'1_R_1_1_1_366_NS~1_L_2_2_1_321_NS~1_R_1_1_1_305_NS~1_L_2_2_1_272_NS~1_R_1_1_1_295_NS~1_L_2_2_1_300_NS~1_L_2_2_1_330_NS~1_R_1_2_0_262_NS~1_R_1_1_1_339_NS~1_R_1_2_0_254_NS~1_R_1_1_1_301_NS~1_R_1_1_1_286_NS~1_R_1_1_1_282_NS~1_L_2_2_1_359_NS~1_R_1_1_1_308_NS~1_L_2_2_1_234_NS~1_R_1_1_1_321_NS~1_R_1_2_0_201_NS~1_R_1_1_1_231_NS~1_L_2_2_1_321_NS~1_L_2_2_1_364_NS~1_L_2_2_1_305_NS~1_L_2_1_0_284_NS~1_L_2_1_0_230_NS~1_L_2_2_1_211_NS~1_L_2_2_1_331_NS~1_L_2_2_1_291_NS~1_L_2_2_1_256_NS~1_L_2_2_1_322_NS~1_L_2_2_1_327_NS~1_R_1_2_0_209_NS~1_R_1_1_1_300_NS~1_L_2_2_1_276_NS~1_R_1_2_0_289_NS~1_R_1_1_1_336_NS~1_L_2_2_1_360_NS~1_R_1_1_1_241_NS~1_R_1_2_0_254_NS~1_L_2_2_1_334_NS~1_R_1_1_1_291_NS-2_R_1_0_0_NS_NS~2_L_2_2_1_336_NS~2_R_1_1_1_270_NS~2_R_1_1_1_336_NS~2_R_1_1_1_259_NS~2_R_1_1_1_283_NS~2_L_2_2_1_319_NS~2_L_2_2_1_340_NS~2_L_2_2_1_397_NS~2_L_2_2_1_289_NS~2_R_0_1_0_368_50~2_L_2_2_1_336_NS~2_L_2_2_1_324_NS~2_L_2_2_1_237_NS~2_L_0_0_1_NS_50~2_R_0_1_0_308_50~2_L_0_0_1_NS_50~2_R_1_1_1_381_NS~2_L_2_2_1_332_NS~2_R_0_0_1_NS_50~2_R_0_0_1_NS_50~2_L_2_2_1_335_NS~2_L_2_2_1_335_NS~2_L_2_2_1_452_NS~2_L_0_0_1_NS_50~2_R_1_1_1_360_NS~2_R_1_1_1_330_NS~2_R_0_0_1_NS_50~2_L_2_2_1_366_NS~2_R_1_1_1_404_NS~2_L_2_1_0_473_NS~2_R_1_1_1_352_NS~2_R_1_2_0_279_NS~2_L_2_2_1_369_NS~2_R_1_1_1_330_NS~2_R_1_1_1_372_NS~2_L_0_0_1_NS_50~2_L_0_0_1_NS_50~2_R_1_1_1_359_NS~2_R_1_1_1_316_NS-3_R_1_1_1_344_NS~3_L_2_2_1_338_NS~3_L_0_1_0_267_100~3_R_0_0_1_NS_100~3_L_0_1_0_374_100~3_L_2_2_1_331_NS~3_L_2_2_1_358_NS~3_R_0_0_1_NS_100~3_L_2_2_1_405_NS~3_R_1_1_1_396_NS~3_R_1_1_1_359_NS~3_R_0_0_1_NS_100~3_L_2_2_1_413_NS~3_R_0_0_1_NS_100~3_L_0_1_0_385_100~3_R_1_1_1_364_NS~3_R_1_0_0_NS_NS~3_R_1_1_1_302_NS~3_R_1_1_1_361_NS~3_R_1_1_1_293_NS~3_R_1_0_0_NS_NS~3_L_2_2_1_343_NS~3_L_2_2_1_361_NS~3_R_1_1_1_354_NS~3_R_1_1_1_422_NS~3_L_2_2_1_385_NS~3_R_1_1_1_383_NS~3_L_2_2_1_351_NS~3_L_0_1_0_353_100~3_L_2_0_0_NS_NS~3_R_1_1_1_385_NS~3_R_1_1_1_469_NS~3_L_0_0_1_NS_100~3_R_1_1_1_337_NS~3_L_2_2_1_395_NS~3_L_2_2_1_459_NS~3_L_2_2_1_376_NS~3_L_2_2_1_353_NS~3_R_0_1_0_402_100~3_L_2_2_1_349_NS-4_L_2_2_1_400_NS~4_R_1_1_1_400_NS~4_R_1_1_1_409_NS~4_R_0_0_1_NS_150~4_L_2_0_0_NS_NS~4_L_2_2_1_316_NS~4_R_1_1_1_361_NS~4_L_2_2_1_354_NS~4_R_1_1_1_452_NS~4_L_2_2_1_343_NS~4_L_0_0_1_NS_150~4_R_1_1_1_363_NS~4_R_0_1_0_334_150~4_L_2_1_0_110_NS~4_L_2_1_0_22_NS~4_L_0_0_1_NS_150~4_R_0_0_1_NS_150~4_R_0_0_1_NS_150~4_L_2_0_0_NS_NS~4_L_0_0_1_NS_150~4_R_1_0_0_NS_NS~4_L_2_0_0_NS_NS~4_R_1_0_0_NS_NS~4_R_1_0_0_NS_NS~4_L_2_0_0_NS_NS~4_L_2_0_0_NS_NS~4_R_1_0_0_NS_NS~4_L_2_0_0_NS_NS~4_R_1_0_0_NS_NS~4_L_0_0_1_NS_150~4_R_1_0_0_NS_NS~4_R_1_0_0_NS_NS~4_R_0_0_1_NS_150~4_R_1_0_0_NS_NS~4_L_2_0_0_NS_NS~4_R_1_0_0_NS_NS~4_L_2_0_0_NS_NS~4_R_1_0_0_NS_NS~4_L_0_0_1_NS_150~4_L_2_0_0_NS_NS';
+	const all =
+		'4_80_87_80_45_NA_NA_NA_NA_NA_NA_106_90_90_30_NA_NA_NA_NA_NA_NA_303_337_369_377_NA_NA_NA_NA_NA_NA_NS_20_50_10_NA_NA_NA_NA_NA_NA_NS_338_356_334_NA_NA_NA_NA_NA_NA_117';
 
 	it('one data situation', () => {
 		const levels = one.split('-');
+		console.log(levels.length);
 		levels.length.should.lessThan(11);
 		let questionList = [];
 		levels.map((level) => {
@@ -299,8 +302,8 @@ describe.skip('test if D data is right => have level', () => {
 
 		questionList.map((questions, index) => {
 			const question = questions.split('_');
-			question.length.should.equal(4);
-			question[0].should.equal(parseInt(index / 40) + 1);
+			question.length.should.equal(7);
+			question[0].should.equal((parseInt(index / 40) + 1).toString());
 			question[1].should.oneOf(['R', 'L']);
 			question[2].should.oneOf(['0', '1', '2']);
 			question[3].should.oneOf(['0', '1', '2']);
@@ -333,7 +336,7 @@ describe.skip('test if D data is right => have level', () => {
 		const maxLevel = levels.length;
 		const delta = 10 - maxLevel;
 		ans[0].should.equal(maxLevel.toString());
-		ans[51].should.is.satisfy((x) => {
+		expect(ans[51]).to.satisfy((x) => {
 			if (parseInt(x).toString() != 'NaN') return true;
 			return false;
 		});
@@ -345,16 +348,17 @@ describe.skip('test if D data is right => have level', () => {
 	});
 });
 
-describe.skip('test if E data is right => no level', () => {
-	const one = '';
-	const all = '';
+describe('test if E data is right => no level', () => {
+	const one =
+		'C_0_2_0_424_200~C_2_1_0_283_NS~D_0_2_0_347_167~D_1_0_0_NS_NS~C_2_1_0_359_NS~C_2_2_1_339_NS~C_0_0_1_NS_134~D_1_1_1_506_NS~C_2_0_0_NS_NS~C_2_2_1_400_NS~C_2_2_1_411_NS~D_1_0_0_NS_NS~D_1_1_1_313_NS~C_0_1_0_334_167~D_1_0_0_NS_NS~C_0_0_1_NS_134~D_1_1_1_393_NS~C_2_0_0_NS_NS~C_2_2_1_392_NS~D_0_0_1_NS_167~D_1_2_0_435_NS~D_1_0_0_NS_NS~D_1_0_0_NS_NS~D_1_2_0_410_NS~C_2_0_0_NS_NS~D_1_1_1_348_NS~C_0_2_0_476_200~C_2_2_1_457_NS~D_1_2_0_412_NS~D_0_1_0_428_167~D_1_0_0_NS_NS~C_2_2_1_445_NS~D_1_2_0_442_NS~D_1_1_1_269_NS~D_1_0_0_NS_NS~C_0_1_0_362_134~D_1_2_0_409_NS~D_1_1_1_352_NS~C_2_0_0_NS_NS~D_1_1_1_411_NS~D_1_1_1_354_NS~D_1_1_1_318_NS~C_2_1_0_288_NS~D_1_0_0_NS_NS~D_1_2_0_331_NS~D_1_1_1_304_NS~D_1_1_1_364_NS~D_1_1_1_325_NS~D_1_1_1_389_NS~C_0_1_0_229_101~C_0_1_0_461_68~D_1_1_1_466_NS~D_1_2_0_364_NS~C_2_1_0_333_NS~D_1_2_0_354_NS~D_1_1_1_281_NS~C_2_2_1_274_NS~D_1_1_1_390_NS~C_2_2_1_390_NS~C_2_2_1_321_NS~C_2_1_0_296_NS~D_1_2_0_277_NS~D_1_1_1_260_NS~C_2_1_0_280_NS~C_2_2_1_353_NS~D_1_2_0_434_NS~C_2_1_0_405_NS~D_1_1_1_473_NS~D_0_2_0_435_35~D_1_1_1_324_NS~D_0_1_0_359_2~C_2_1_0_442_NS~C_2_0_0_NS_NS~C_2_0_0_NS_NS~D_1_0_0_NS_NS~C_2_1_0_249_NS~D_1_2_0_367_NS~D_1_1_1_355_NS~D_1_1_1_429_NS~C_2_1_0_307_NS~D_0_2_0_340_0~D_0_0_1_NS_0~C_0_0_1_NS_33~D_1_0_0_NS_NS~C_0_1_0_298_66~C_2_2_1_448_NS~D_1_0_0_NS_NS~C_0_2_0_424_33~C_2_0_0_NS_NS~D_1_1_1_382_NS~D_1_0_0_NS_NS~C_2_1_0_484_NS~D_1_2_0_393_NS~D_1_0_0_NS_NS~D_1_1_1_304_NS~C_2_1_0_433_NS~C_0_0_1_NS_0~C_2_2_1_395_NS~D_0_0_1_NS_33~C_2_0_0_NS_NS~D_0_1_0_500_66~C_2_1_0_429_NS~D_0_0_1_NS_33~C_0_1_0_348_66~C_2_2_1_461_NS~D_0_0_1_NS_33~D_1_1_1_408_NS~C_0_0_1_NS_66~D_0_2_0_455_99~C_2_1_0_421_NS~C_2_0_0_NS_NS~D_1_2_0_320_NS~C_2_2_1_497_NS~C_2_0_0_NS_NS~D_0_0_1_NS_66~C_0_0_1_NS_99~C_2_0_0_NS_NS~D_1_1_1_403_NS~D_1_0_0_NS_NS~C_2_2_1_419_NS~D_1_2_0_413_NS~C_2_1_0_473_NS~D_0_1_0_382_132~D_0_0_1_NS_99~C_0_0_1_NS_132~D_1_0_0_NS_NS~D_0_1_0_326_165~C_2_0_0_NS_NS~C_2_1_0_375_NS~C_2_1_0_433_NS~C_2_2_1_330_NS~C_2_0_0_NS_NS~D_1_2_0_441_NS~C_0_1_0_396_132~C_2_0_0_NS_NS~C_2_1_0_463_NS~C_2_2_1_436_NS~D_0_0_1_NS_99~C_2_1_0_412_NS~C_0_2_0_445_132~D_1_0_0_NS_NS~D_0_0_1_NS_99~C_2_0_0_NS_NS~C_2_2_1_401_NS~D_1_1_1_500_NS~D_1_2_0_458_NS~C_2_1_0_433_NS~C_2_1_0_382_NS~D_1_1_1_376_NS~C_2_2_1_360_NS~C_2_2_1_414_NS~C_0_0_1_NS_132~D_1_0_0_NS_NS~D_1_1_1_409_NS~D_0_1_0_429_165~C_2_2_1_450_NS~D_0_1_0_410_132~D_0_2_0_435_99~D_1_2_0_442_NS~C_2_0_0_NS_NS~C_2_0_0_NS_NS~C_2_2_1_333_NS~C_2_2_1_365_NS~C_0_2_0_338_66~D_1_2_0_418_NS~D_1_1_1_347_NS~D_1_1_1_323_NS~C_0_0_1_NS_33~D_1_1_1_356_NS~C_2_0_0_NS_NS~D_0_2_0_434_66~D_0_0_1_NS_33~D_1_1_1_396_NS~C_2_0_0_NS_NS~C_2_0_0_NS_NS~C_0_0_1_NS_66~C_2_2_1_463_NS~D_0_1_0_427_99~C_2_2_1_352_NS~D_1_1_1_301_NS~C_0_2_0_365_66~C_2_2_1_320_NS~C_2_1_0_320_NS~C_2_2_1_293_NS~C_2_2_1_279_NS~D_1_2_0_369_NS~C_2_1_0_322_NS~D_1_2_0_324_NS~C_2_1_0_221_NS~C_2_2_1_217_NS~D_1_1_1_325_NS~C_2_1_0_256_NS~C_0_2_0_287_33~D_1_2_0_417_NS~C_0_0_1_NS_0~D_0_1_0_282_33~D_1_2_0_231_NS~D_1_1_1_374_NS~C_2_2_1_486_NS~D_1_2_0_463_NS';
+	const all = '43_43_162_58_223_87_75';
 
 	it('if one is right', () => {
 		let questionList = one.split('~');
 		questionList.length.should.equal(200);
 		questionList.map((questions, index) => {
 			const question = questions.split('_');
-			question.length.should.equal(7);
+			question.length.should.equal(6);
 			question[0].should.oneOf(['D', 'C']);
 			question[1].should.oneOf(['0', '1', '2']);
 			question[2].should.oneOf(['0', '1', '2']);
@@ -377,20 +381,11 @@ describe.skip('test if E data is right => no level', () => {
 				}
 				return false;
 			});
-			expect(question[6]).to.satisfy((x) => {
-				if (x == 'NS') {
-					return true;
-				}
-				if (parseInt(x).toString() !== 'NaN') {
-					return true;
-				}
-				return false;
-			});
 		});
 	});
 
 	it('if all data is right', () => {
 		const ans = all.split('_');
-		ans.length.should.equal(8);
+		ans.length.should.equal(7);
 	});
 });
