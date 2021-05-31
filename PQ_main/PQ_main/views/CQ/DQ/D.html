@@ -14,7 +14,7 @@
   <script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script>
   <script src="/jspsych-6.3.0/plugins/jspsych-image-keyboard-response.js"></script>
   <link href="/jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style_CQ_ABIHG/style_CQ_CDEF.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style_CQ_CDEF.css" />
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_D.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
@@ -73,10 +73,10 @@
     $('#main-model').modal('hide');
 
     if (game_get == "reality") {
-      let questionary = new D(false);
+      let questionary = new D(false, "clock");
       handler.startTest({ questionary: questionary, isExercise: false })
     } else {
-      let questionary = new D(true);
+      let questionary = new D(true, "clock");
       handler.startTest({ questionary: questionary, isExercise: true });
     }
   });
