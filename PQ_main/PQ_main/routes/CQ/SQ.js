@@ -34,7 +34,7 @@ const namesList_one = {
 	B: ['Class', 'Acc', 'RT'],
 	C: ['Level', 'Class', 'Acc', 'RT'],
 	D: ['Level', 'Direct', 'CorrAns', 'Press', 'Acc', 'RT', 'SSD'],
-	E: ['Class', 'CorrAns', 'Press', 'Acc', 'RT', 'SSD', 'SS_Acc'],
+	E: ['Class', 'CorrAns', 'Press', 'Acc', 'RT', 'SSD'],
 	F: [
 		'Level',
 		'Cue',
@@ -119,7 +119,7 @@ const namesList_group = {
 		'NC_RT_10',
 		'Score',
 	],
-	E: ['Acc', 'Go_Acc', 'Go_RT', 'NCRate', 'NC_RT', 'mSSD', 'SSRT', 'Score'],
+	E: ['Acc', 'Go_Acc', 'Go_RT', 'NCRate', 'NC_RT', 'mSSD', 'SSRT'],
 	F: [
 		'Acc_1',
 		'Acc_2',
