@@ -1,7 +1,7 @@
-﻿﻿
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>心智評估與訓練系統</title>
@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
@@ -51,6 +52,24 @@
             <a href="" id="One_link" style="display:none">Click here to download</a>
         </div>
         <br>
+        <hr style="border:5px" />
+        <input type="button" id="updateAuth" class="btn btn-primary" style="font-size:200%" value="變更帳號權限" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <textarea name="" id="people" cols="30" rows="10"
+                placeholder="在此輸入要變更的帳號, 多組帳號要用'enter'(換行)來間隔 &#13;&#10;ex:&#13;&#10;T_1&#13;&#10;T_2"></textarea>
+            <select id="whichAuth">
+                <option value="" disabled selected hidden>請選擇你要更改成甚麼權限</option>
+                <option value="TRY">TRY</option>
+                <option value="GENERAL">GENERAL</option>
+                <option value="OTHER">OTHER</option>
+                <option value="ALL">ALL</option>
+            </select>
+            <br>
+            <label href="" id="changeAuth" class="btn btn-link" style="font-size: 100%;">Click here to confirm change
+                auth</label>
+        </div>
+        <br><br><br><br>
     </div>
     <script>
         function transferCSV(mode, data) {
@@ -112,7 +131,7 @@
                         type: type
                     }, function (result) {
                         if (result.result == 'success')
-                            makeLink($link, transferCSV(1, result.data), fillterValue+ "_DataFor" + collection);
+                            makeLink($link, transferCSV(1, result.data), fillterValue + "_DataFor" + collection);
                         else
                             alert(result.result);
                     });
@@ -153,7 +172,7 @@
                     })
                 else {
                     alert("請寫入編號標記或數量");
-                    $this.next("div").remove();
+                    $(this).next("div").remove();
                 }
             });
             //取得整個表格
@@ -161,7 +180,7 @@
                 $(this).next("div").toggle('30');
             });
             $("#AllMode").change(function () {
-                DownLoad($("#All_link"), $(this).val() , "NA", "NA", 0);
+                DownLoad($("#All_link"), $(this).val(), "NA", "NA", 0);
             });
             //取得個人表格
             $("#loadOneTable").click(function () {
@@ -175,7 +194,37 @@
                     $(this).find('option:eq(0)').prop('selected', true);
                 }
             });
+            //更新帳號權限
+            $("#updateAuth").click(function () {
+                $(this).next("div").toggle('30');
+            })
+            $("#changeAuth").click(() => {
+                if ($("#whichAuth").val() == null) {
+                    alert("請輸入想轉換成甚麼權限");
+                    return;
+                }
+                if ($("#people").val() == "") {
+                    alert("請輸入哪些帳號要轉換");
+                    return;
+                }
+                const peopleList = $("#people").val().split("\n");
+                const mode = peopleList.length > 1 ? "many" : "one";
+                const peopleId = mode == "one" ? peopleList[0] : $("#people").val().replace(/\r\n|\n/g, "~");
+                const auth = $("#whichAuth").val();
+                $.post("/update/auth",
+                    {
+                        ID: "<%=ID%>", password: "<%=password%>",
+                        mode: mode, peopleId: peopleId,
+                        auth: auth
+                    }, function (result) {
+                        if (result.result == 'success')
+                            alert("change success");
+                        else
+                            alert(result.result);
+                    });
+            })
         })
     </script>
 </body>
+
 </html>

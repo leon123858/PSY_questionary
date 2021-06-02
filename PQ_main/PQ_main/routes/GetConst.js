@@ -20,6 +20,8 @@ function Get(thing) {
 			return process.env.local_uri;
 		case 'adminMail':
 			return process.env.adminEmail;
+		case 'defaultAuth':
+			return process.env.defaultAuth;
 		default:
 			return '';
 	}

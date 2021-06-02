@@ -10,6 +10,7 @@ const { Get } = require('./routes/GetConst');
 
 var routes = require('./routes/index');
 var EW = require('./routes/EW');
+var auth = require('./routes/auth');
 var GQ = require('./routes/GQ/GQ');
 var QQ = require('./routes/QQ/QQ');
 var CQ = require('./routes/CQ/CQ');
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/EW', EW);
+app.use(auth);
 app.use('/GQ', GQ);
 app.use('/QQ', QQ);
 app.use('/CQ', CQ);
