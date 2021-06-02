@@ -10,6 +10,8 @@ function Get(thing) {
 			return process.env.ID;
 		case 'password':
 			return process.env.password;
+		case 'defaultAuth':
+			return process.env.defaultAuth;
 		default:
 			return '';
 	}

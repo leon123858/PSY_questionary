@@ -494,13 +494,17 @@ function InsertNewUser(db, pkg, tag) {
 		var random_password = randomString(8);
 		var table = db.db('EW').collection('personal_information');
 		table.insertOne(
-			{ ID: new_ID, password: random_password, first: true },
+			{
+				ID: new_ID,
+				password: random_password,
+				first: true,
+				auth: Get('defaultAuth'),
+			},
 			function (err, result) {
 				if (err) {
 					reject('伺服器連線錯誤');
 					throw err;
 				}
-				db.close();
 				resolve({ result: 'success', ID: new_ID, password: random_password });
 			}
 		);
