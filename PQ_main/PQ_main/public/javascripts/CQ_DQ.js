@@ -33,7 +33,7 @@ class Handler {
 	async saveLocalData() {
 		if (localStorage.getItem('one') != null) {
 			//check if have local storage
-			const { _type: type, _ID: id, _password: password } = this;
+			const { _ID: id, _password: password } = this;
 			$.post(
 				'/CQ/SQ/saveData',
 				{
@@ -41,13 +41,14 @@ class Handler {
 					password: password,
 					one: localStorage.getItem('one'),
 					group: localStorage.getItem('group'),
-					type: type,
+					type: localStorage.getItem('type'),
 				},
 				function (data, textStatus, jqXHR) {
 					if (textStatus == 'success') {
 						if (data.result == 'success') {
 							localStorage.removeItem('one');
 							localStorage.removeItem('group');
+							localStorage.removeItem('type');
 							alert('上次未上傳資料上傳成功');
 							return 'success';
 						} else {
@@ -68,6 +69,9 @@ class Handler {
 	_saveData(item, which) {
 		const { _type: type, _ID: id, _password: password } = this;
 		console.log(item);
+		localStorage.setItem('one', item.one);
+		localStorage.setItem('group', item.all);
+		localStorage.setItem('type', type);
 		return new Promise((resolve, reject) => {
 			$.post(
 				'/CQ/SQ/saveData',
@@ -81,20 +85,19 @@ class Handler {
 				function (data, textStatus, jqXHR) {
 					if (textStatus == 'success') {
 						if (data.result == 'success') {
+							localStorage.removeItem('one');
+							localStorage.removeItem('group');
+							localStorage.removeItem('type');
 							which != null
 								? resolve(item.all.split('_')[which])
 								: resolve(null);
 							return;
 						} else {
-							localStorage.setItem('one', item.one);
-							localStorage.setItem('group', item.all);
 							alert('資料上傳失敗,失敗原因 : ' + data.result);
 							reject('error');
 							return;
 						}
 					} else {
-						localStorage.setItem('one', item.one);
-						localStorage.setItem('group', item.all);
 						alert('與伺服器斷訊');
 						reject('error');
 						return;
