@@ -247,15 +247,13 @@ router.post('/auth', (req, res) => {
 					break;
 				case 'many':
 					const peopleIdList = peopleId.split('~');
-					try {
-						for (let id of peopleIdList) {
-							await updateAuth(id, auth, table);
-						}
-						res.json({ result: 'success' });
-					} catch (err) {
-						res.json(err);
-					}
-					db.close();
+					const promiseList = peopleIdList.map((id) => {
+						return updateAuth(id, auth, table);
+					});
+					Promise.all(promiseList)
+						.then((result) => res.json({ result: 'success' }))
+						.catch((err) => res.json(err))
+						.finally((pkg) => db.close());
 					break;
 				default:
 					res.json({ result: '無此操作權限' });
