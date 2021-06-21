@@ -161,18 +161,18 @@ class F {
 			//(isSame && isLeft)||!(isSame || isLeft)
 			if (isSame == isLeft) {
 				for (let i = 0; i < count; i++) {
-					LStr += `<img src="${imgPath}F_fishL.jpg">&ensp;&ensp;`;
-					RStr += `&ensp;&ensp;<img src="${imgPath}F_fishL.jpg">`;
+					LStr += `<img class="shark" src="${imgPath}F_fishL.png">&ensp;&ensp;`;
+					RStr += `&ensp;&ensp;<img class="shark" src="${imgPath}F_fishL.png">`;
 				}
 			} else if (isSame != isLeft) {
 				for (let i = 0; i < count; i++) {
-					LStr += `<img src="${imgPath}F_fishR.jpg">&ensp;&ensp;`;
-					RStr += `&ensp;&ensp;<img src="${imgPath}F_fishR.jpg">`;
+					LStr += `<img class="shark" src="${imgPath}F_fishR.png">&ensp;&ensp;`;
+					RStr += `&ensp;&ensp;<img class="shark" src="${imgPath}F_fishR.png">`;
 				}
 			}
 			return isLeft
-				? `${LStr}<img src="${imgPath}F_fishL.jpg">${RStr}`
-				: `${LStr}<img src="${imgPath}F_fishR.jpg">${RStr}`;
+				? `${LStr}<img class="shark" src="${imgPath}F_fishL.png">${RStr}`
+				: `${LStr}<img class="shark" src="${imgPath}F_fishR.png">${RStr}`;
 		};
 		const buildFishStimulus = ({ isTop, isSame, isLeft, count }) => {
 			return isTop
@@ -180,8 +180,8 @@ class F {
 						isSame,
 						isLeft,
 						count - 1
-				  )}</p><br><br><p>+</p><br><br><p><img src="${imgPath}F_fishL.jpg" style="visibility:hidden"></p>`
-				: `<p><img src="${imgPath}F_fishL.jpg" style="visibility:hidden"></p><br><br><p>+</p><br><br><p>${buildFishList(
+				  )}</p><br><br><p>+</p><br><br><p><img class="shark" src="${imgPath}F_fishL.png" style="visibility:hidden"></p>`
+				: `<p><img class="shark" src="${imgPath}F_fishL.png" style="visibility:hidden"></p><br><br><p>+</p><br><br><p>${buildFishList(
 						isSame,
 						isLeft,
 						count - 1

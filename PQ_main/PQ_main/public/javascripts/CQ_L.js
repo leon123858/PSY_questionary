@@ -90,7 +90,7 @@ class L {
 			return `<img src='${path}table.jpg' class="table"><img src='${path}${getColor(
 				preState,
 				curState
-			)}.jpg' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
+			)}.png' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
 		};
 		let timeline = [];
 		questions.map((value, index) => {

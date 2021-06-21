@@ -101,7 +101,7 @@ class H {
 					this._tmpGoalBaby.push(goalBaby);
 					timeline.push({
 						type: 'html-button-response',
-						stimulus: `<img src="${imgPath}${goalBaby}.jpg">`,
+						stimulus: `<img class="obj" src="${imgPath}${goalBaby}.png">`,
 						choices: ['success'],
 					});
 					break;
@@ -133,7 +133,7 @@ class H {
 			let imgList = [];
 			for (let i = 0; i < count; i++) {
 				const name = i == 0 ? goalBaby : generateRandomInt(1, 9, goalBaby);
-				const src = `${imgPath}${name}.jpg`;
+				const src = `${imgPath}${name}.png`;
 				const angle = (360 / count / 57.29) * i + delta;
 				const r = (this._ballWidth / 2) * (1 / Math.tan(180 / count / 57.29));
 				imgList.push({
@@ -238,7 +238,7 @@ class H {
 				return;
 			const canvas = document.getElementById('canvas');
 			this._gameStatus = this._gameStatusType.MOVE;
-			showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
+			showBalls(this._imgList, canvas, this._imgPath + 'ball.png');
 			timer = setInterval(() => {
 				this._imgList.map((value, index) => {
 					this._imgList[index].angle += (1 + value.bonus) * this._speed;
@@ -247,7 +247,7 @@ class H {
 					this._imgList[index].y =
 						value.r * Math.sin(this._imgList[index].angle);
 				});
-				showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
+				showBalls(this._imgList, canvas, this._imgPath + 'ball.png');
 			}, 15);
 			setTimeout(() => {
 				this._gameClickCount = 1;

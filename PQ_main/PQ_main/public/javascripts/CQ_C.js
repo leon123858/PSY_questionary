@@ -82,7 +82,7 @@ class C {
 			return {
 				type: 'html-keyboard-response',
 				stimulus:
-					`<img id="white_ball" src="${imgPath}White.jpg"` +
+					`<img id="white_ball" src="${imgPath}White.png"` +
 					randomPlaceCSS() +
 					'>',
 				choices: ['j', 'f'],
@@ -93,7 +93,7 @@ class C {
 			return {
 				type: 'html-keyboard-response',
 				stimulus:
-					`<img id="orange_ball" src="${imgPath}Orange.jpg"` +
+					`<img id="orange_ball" src="${imgPath}Orange.png"` +
 					randomPlaceCSS() +
 					'>',
 				choices: ['j', 'f'],
@@ -104,7 +104,7 @@ class C {
 			return {
 				type: 'html-keyboard-response',
 				stimulus:
-					`<img id="racket" src="${imgPath}Racket.jpg"` +
+					`<img id="racket" src="${imgPath}Racket.png"` +
 					randomPlaceCSS() +
 					'>',
 				choices: ['j', 'f'],

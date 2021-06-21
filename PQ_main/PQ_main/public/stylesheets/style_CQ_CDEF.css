@@ -44,6 +44,11 @@
 	height: 80vh;
 }
 
+.obj {
+	width: 100px;
+	height: 100px;
+}
+
 /* #circle_right,
 #circle_left {
   height: 100px;
