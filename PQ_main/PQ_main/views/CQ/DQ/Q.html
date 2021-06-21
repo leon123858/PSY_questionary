@@ -70,6 +70,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    preload(["/image/CQ_Q_animal/1.png", "/image/CQ_Q_animal/2.png", "/image/CQ_Q_animal/3.png", "/image/CQ_Q_animal/4.png", "/image/CQ_Q_animal/5.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

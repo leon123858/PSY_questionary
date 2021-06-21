@@ -62,6 +62,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    preload(["../../image/C/Introduction.jpg", "../../image/C/Orange.png", "../../image/C/Racket.png", "../../image/C/White.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

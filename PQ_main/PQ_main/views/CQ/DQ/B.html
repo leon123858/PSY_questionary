@@ -61,6 +61,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    preload(["../../image/B/B_Intro.jpg", "../../image/B/B_Stop.png", "../../image/B/L01.png", "../../image/B/L02.png", "../../image/B/L03.png", "../../image/B/R01.png", "../../image/B/R02.png", "../../image/B/R03.png",]);
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

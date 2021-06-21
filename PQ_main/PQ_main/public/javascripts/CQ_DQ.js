@@ -253,3 +253,12 @@ function waitNextLevel(isDisplay) {
 				});
 		  });
 }
+
+const preload = (pathArr) => {
+	let images = new Array();
+
+	for (i = 0; i < pathArr.length; i++) {
+		images[i] = new Image();
+		images[i].src = pathArr[i];
+	}
+};
