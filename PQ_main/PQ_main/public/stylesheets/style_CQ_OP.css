@@ -10,7 +10,9 @@
 	bottom: 100px;
 }
 
-#ansImg {
+.obj {
+	width: 150px;
+	height: 150px;
 }
 
 @keyframes fade {

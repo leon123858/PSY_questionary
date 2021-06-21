@@ -67,7 +67,7 @@ class K {
 			};
 			const color = isOrange ? 'orange' : 'white';
 			const { x, y } = getPlace();
-			return `<img src='${path}table.jpg' class="table"><img src='${path}${color}.jpg' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
+			return `<img src='${path}table.jpg' class="table"><img src='${path}${color}.png' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
 		};
 		let timeline = [];
 		questions.map((value, index) => {

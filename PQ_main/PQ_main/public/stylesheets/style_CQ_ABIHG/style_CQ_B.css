@@ -15,6 +15,16 @@
 	animation-timing-function: ease;
 }
 
+.obj {
+	width: 100px;
+	height: 50px;
+}
+
+.stop {
+	width: 100px;
+	height: 100px;
+}
+
 @keyframes right-move {
 	0% {
 		right: 300px;

@@ -100,7 +100,7 @@ class G {
 					this._tmpGoalBaby.push(goalBaby);
 					timeline.push({
 						type: 'html-button-response',
-						stimulus: `<img src="${imgPath}${goalBaby}.jpg">`,
+						stimulus: `<img class="obj" src="${imgPath}${goalBaby}.png">`,
 						prompt: '點擊滑鼠左鍵開始',
 						choices: ['success'],
 					});
@@ -130,7 +130,7 @@ class G {
 			let imgList = [];
 			for (let i = 0; i < level + 5; i++) {
 				const name = i < 3 ? goalBaby : generateRandomInt(1, 9, goalBaby);
-				const src = `${imgPath}${name}.jpg`;
+				const src = `${imgPath}${name}.png`;
 				const angle = generateRandomInt(0, 355) / 57.29;
 				const xPlus = this._speed * Math.cos(angle);
 				const yPlus = this._speed * Math.sin(angle);
@@ -235,7 +235,7 @@ class G {
 				return;
 			const canvas = document.getElementById('canvas');
 			this._gameStatus = this._gameStatusType.MOVE;
-			showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
+			showBalls(this._imgList, canvas, this._imgPath + 'ball.png');
 			timer = setInterval(() => {
 				this._imgList.map((value, index) => {
 					this._imgList[index].x += value.Vx;
@@ -254,7 +254,7 @@ class G {
 						this._imgList[index].Vy *= -1;
 					}
 				});
-				showBalls(this._imgList, canvas, this._imgPath + 'ball.jpg');
+				showBalls(this._imgList, canvas, this._imgPath + 'ball.png');
 			}, 15);
 			setTimeout(() => {
 				this._gameClickCount = 3;

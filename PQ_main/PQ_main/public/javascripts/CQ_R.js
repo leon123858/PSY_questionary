@@ -50,7 +50,7 @@ class R {
 				for (let j = 0; j < height; j++) {
 					tds += `<td><img id="${trail}_${
 						i * height + j
-					}" src="${imgPath}Back.jpg"></img></td>`;
+					}" src="${imgPath}Back.png"></img></td>`;
 				}
 				eachTr.push(`<tr>${tds}</tr>`);
 			}
@@ -230,7 +230,7 @@ class R {
 					img.id == trail + '_' + cards.arr[0] ||
 					img.id == trail + '_' + cards.arr[1]
 				) {
-					imgs[index].src = this._imgPath + 'Back.jpg';
+					imgs[index].src = this._imgPath + 'Back.png';
 				}
 			});
 		};
@@ -274,14 +274,14 @@ class R {
 					const img = document.getElementById(targetId);
 					img.src = `${this._imgPath}${
 						this._cardLists[tmpTrail][parseInt(splitId[1])]
-					}.jpg`;
+					}.png`;
 				} else if (openCard.length == 1) {
 					const pushSuccess = openCard.push(parseInt(splitId[1]));
 					if (!pushSuccess) return;
 					const img = document.getElementById(targetId);
 					img.src = `${this._imgPath}${
 						this._cardLists[tmpTrail][parseInt(splitId[1])]
-					}.jpg`;
+					}.png`;
 					setTimeout(() => {
 						openCard.isSame(this._cardLists[tmpTrail]) == true
 							? deleteCards(openCard, tmpTrail)

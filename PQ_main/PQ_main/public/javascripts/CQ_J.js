@@ -73,7 +73,7 @@ class J {
 			};
 			const color = colorList.shift();
 			const { x, y } = getPlace(isLeft);
-			return `<img src='${path}table.jpg' class="table"><img src='${path}${color}.jpg' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
+			return `<img src='${path}table.jpg' class="table"><img src='${path}${color}.png' style='margin-left:${x}px;margin-top:${y}px;'  class="ball">`;
 		};
 		let timeline = [];
 		let colorList = generateColorList();

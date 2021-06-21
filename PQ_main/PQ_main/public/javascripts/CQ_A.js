@@ -90,9 +90,9 @@ class A {
 		const fruit = () => {
 			return {
 				type: 'html-keyboard-response',
-				stimulus: `<img src="${imgPath}${Math.ceil(
+				stimulus: `<img class="obj" src="${imgPath}${Math.ceil(
 					Math.random() * 7
-				)}.jpg" ${randomPlaceCSS()}>`,
+				)}.png" ${randomPlaceCSS()}>`,
 				choices: ['j'],
 				trial_duration: duration(stage),
 			};
@@ -100,7 +100,7 @@ class A {
 		const bomb = () => {
 			return {
 				type: 'html-keyboard-response',
-				stimulus: `<img src="${imgPath}A_Bomb.jpg" ${randomPlaceCSS()}>`,
+				stimulus: `<img class="obj" src="${imgPath}A_Bomb.png" ${randomPlaceCSS()}>`,
 				choices: ['j'],
 				trial_duration: duration(stage),
 			};

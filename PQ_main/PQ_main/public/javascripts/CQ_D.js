@@ -83,7 +83,7 @@ class D {
 				case TYPE.RIGHT_ARROW:
 					timeline.push({
 						type: 'html-keyboard-response',
-						stimulus: '<img id="right" src="/image/D/Arrow.jpg"' + '>',
+						stimulus: '<img id="right" src="/image/D/Arrow.png"' + '>',
 						choices: ['j', 'f'],
 						response_ends_trial: false,
 						trial_duration: 500,
@@ -94,7 +94,7 @@ class D {
 				case TYPE.LEFT_ARROW:
 					timeline.push({
 						type: 'html-keyboard-response',
-						stimulus: '<img id="left" src="/image/D/Arrow_left.jpg"' + '>',
+						stimulus: '<img id="left" src="/image/D/Arrow_left.png"' + '>',
 						choices: ['j', 'f'],
 						response_ends_trial: false,
 						trial_duration: 500,
@@ -105,7 +105,7 @@ class D {
 				case TYPE.RIGHT_ARROW_WITH_CIRCLE:
 					timeline.push({
 						type: 'html-keyboard-response',
-						stimulus: '<img id="right-border" src="/image/D/Arrow.jpg"' + '>',
+						stimulus: '<img id="right-border" src="/image/D/Arrow.png"' + '>',
 						choices: ['j', 'f'],
 						response_ends_trial: false,
 						trial_duration: 500,
@@ -115,7 +115,7 @@ class D {
 				case TYPE.LEFT_ARROW_WITH_CIRCLE:
 					timeline.push({
 						type: 'html-keyboard-response',
-						stimulus: '<img id="left-border" src="/image/D/Arrow.jpg"' + '>',
+						stimulus: '<img id="left-border" src="/image/D/Arrow.png"' + '>',
 						choices: ['j', 'f'],
 						response_ends_trial: false,
 						trial_duration: 500,

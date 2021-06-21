@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./jquery.js"></script>
+  <title>changeFileMachine</title>
+</head>
+
+<body>
+  <h1>檔名相同但檔案交換器</h1>
+  <p>you can choose source file(s) and target file(s), they will change the include of file, but do not change file name
+  </p>
+  <button id="source">source
+    file(s)</button><button id="target">target
+    file(s)</button><button id="exe">執行</button>
+  <br><br><br>
+
+  <input id="files-source" multiple type="file" name="name" />
+  <input id="files-target" multiple type="file" name="name" />
+  <!-- You can also require other files to run in this process -->
+  <script src="./renderer.js"></script>
+</body>
+
+</html>

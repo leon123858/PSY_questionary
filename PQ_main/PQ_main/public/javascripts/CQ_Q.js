@@ -121,7 +121,7 @@ class Q {
 					animalList.push({
 						row: shouldSame.row,
 						col: shouldSame.col,
-						path: `/image/CQ_Q_animal/${animal}.jpg`,
+						path: `/image/CQ_Q_animal/${animal}.png`,
 					});
 					timeline.push({
 						type: 'html-keyboard-response',
@@ -135,7 +135,7 @@ class Q {
 						animalList.push({
 							row: generateRandomInt(0, tableLength - 1),
 							col: generateRandomInt(0, tableLength - 1),
-							path: `/image/CQ_Q_animal/${animal}.jpg`,
+							path: `/image/CQ_Q_animal/${animal}.png`,
 						});
 					} else {
 						const shouldNotSame = animalList[animalList.length - level];
@@ -148,7 +148,7 @@ class Q {
 							animalList.push({
 								row: newRow,
 								col: newCol,
-								path: `/image/CQ_Q_animal/${animal}.jpg`,
+								path: `/image/CQ_Q_animal/${animal}.png`,
 							});
 							break;
 						}

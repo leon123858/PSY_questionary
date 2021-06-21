@@ -70,7 +70,7 @@ class B {
 				let car = {
 					type: 'html-keyboard-response',
 					stimulus:
-						`<img class="right-car" src="/image/B/R0${randomPicNumber}.jpg"` +
+						`<img class="right-car obj" src="/image/B/R0${randomPicNumber}.png"` +
 						randomPlaceCSS(
 							this._randomPlaceCSSParameter.BASIS,
 							this._randomPlaceCSSParameter.MIN,
@@ -87,7 +87,7 @@ class B {
 				let car = {
 					type: 'html-keyboard-response',
 					stimulus:
-						`<img class="left-car" src="/image/B/L0${randomPicNumber}.jpg"` +
+						`<img class="left-car obj" src="/image/B/L0${randomPicNumber}.png"` +
 						randomPlaceCSS(
 							this._randomPlaceCSSParameter.BASIS,
 							this._randomPlaceCSSParameter.MIN,
@@ -103,7 +103,7 @@ class B {
 				let stop = {
 					type: 'html-keyboard-response',
 					stimulus:
-						'<img src="/image/B/B_Stop.jpg"' +
+						'<img class="stop" src="/image/B/B_Stop.png"' +
 						randomPlaceCSS(
 							this._randomPlaceCSSParameter.BASIS,
 							this._randomPlaceCSSParameter.MIN,

@@ -185,7 +185,9 @@ class E {
 			return {
 				type: 'html-keyboard-response',
 				stimulus:
-					`<img id="dog" src="/image/E/d0${randomPic()}.jpg"` + cssStr + '>',
+					`<img id="dog" class="obj" src="/image/E/d0${randomPic()}.png"` +
+					cssStr +
+					'>',
 				choices: ['j', 'f'],
 				trial_duration: 500,
 			};
@@ -195,7 +197,9 @@ class E {
 			return {
 				type: 'html-keyboard-response',
 				stimulus:
-					`<img id="cat" src="/image/E/c0${randomPic()}.jpg"` + cssStr + '>',
+					`<img id="cat" class="obj" src="/image/E/c0${randomPic()}.png"` +
+					cssStr +
+					'>',
 				choices: ['j', 'f'],
 				trial_duration: 500,
 			};

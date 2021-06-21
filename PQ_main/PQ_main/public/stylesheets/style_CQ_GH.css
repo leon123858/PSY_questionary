@@ -9,6 +9,11 @@
 	height: 50px;
 }
 
+.obj {
+	width: 300px;
+	height: 300px;
+}
+
 #canvas {
 	background-color: gray;
 	width: 1000px;

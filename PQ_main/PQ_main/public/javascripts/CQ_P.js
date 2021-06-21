@@ -65,13 +65,13 @@ class P {
 						trial_duration: 1000,
 					});
 					break;
-				//'/image/CQ_P_picture/1.jpg', <= real environment
+				//'/image/CQ_P_picture/1.png', <= real environment
 				case TYPE.IMAGE:
 					const randomInt = generateRandomInt(1, 9);
 					this._tmpImgList.push(randomInt);
 					timeline.push({
 						type: 'image-keyboard-response',
-						stimulus: `/image/CQ_P_picture/${randomInt}.jpg`,
+						stimulus: `/image/CQ_P_picture/${randomInt}.png`,
 						choices: jsPsych.NO_KEYS,
 						stimulus_width: 100,
 						maintain_aspect_ratio: true,
@@ -208,7 +208,7 @@ class P {
 				if (value[i] == '_') {
 					input.value += key[0];
 					$('#userInput').before(
-						`<img id="ansImg" src="/image/CQ_P_picture/${key[0]}.jpg">`
+						`<img class="obj" id="ansImg" src="/image/CQ_P_picture/${key[0]}.png">`
 					);
 					return value.slice(i + 1, value.length);
 				}
