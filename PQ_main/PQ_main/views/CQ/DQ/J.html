@@ -60,6 +60,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    preload(["/image/L/Introduction.jpg", "/image/L/orange.png", "/image/L/table.jpg", "/image/L/white.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 
