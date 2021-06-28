@@ -39,10 +39,22 @@
         </form>
         <br>
         <form action='/exe/ButtonBoard.exe'>
-            <input class="btn btn-success" style="font-size:180%" type="submit" id="downloadbtn" value="下載exe檔">
-        </form> 
+            <input class="btn btn-success" style="font-size:180%" type="button" id="downloadbtn" value="掛載外接按鈕">
+            <input style="display: none;" type="submit" value="">
+        </form>
         <br>
     </div>
 </body>
+<script>
+    $(document).ready(() => {
+        $("#downloadbtn").click(function () {
+            const result = confirm("使用步驟:\n1.請同意下載\n2.請插上外接按鈕保持連接狀態\n3.插上外接按鈕後運行該執行檔\n注意:若是連接有誤程式會自行關閉\n注意:進行測驗時請保持該程式為開啟狀態")
+
+            if (result)
+                $(this).parent("form").submit();
+
+        });
+    });
+</script>
 
 </html>
