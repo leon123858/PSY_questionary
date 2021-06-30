@@ -11,6 +11,7 @@ namespace windowsKeyboardAPI
 {
     enum KEYS : byte
     {
+        NULL = 0,
         A = 65,
         B = 66,
         C = 67,
@@ -38,48 +39,10 @@ namespace windowsKeyboardAPI
         Y = 89,
         Z = 90,
     }
-    class keyboard
+    class Keyboard
     {
         [DllImport("user32.dll")]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-        /*
-        48	0 key
-        49	1 key
-        50	2 key
-        51	3 key
-        52	4 key
-        53	5 key
-        54	6 key
-        55	7 key
-        56	8 key
-        57	9 key
-        65	A key
-        66	B key
-        67	C key
-        68	D key
-        69	E key
-        70	F key
-        71	G key
-        72	H key
-        73	I key
-        74	J key
-        75	K key
-        76	L key
-        77	M key
-        78	N key
-        79	O key
-        80	P key
-        81	Q key
-        82	R key
-        83	S key
-        84	T key
-        85	U key
-        86	V key
-        87	W key
-        88	X key
-        89	Y key
-        90	Z key
-        */
         public static void press(byte keycode)
         {
             /*********
@@ -88,60 +51,96 @@ namespace windowsKeyboardAPI
             keybd_event(keycode, 0, 0, 0);
         }
     }
+    /*
+     *nowMode(Dict):預設為MODE_FJ
+     *ChangeMode(Func(string)=>(Dict)):更換Dict
+     */
     class Program
     {
+
+
+        public static readonly Dictionary<int, KEYS> MODE_WASD = new Dictionary<int, KEYS>
+                {
+                    { 1, KEYS.W},
+                    { 2, KEYS.A },
+                    { 3, KEYS.S},
+                    { 4, KEYS.D },
+                    { 5, KEYS.NULL},
+                };
+        public static readonly Dictionary<int, KEYS> MODE_FJ = new Dictionary<int, KEYS>
+                {
+                    { 1, KEYS.F},
+                    { 2, KEYS.J },
+                    { 3, KEYS.NULL},
+                    { 4, KEYS.NULL },
+                    { 5, KEYS.NULL},
+                };
+        public static Dictionary<int, KEYS> nowMode = MODE_FJ;
         static void Main(string[] args)
         {
-            var BtnKey = new Dictionary<int, KEYS>
-        {
-            { 1, KEYS.J},
-            { 2, KEYS.F },
-            { 3, KEYS.D},
-            { 4, KEYS.K },
-            { 5, KEYS.S },
-        };
-            //串口通訊setting
-            string[] ports = SerialPort.GetPortNames();
-            SerialPort arduino_port = new SerialPort();
-            arduino_port.BaudRate = 9600; //需跟arduno設定的一樣
 
-            //在Yun這塊板子中，一定要加上這行來啟用DTR訊號；其他板子不一定需要。 
-            // detect the arduino_port
-
-            // Display each port name to the console.
-            if (ports.Length == 0)
+            bool findArduino = false;
+            SerialPort arduino_port = new SerialPort
             {
-                Console.WriteLine("No Serial Port Found!!");
-                Thread.Sleep(3000);
-                return;
-            }
-            foreach (string port in ports)
+                BaudRate = 9600, //需跟arduno設定的一樣
+                DtrEnable = true
+            };
+            //找尋所有serial port
+            using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
             {
-                Console.WriteLine("The following serial port was found: {0}", port);
-                arduino_port.PortName = port; //指定PortName  
-                break;
+                //使用ManagementObjectSearcher來查詢註冊表中的裝置名稱 並轉為list
+                var uu = searcher.Get().Cast<ManagementBaseObject>().ToList();
+                string[] PortsName = new string[uu.Count];
+                //取得裝置名稱與連接埠，只挑選arduino_uno
+                for (int i = 0; i < uu.Count; i++)
+                {
+                    if ((uu[i]["Caption"] as string).Contains("Arduino Uno"))
+                    {
+                        findArduino = true;
+                        arduino_port.PortName = uu[i]["DeviceID"] as string;
+                        PortsName[i] = uu[i]["DeviceID"] as string + "-" + uu[i]["Caption"] as string;
+                        Console.WriteLine("Now Connected: {0}\n", PortsName[i]);
+                    }
+                }
+                //未找到arduino 連接 
+                if (!findArduino)
+                {
+                    Console.WriteLine("Arduino Connected Device not Found");
+                    Thread.Sleep(5000);
+                    return;
+                }
+                else
+                {
+                    arduino_port.Open();
+                }
             }
-            arduino_port.Open();
-            arduino_port.DtrEnable = true;
-            Console.WriteLine("\nBUTTON 1: {0}\nBUTTON 2: {1}\nBUTTON 3: {2}\nBUTTON 4: {3}\nBUTTON 5: {4}\n",
-                BtnKey[1],
-                BtnKey[2],
-                BtnKey[3],
-                BtnKey[4],
-                BtnKey[5]
+            Console.WriteLine("Mode 1 (Default): FJ \n--------------\nBUTTON 1: {0}\nBUTTON 2: {1}\nBUTTON 3: {2}\nBUTTON 4: {3}\nBUTTON 5: {4}\n",
+                MODE_FJ[1],
+                MODE_FJ[2],
+                MODE_FJ[3],
+                MODE_FJ[4],
+                MODE_FJ[5]
+                );
+            Console.WriteLine("Mode 2: WASD\n-------------- \nBUTTON 1: {0}\nBUTTON 2: {1}\nBUTTON 3: {2}\nBUTTON 4: {3}\nBUTTON 5: {4}\n",
+                MODE_WASD[1],
+                MODE_WASD[2],
+                MODE_WASD[3],
+                MODE_WASD[4],
+                MODE_WASD[5]
                 );
             //開始讀值
             while (true)
             {
+
                 //讀取port傳入, 假設輸入為字串內容為按鈕的ASC2
                 string data = arduino_port.ReadLine();
                 int number = Int32.Parse(data);
-                Console.WriteLine("Press: {0}",number);
-              //把輸入做轉換,觸發鍵盤事件
-              keyboard.press((byte)BtnKey[number]);
+                Console.WriteLine("\nPress: {0} => {1}", number,nowMode[number]);
+                //把輸入做轉換,觸發鍵盤事件
+                Keyboard.press((byte)nowMode[number]);
                 //Thread.Sleep(1000);
             }
         }
     }
-
 }
+
