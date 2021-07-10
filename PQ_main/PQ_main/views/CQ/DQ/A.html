@@ -61,6 +61,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    $.get("http://127.0.0.1:1688/FJ", function (result) { console.log(result); });
     preload(["../../image/A/1.png", "../../image/A/2.png", "../../image/A/3.png", "../../image/A/4.png", "../../image/A/5.png", "../../image/A/6.png", "../../image/A/7.png", "../../image/A/A_Bomb.png", "../../image/A/A_Intro.jpg",]);
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
