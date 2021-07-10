@@ -59,6 +59,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    $.get("http://127.0.0.1:1688/WASD", function (result) { console.log(result); });
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 
