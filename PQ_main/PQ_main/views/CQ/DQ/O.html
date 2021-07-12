@@ -19,6 +19,7 @@
   <script src="/javascripts/CQ_O.js"></script>
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>O:順向圖像記憶</title>
 </head>
 
@@ -60,6 +61,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     preload(["/image/CQ_O_picture/1.png", "/image/CQ_O_picture/2.png", "/image/CQ_O_picture/3.png", "/image/CQ_O_picture/4.png", "/image/CQ_O_picture/5.png", "/image/CQ_O_picture/6.png", "/image/CQ_O_picture/7.png", "/image/CQ_O_picture/8.png", "/image/CQ_O_picture/9.png", "/image/CQ_O_picture/list.jpg",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });

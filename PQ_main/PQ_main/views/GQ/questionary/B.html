@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/arduino.js"></script>
     <title>B:停止訊號作業</title>
 </head>
 
@@ -70,14 +71,15 @@
                 backdrop: 'static',
                 keyboard: false
             });
+            setArduinoMode("FJ");
             if (localStorage.getItem("one") != null) {
                 $.post("/GQ/SQ/saveData", {
-                        ID: "<%=ID%>",
-                        password: "<%=password%>",
-                        one: localStorage.getItem("one"),
-                        group: localStorage.getItem("group"),
-                        type: 'B',
-                    },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: localStorage.getItem("one"),
+                    group: localStorage.getItem("group"),
+                    type: 'B',
+                },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
@@ -95,11 +97,11 @@
             }
             if (localStorage.getItem("pr") != null) {
                 $.post("/GQ/PR/savePR", {
-                        ID: "<%=ID%>",
-                        password: "<%=password%>",
-                        data: localStorage.getItem("pr"),
-                        type: 'B',
-                    },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    data: localStorage.getItem("pr"),
+                    type: 'B',
+                },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
@@ -140,9 +142,9 @@
 
             if (playPromise !== undefined) { //chorme restrict
                 playPromise.then(_ => {
-                        video.pause();
-                        video.play();
-                    })
+                    video.pause();
+                    video.play();
+                })
                     .catch(error => {
 
                     });
@@ -168,12 +170,12 @@
                 // console.log(game.one);
                 // console.log(game.group);
                 $.post("/GQ/SQ/saveData", {
-                        ID: "<%=ID%>",
-                        password: "<%=password%>",
-                        one: game.one,
-                        group: game.group,
-                        type: 'B',
-                    },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: game.one,
+                    group: game.group,
+                    type: 'B',
+                },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
@@ -191,11 +193,11 @@
                 );
                 //save pr
                 $.post("/GQ/PR/savePR", {
-                        ID: "<%=ID%>",
-                        password: "<%=password%>",
-                        data: game.pr,
-                        type: 'B',
-                    },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    data: game.pr,
+                    type: 'B',
+                },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {

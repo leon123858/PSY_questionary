@@ -17,6 +17,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_K.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>K:桌球顏色反應訓練</title>
 </head>
 
@@ -60,6 +61,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     preload(["/image/L/Introduction.jpg", "/image/L/orange.png", "/image/L/table.jpg", "/image/L/white.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });

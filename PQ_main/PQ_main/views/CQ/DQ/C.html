@@ -18,6 +18,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_C.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>C:打桌球作業</title>
 </head>
 
@@ -62,6 +63,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     preload(["../../image/C/Introduction.jpg", "../../image/C/Orange.png", "../../image/C/Racket.png", "../../image/C/White.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });

@@ -9,6 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>C:點協調作業</title>
 </head>
 
@@ -50,10 +51,10 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen " >+</ten>
-   <!-- result label -->
-   <label id="result_label" class="center-screen " style="font-size: 25px; color:white; font-weight:bold"
-   style="display: none;"></label>
+  <ten id="cross" class="center-screen ">+</ten>
+  <!-- result label -->
+  <label id="result_label" class="center-screen " style="font-size: 25px; color:white; font-weight:bold"
+    style="display: none;"></label>
   <!-- controller -->
   <div style="display: none;">
     <button name="ballrun" onclick="runball()">runball</button>
@@ -80,7 +81,7 @@
   var ox = $(window).width() / 2;
   var oy = $(window).height() / 2;
   console.log($(window).height());
-  var oo = $(window).height()-100;
+  var oo = $(window).height() - 100;
   var r = oo / 2;
   var movement = 80;
   var apawn_div = document.querySelector('#spawn');
@@ -101,13 +102,13 @@
       var cBall;
       cBall = document.createElement('ball');
       cBall.className = 'ball-10';
-      
+
       cBall.style.backgroundColor = "rgb(0,0,100)";
       cBall.setAttribute("direction", 'random');
       obj.appendChild(cBall);
     };
-    ball_width=parseInt($('ball').width()); 
-    movement = ball_width*8;  //movement follow the ball speed
+    ball_width = parseInt($('ball').width());
+    movement = ball_width * 8;  //movement follow the ball speed
     // console.log(ball_width);
     // console.log(movement);
   };
@@ -175,14 +176,15 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("WASD");
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: localStorage.getItem("one"),
-          group: localStorage.getItem("group"),
-          type: 'C',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: 'C',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -200,11 +202,11 @@
     }
     if (localStorage.getItem("pr") != null) {
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: localStorage.getItem("pr"),
-          type: 'C',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: localStorage.getItem("pr"),
+        type: 'C',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -249,12 +251,12 @@
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: game.one,
-          group: game.group,
-          type: 'C',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: game.one,
+        group: game.group,
+        type: 'C',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -272,11 +274,11 @@
       );
       //save pr
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: game.pr,
-          type: 'C',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: game.pr,
+        type: 'C',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {

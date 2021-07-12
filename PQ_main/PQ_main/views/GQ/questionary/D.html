@@ -11,10 +11,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>D:運動抑制作業</title>
 </head>
 <style>
-
   .small_garbor {
     top: 0;
     left: 0;
@@ -44,47 +44,49 @@
     color: black;
     z-index: 1;
   }
-  
+
 
   @media(min-device-width: 1250px) {
     @keyframes MOVE-Right {
-    from {
-      transform: translateX(0);
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(70px);
+      }
     }
 
-    to {
-      transform: translateX(70px);
-    }
-  }
-  @keyframes MOVE-Left {
-    from {
-      transform: translateX(0);
-    }
+    @keyframes MOVE-Left {
+      from {
+        transform: translateX(0);
+      }
 
-    to {
-      transform: translateX(-70px);
+      to {
+        transform: translateX(-70px);
+      }
     }
-  }
 
     .strip {
-    position: fixed;
-    left: -50px;
-    right: -50px;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    filter: blur(5px);
-    background: repeating-linear-gradient(to left,
-        #ffffff 0px 10px,
-        #000000 15px 28px,
-        #ffffff 30px 35px);
-    animation-name: var(--move-direction);
-    animation-duration: 0.6s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
+      position: fixed;
+      left: -50px;
+      right: -50px;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      filter: blur(5px);
+      background: repeating-linear-gradient(to left,
+          #ffffff 0px 10px,
+          #000000 15px 28px,
+          #ffffff 30px 35px);
+      animation-name: var(--move-direction);
+      animation-duration: 0.6s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
     /* small */
     .small_garbor::after {
       position: absolute;
@@ -134,42 +136,45 @@
 
   @media(min-device-width: 1900px) {
     @keyframes MOVE-Right {
-    from {
-      transform: translateX(0);
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(60px);
+      }
     }
 
-    to {
-      transform: translateX(60px);
-    }
-  }
-  @keyframes MOVE-Left {
-    from {
-      transform: translateX(0);
+    @keyframes MOVE-Left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-60px);
+      }
     }
 
-    to {
-      transform: translateX(-60px);
-    }
-  }
     .strip {
-    position: fixed;
-    left: -50px;
-    right: -50px;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    height: 100%;
-    width: 100%;
-    filter: blur(5px);
-    background: repeating-linear-gradient(to left,
-        #ffffff 0px 15px,
-        #000000 30px 45px,
-        #ffffff 57px 60px);
-    animation-name: var(--move-direction);
-    animation-duration: 0.3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
+      position: fixed;
+      left: -50px;
+      right: -50px;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      filter: blur(5px);
+      background: repeating-linear-gradient(to left,
+          #ffffff 0px 15px,
+          #000000 30px 45px,
+          #ffffff 57px 60px);
+      animation-name: var(--move-direction);
+      animation-duration: 0.3s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
     /* small */
     .small_garbor::after {
       position: absolute;
@@ -216,15 +221,6 @@
         0 0 2px 200px rgba(128, 128, 128, 0.95) inset;
     }
   }
-
-
-
-
-
-
-
-
- 
 </style>
 
 <body>
@@ -266,9 +262,9 @@
   </div>
   <!-- cross -->
   <ten id="cross" class="center-screen ">+</ten>
- <!-- result label -->
- <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
- style="display: none;"></label>
+  <!-- result label -->
+  <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+    style="display: none;"></label>
   <div id="garbordiv" class="  " style="display: none; ">
     <div class="strip "> </div>
   </div>
@@ -303,15 +299,15 @@
     // })
     // game = new D([3, 120]);
     //   game.process();
-
+    setArduinoMode("FJ");
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: localStorage.getItem("one"),
-          group: localStorage.getItem("group"),
-          type: 'D',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: 'D',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -329,11 +325,11 @@
     }
     if (localStorage.getItem("pr") != null) {
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: localStorage.getItem("pr"),
-          type: 'D',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: localStorage.getItem("pr"),
+        type: 'D',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -378,12 +374,12 @@
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: game.one,
-          group: game.group,
-          type: 'D',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: game.one,
+        group: game.group,
+        type: 'D',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -401,11 +397,11 @@
       );
       //save pr
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: game.pr,
-          type: 'D',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: game.pr,
+        type: 'D',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {

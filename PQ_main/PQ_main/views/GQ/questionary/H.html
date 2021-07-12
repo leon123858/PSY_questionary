@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/arduino.js"></script>
     <title>H:反應時間作業</title>
 </head>
 <style>
@@ -72,10 +73,10 @@
     </div>
 
     <!-- cross -->
-    <ten id="cross" class="center-screen " >+</ten>
-     <!-- result label -->
-     <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-     style="display: none;"></label>
+    <ten id="cross" class="center-screen ">+</ten>
+    <!-- result label -->
+    <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+        style="display: none;"></label>
     <!-- finish btn for game -->
     <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
@@ -111,16 +112,17 @@
             backdrop: 'static',
             keyboard: false
         });
+        setArduinoMode("FJ");
         window.resizeTo(1024, 768); //only work on pop up event
         console.log(window.screen.width);
         if (localStorage.getItem("one") != null) {
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: localStorage.getItem("one"),
-                    group: localStorage.getItem("group"),
-                    type: 'H',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: localStorage.getItem("one"),
+                group: localStorage.getItem("group"),
+                type: 'H',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -167,12 +169,12 @@
             localStorage.setItem("one", game.one);
             localStorage.setItem("group", game.group);
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: game.one,
-                    group: game.group,
-                    type: 'H',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: game.one,
+                group: game.group,
+                type: 'H',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {

@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/arduino.js"></script>
     <title>E:注意力網路作業</title>
 </head>
 <style>
@@ -98,10 +99,10 @@
         </div>
     </div> -->
     <!-- cross -->
-    <ten id="cross" class="center-screen " >+</ten>
-     <!-- result label -->
-     <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-     style="display: none;"></label>
+    <ten id="cross" class="center-screen ">+</ten>
+    <!-- result label -->
+    <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+        style="display: none;"></label>
     <!-- arrow place   dont change sequence -->
     <div id="arrow_place">
         <div name="congruent" tag="right" style="display: none;">
@@ -144,7 +145,7 @@
     <!-- clue place  dont change sequence-->
     <div id="clue_place">
         <div name="No-cue" style="display: none;">
-            <ten id="cross" class="center-screen " >+</ten>
+            <ten id="cross" class="center-screen ">+</ten>
         </div>
         <div name="Center-cue" style="display: none;">
             <label class=" center-screen" style="font-weight: bold;">*</label>
@@ -153,7 +154,7 @@
             <div side="upper">
                 <label style="font-weight: bold;">*</label>
             </div>
-            <div side="downer">        
+            <div side="downer">
                 <label style="font-weight: bold;">*</label>
             </div>
         </div>
@@ -191,14 +192,15 @@
             backdrop: 'static',
             keyboard: false
         });
+        setArduinoMode("FJ");
         if (localStorage.getItem("one") != null) { //check if have local storage
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: localStorage.getItem("one"),
-                    group: localStorage.getItem("group"),
-                    type: 'E',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: localStorage.getItem("one"),
+                group: localStorage.getItem("group"),
+                type: 'E',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -216,11 +218,11 @@
         }
         if (localStorage.getItem("pr") != null) {
             $.post("/GQ/PR/savePR", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    data: localStorage.getItem("pr"),
-                    type: 'E',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                data: localStorage.getItem("pr"),
+                type: 'E',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -264,12 +266,12 @@
             localStorage.setItem("one", game.one);
             localStorage.setItem("group", game.group);
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: game.one,
-                    group: game.group,
-                    type: 'E',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: game.one,
+                group: game.group,
+                type: 'E',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -287,11 +289,11 @@
             );
             //save pr
             $.post("/GQ/PR/savePR", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    data: game.pr,
-                    type: 'E',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                data: game.pr,
+                type: 'E',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
