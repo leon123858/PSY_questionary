@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonBoard", "ButtonBoard\ButtonBoard.csproj", "{E862FDC9-0C42-4668-B804-7C58417E4C2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E862FDC9-0C42-4668-B804-7C58417E4C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E862FDC9-0C42-4668-B804-7C58417E4C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E862FDC9-0C42-4668-B804-7C58417E4C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E862FDC9-0C42-4668-B804-7C58417E4C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9BD7571-6671-4395-968B-844F06D8F57A}
+	EndGlobalSection
+EndGlobal
