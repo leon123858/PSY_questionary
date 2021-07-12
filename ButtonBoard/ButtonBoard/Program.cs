@@ -95,19 +95,21 @@ namespace webServer
                 DtrEnable = true
             };
             //找尋所有serial port
-            using var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort");
-            //使用ManagementObjectSearcher來查詢註冊表中的裝置名稱 並轉為list
-            var ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
-            string[] PortsName = new string[ports.Count];
-            //取得裝置名稱與連接埠，只挑選arduino_uno
-            for (int i = 0; i < ports.Count; i++)
+            using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
             {
-                if ((ports[i]["Caption"] as string).Contains("Arduino Uno"))
+                //使用ManagementObjectSearcher來查詢註冊表中的裝置名稱 並轉為list
+                var ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
+                string[] PortsName = new string[ports.Count];
+                //取得裝置名稱與連接埠，只挑選arduino_uno
+                for (int i = 0; i < ports.Count; i++)
                 {
-                    findArduino = true;
-                    arduino_port.PortName = ports[i]["DeviceID"] as string;
-                    PortsName[i] = ports[i]["DeviceID"] as string + "-" + ports[i]["Caption"] as string;
-                    Console.WriteLine("Now Connected: {0}\n", PortsName[i]);
+                    if ((ports[i]["Caption"] as string).Contains("Arduino Uno"))
+                    {
+                        findArduino = true;
+                        arduino_port.PortName = ports[i]["DeviceID"] as string;
+                        PortsName[i] = ports[i]["DeviceID"] as string + "-" + ports[i]["Caption"] as string;
+                        Console.WriteLine("Now Connected: {0}\n", PortsName[i]);
+                    }
                 }
             }
             //未找到arduino 連接 
@@ -256,6 +258,7 @@ namespace webServer
                 {
                     response = ArduinoWork.SetMode(req.Url);
                     Console.WriteLine(req.Url);
+
 
                 }
                 return
