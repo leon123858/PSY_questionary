@@ -18,6 +18,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_D.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>D:箭頭停止訊號</title>
 </head>
 
@@ -61,6 +62,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

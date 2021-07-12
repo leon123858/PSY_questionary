@@ -18,6 +18,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_T.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>T:點協調訓練</title>
 </head>
 
@@ -59,7 +60,7 @@
       backdrop: 'static',
       keyboard: false
     });
-    $.get("http://127.0.0.1:1688/WASD", function (result) { console.log(result); });
+    setArduinoMode("WASD");
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

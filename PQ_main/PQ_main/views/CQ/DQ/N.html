@@ -18,6 +18,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_N.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>N:運算記憶訓練</title>
 </head>
 
@@ -59,6 +60,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });
 

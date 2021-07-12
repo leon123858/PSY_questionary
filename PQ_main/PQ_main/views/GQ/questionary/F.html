@@ -11,38 +11,46 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>F:眼神線索典範</title>
 </head>
 <style>
-    @media(min-device-width: 1250px) {
+  @media(min-device-width: 1250px) {
     #image {
       width: 300px;
       height: 300px;
     }
+
     rect {
       width: 20px;
       height: 20px;
     }
-    rect[name="left"]{
+
+    rect[name="left"] {
       margin-left: -200px;
     }
-    rect[name="right"]{
+
+    rect[name="right"] {
       margin-left: 200px;
     }
   }
+
   @media(min-device-width: 1900px) {
     #image {
       width: 400px;
       height: 400px;
     }
+
     rect {
       width: 30px;
       height: 30px;
     }
-    rect[name="left"]{
+
+    rect[name="left"] {
       margin-left: -300px;
     }
-    rect[name="right"]{
+
+    rect[name="right"] {
       margin-left: 300px;
     }
   }
@@ -72,19 +80,17 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen " >+</ten>
-   <!-- result label -->
-   <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-   style="display: none;"></label>
+  <ten id="cross" class="center-screen ">+</ten>
+  <!-- result label -->
+  <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+    style="display: none;"></label>
   <!-- pic -->
   <img id="image" src="/image/eye.jpg" class=" center-screen" alt="look" style="display: none;" />
   <!-- rect div  child no change-->
   <div id="rect_div">
-    <rect name="left" class="center-screen"
-      style="margin-top: -40px;background-color: black;display: none;">
+    <rect name="left" class="center-screen" style="margin-top: -40px;background-color: black;display: none;">
     </rect>
-    <rect name="right" class=" center-screen"
-      style=" margin-top: -40px;  background-color: black;display: none;">
+    <rect name="right" class=" center-screen" style=" margin-top: -40px;  background-color: black;display: none;">
     </rect>
   </div>
   <!-- finish btn for game -->
@@ -105,15 +111,15 @@
       backdrop: 'static',
       keyboard: false
     });
-
+    setArduinoMode("FJ");
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: localStorage.getItem("one"),
-          group: localStorage.getItem("group"),
-          type: 'F',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: 'F',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -131,11 +137,11 @@
     }
     if (localStorage.getItem("pr") != null) {
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: localStorage.getItem("pr"),
-          type: 'F',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: localStorage.getItem("pr"),
+        type: 'F',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -179,12 +185,12 @@
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: game.one,
-          group: game.group,
-          type: 'F',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: game.one,
+        group: game.group,
+        type: 'F',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -202,11 +208,11 @@
       );
       //save pr
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: game.pr,
-          type: 'F',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: game.pr,
+        type: 'F',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {

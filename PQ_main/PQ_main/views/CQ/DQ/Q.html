@@ -17,6 +17,7 @@
   <script src="/javascripts/CQ_Q.js"></script>
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>Q:空間記憶訓練</title>
 </head>
 
@@ -70,6 +71,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     preload(["/image/CQ_Q_animal/1.png", "/image/CQ_Q_animal/2.png", "/image/CQ_Q_animal/3.png", "/image/CQ_Q_animal/4.png", "/image/CQ_Q_animal/5.png",])
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });

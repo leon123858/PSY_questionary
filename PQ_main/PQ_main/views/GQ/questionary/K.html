@@ -11,10 +11,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/javascripts/arduino.js"></script>
     <title>K:情緒詞觸發作業</title>
 </head>
 <style>
-     @media(min-device-width: 1250px) {
+    @media(min-device-width: 1250px) {
         label {
             font-size: 45px;
         }
@@ -26,6 +27,7 @@
         }
     }
 </style>
+
 <body>
     <!-- main modal -->
     <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -55,10 +57,10 @@
 
 
     <!-- cross -->
-    <ten id="cross" class="center-screen " >+</ten>
-     <!-- result label -->
-     <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-     style="display: none;"></label>
+    <ten id="cross" class="center-screen ">+</ten>
+    <!-- result label -->
+    <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+        style="display: none;"></label>
     <label id="text_label" style="font-weight: bold; display: none;"></label>
     <!-- finish btn for game -->
     <button id="finish_btn" style="display: none;"></button>
@@ -78,16 +80,17 @@
             backdrop: 'static',
             keyboard: false
         });
+        setArduinoMode("SFJL");
         window.resizeTo(1024, 768); //only work on pop up event
         console.log(window.screen.width);
         if (localStorage.getItem("one") != null) {
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: localStorage.getItem("one"),
-                    group: localStorage.getItem("group"),
-                    type: 'K',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: localStorage.getItem("one"),
+                group: localStorage.getItem("group"),
+                type: 'K',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -105,11 +108,11 @@
         }
         if (localStorage.getItem("pr") != null) {
             $.post("/GQ/PR/savePR", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    data: localStorage.getItem("pr"),
-                    type: 'K',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                data: localStorage.getItem("pr"),
+                type: 'K',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -153,12 +156,12 @@
             // console.log(game.one);
             // console.log(game.group);
             $.post("/GQ/SQ/saveData", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    one: game.one,
-                    group: game.group,
-                    type: 'K',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                one: game.one,
+                group: game.group,
+                type: 'K',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
@@ -176,11 +179,11 @@
             );
             //save pr
             $.post("/GQ/PR/savePR", {
-                    ID: "<%=ID%>",
-                    password: "<%=password%>",
-                    data: game.pr,
-                    type: 'K',
-                },
+                ID: "<%=ID%>",
+                password: "<%=password%>",
+                data: game.pr,
+                type: 'K',
+            },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {

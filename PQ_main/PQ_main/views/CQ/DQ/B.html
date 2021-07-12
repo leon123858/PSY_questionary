@@ -18,6 +18,7 @@
   <script src="/javascripts/chart.js"></script>
   <script src="/javascripts/CQ_B.js"></script>
   <script src="/javascripts/CQ_DQ.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>B:汽車行駛作業</title>
 </head>
 
@@ -61,6 +62,7 @@
       backdrop: 'static',
       keyboard: false
     });
+    setArduinoMode("FJ");
     preload(["../../image/B/B_Intro.jpg", "../../image/B/B_Stop.png", "../../image/B/L01.png", "../../image/B/L02.png", "../../image/B/L03.png", "../../image/B/R01.png", "../../image/B/R02.png", "../../image/B/R03.png",]);
     handler.saveLocalData().then(re => re == "success" ? console.log(re, "saveLocalData") : $("form").submit());
   });

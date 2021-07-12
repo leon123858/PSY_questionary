@@ -11,6 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/javascripts/arduino.js"></script>
   <title>G:多物件追蹤</title>
 </head>
 <style>
@@ -51,10 +52,10 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen " >+</ten>
-   <!-- result label -->
-   <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
-   style="display: none;"></label>
+  <ten id="cross" class="center-screen ">+</ten>
+  <!-- result label -->
+  <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+    style="display: none;"></label>
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <style>
@@ -180,12 +181,12 @@
 
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: localStorage.getItem("one"),
-          group: localStorage.getItem("group"),
-          type: 'G',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: localStorage.getItem("one"),
+        group: localStorage.getItem("group"),
+        type: 'G',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -203,11 +204,11 @@
     }
     if (localStorage.getItem("pr") != null) {
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: localStorage.getItem("pr"),
-          type: 'G',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: localStorage.getItem("pr"),
+        type: 'G',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -251,12 +252,12 @@
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          one: game.one,
-          group: game.group,
-          type: 'G',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        one: game.one,
+        group: game.group,
+        type: 'G',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
@@ -274,11 +275,11 @@
       );
       //save pr
       $.post("/GQ/PR/savePR", {
-          ID: "<%=ID%>",
-          password: "<%=password%>",
-          data: game.pr,
-          type: 'G',
-        },
+        ID: "<%=ID%>",
+        password: "<%=password%>",
+        data: game.pr,
+        type: 'G',
+      },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
