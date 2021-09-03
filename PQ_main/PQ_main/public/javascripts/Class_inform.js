@@ -66,7 +66,6 @@ class A {
         this._question = competitor([Color_Set.green, Color_Set.red], [this.ratio.G, this.ratio.R]); //change the question
     }
     _generateAnswer = (item, range_min, range_max) => {
-
         let interval = range_min;
         let quetion_Result = "";
         let color = getKeyByValue(Color_Set, item.style.backgroundColor.toString());
@@ -1241,7 +1240,7 @@ class I {
                 document.removeEventListener('keydown', key_handler);
                 for (let i = 0; i < length; ++i) { // hide object
                     hide(inputline[i]);
-                    inputline[i].textContent = "_";
+                    // inputline[i].textContent = "_";
                     if (keylist.length >= i) {
                         let right = 0;
                         if (keylist[i] == numberlist[i]) //set not finish system
@@ -1279,9 +1278,13 @@ class I {
                 await collapse(this.number, 1000); //1000
                 await collapse(null, 200); //200
             }
+            //clear all item in input line
+            for(const label of this.inputline){
+                label.textContent="_";
+            }
             await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
-                this._groupset[0] += data[1];
+                this._groupset[0] += data[1];             
             });
         }
         this._analyzeData();
