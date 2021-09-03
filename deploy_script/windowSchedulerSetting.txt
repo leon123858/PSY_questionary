@@ -1,0 +1,3 @@
+執行程式 : powershell
+帶入參數 : -Command "& C:\Users\user\Desktop\learning_forum\deploy_script\deploy_main_server.ps1"
+執行位置 : C:\Users\user\Desktop\learning_forum\deploy_script
