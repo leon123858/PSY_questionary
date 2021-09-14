@@ -254,7 +254,7 @@ class B {
 							'_0_' +
 							(end - start).toString() +
 							'_' +
-							bee.toString() +
+							delay_num +
 							'_SSAcc~';
 						bee_stop.click();
 						clearTimeout(bee_time);
@@ -289,7 +289,7 @@ class B {
 				(data) => {
 					this._one += data[0];
 					this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
-					if (data[2] >= 0 || data[2] <= 450) delay_num = data[2];
+					if (data[2] >= 0 && data[2] <= 450) delay_num = data[2];
 					else if (data[2] < 0) delay_num = 33;
 					else delay_num = 450;
 				}
