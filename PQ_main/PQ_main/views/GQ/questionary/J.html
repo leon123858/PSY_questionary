@@ -12,6 +12,7 @@
   <script src="/javascripts/popper.min.js"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/arduino.js"></script>
+  <script src="/javascripts/GQ_SQ.js"></script>
   <title>J:空間記憶</title>
 </head>
 <style>
@@ -192,56 +193,14 @@
     $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
     console.log(img_place);
   }
+  const saver = new GQ_SQ("<%=ID%>", "<%=password%>");
   $(window).on('load', function () {
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
     });
     setArduinoMode("FJ");
-    if (localStorage.getItem("one") != null) { //check if have local storage
-      $.post("/GQ/SQ/saveData", {
-        ID: "<%=ID%>",
-        password: "<%=password%>",
-        one: localStorage.getItem("one"),
-        group: localStorage.getItem("group"),
-        type: 'J',
-      },
-        function (data, textStatus, jqXHR) {
-          if (textStatus == "success") {
-            if (data.result == "success") {
-              localStorage.removeItem("one");
-              localStorage.removeItem("group");
-              alert("上次未上傳資料上傳成功");
-            } else {
-              alert("資料上傳失敗,失敗原因 : " + data.result);
-            }
-          } else
-            alert("與伺服器斷訊")
-        },
-        "json"
-      );
-    }
-    if (localStorage.getItem("pr") != null) {
-      $.post("/GQ/PR/savePR", {
-        ID: "<%=ID%>",
-        password: "<%=password%>",
-        data: localStorage.getItem("pr"),
-        type: 'J',
-      },
-        function (data, textStatus, jqXHR) {
-          if (textStatus == "success") {
-            if (data.result == "success") {
-              localStorage.removeItem("pr");
-              console.log("上次未上傳資料上傳成功");
-            } else {
-              console.log("資料上傳失敗,失敗原因 : " + data.result);
-            }
-          } else
-            console.log("與伺服器斷訊")
-        },
-        "json"
-      );
-    }
+    saver.saveDataBefore();
   });
 
   $('.btn-group').on('click', '.btn', function () { //practice reality change
@@ -266,53 +225,7 @@
     console.log(game.group);
     console.log(game.pr);
     if (game_get == "reality") {
-      $('form').children('input[name="one"]').val(game.one);
-      $('form').children('input[name="group"]').val(game.group);
-      localStorage.setItem("one", game.one);
-      localStorage.setItem("group", game.group);
-      $.post("/GQ/SQ/saveData", {
-        ID: "<%=ID%>",
-        password: "<%=password%>",
-        one: game.one,
-        group: game.group,
-        type: 'J',
-      },
-        function (data, textStatus, jqXHR) {
-          if (textStatus == "success") {
-            if (data.result == "success") {
-              localStorage.removeItem("one");
-              localStorage.removeItem("group");
-              $('form').submit();
-              alert("資料上傳成功");
-            } else {
-              alert("資料上傳失敗,失敗原因 : " + data.result);
-            }
-          } else
-            alert("與伺服器斷訊")
-        },
-        "json"
-      );
-      //save pr
-      $.post("/GQ/PR/savePR", {
-        ID: "<%=ID%>",
-        password: "<%=password%>",
-        data: game.pr,
-        type: 'J',
-      },
-        function (data, textStatus, jqXHR) {
-          if (textStatus == "success") {
-            if (data.result == "success") {
-              localStorage.removeItem("pr");
-              $('form').submit();
-              console.log("資料上傳成功");
-            } else {
-              console.log("資料上傳失敗,失敗原因 : " + data.result);
-            }
-          } else
-            console.log("與伺服器斷訊")
-        },
-        "json"
-      );
+      saver.saveDataAfter(game, 'J');
     } else { // practice finish reload the page
       location.reload();
     }

@@ -31,7 +31,7 @@ class Handler {
 	}
 
 	async saveLocalData() {
-		if (localStorage.getItem('one') != null) {
+		if (localStorage.getItem('CQone') != null) {
 			//check if have local storage
 			const { _ID: id, _password: password } = this;
 			$.post(
@@ -39,16 +39,16 @@ class Handler {
 				{
 					ID: id,
 					password: password,
-					one: localStorage.getItem('one'),
-					group: localStorage.getItem('group'),
-					type: localStorage.getItem('type'),
+					one: localStorage.getItem('CQone'),
+					group: localStorage.getItem('CQgroup'),
+					type: localStorage.getItem('CQtype'),
 				},
 				function (data, textStatus, jqXHR) {
 					if (textStatus == 'success') {
 						if (data.result == 'success') {
-							localStorage.removeItem('one');
-							localStorage.removeItem('group');
-							localStorage.removeItem('type');
+							localStorage.removeItem('CQone');
+							localStorage.removeItem('CQgroup');
+							localStorage.removeItem('CQtype');
 							alert('上次未上傳資料上傳成功');
 							return 'success';
 						} else {
@@ -61,7 +61,11 @@ class Handler {
 					}
 				},
 				'json'
-			);
+			).fail(() => {
+				alert(
+					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+				);
+			});
 		}
 		return 'success';
 	}
@@ -69,9 +73,9 @@ class Handler {
 	_saveData(item, which) {
 		const { _type: type, _ID: id, _password: password } = this;
 		console.log(item);
-		localStorage.setItem('one', item.one);
-		localStorage.setItem('group', item.all);
-		localStorage.setItem('type', type);
+		localStorage.setItem('CQone', item.one);
+		localStorage.setItem('CQgroup', item.all);
+		localStorage.setItem('CQtype', type);
 		return new Promise((resolve, reject) => {
 			$.post(
 				'/CQ/SQ/saveData',
@@ -85,9 +89,9 @@ class Handler {
 				function (data, textStatus, jqXHR) {
 					if (textStatus == 'success') {
 						if (data.result == 'success') {
-							localStorage.removeItem('one');
-							localStorage.removeItem('group');
-							localStorage.removeItem('type');
+							localStorage.removeItem('CQone');
+							localStorage.removeItem('CQgroup');
+							localStorage.removeItem('CQtype');
 							which != null
 								? resolve(item.all.split('_')[which])
 								: resolve(null);
@@ -104,7 +108,11 @@ class Handler {
 					}
 				},
 				'json'
-			);
+			).fail(() => {
+				alert(
+					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+				);
+			});
 		});
 	}
 

@@ -165,7 +165,8 @@
 					$('#final_confirm').show();
 					$('#final_confirm').one('click', function () {
 						if (feedback) {
-							localStorage.setItem('one', one);
+							localStorage.setItem('GQone', one);
+							localStorage.setItem('GQtype', 'M');
 							$.post(
 								'/GQ/SQ/saveData',
 								{
@@ -178,7 +179,8 @@
 								function (result, textStatus, jqXHR) {
 									if (textStatus == 'success') {
 										if (result.result == 'success') {
-											localStorage.clear();
+											localStorage.removeItem('GQone');
+											// localStorage.removeItem('GQtype');
 											$('form').submit();
 										} else {
 											alert(
@@ -191,7 +193,11 @@
 										alert('伺服器無回應,請稍後再試');
 									}
 								}
-							);
+							).fail(() => {
+								alert(
+									'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+								);
+							});
 						} else {
 							location.reload();
 						}
