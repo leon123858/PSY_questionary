@@ -1,0 +1,14 @@
+@hostname=127.0.0.1
+# @hostname=140.116.98.155 
+@port=1337
+@url=http://{{hostname}}:{{port}}
+
+POST {{url}}/GQ/SQ/videoResult HTTP/1.1
+content-type: application/json
+
+{
+  	"ID": "T_1",
+		"password": "0000",
+		"pathname": "800",
+		"ans": "Corr1_InCorr2_Corr3_InCorr4"
+}
