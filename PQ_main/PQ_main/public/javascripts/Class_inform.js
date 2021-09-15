@@ -269,7 +269,7 @@ class B {
 						'_0_' +
 						(end - start).toString() +
 						'_' +
-						bee.toString() +
+						delay_num +
 						'_SSAcc~'; //press wrong
 				}
 				hide(item);
