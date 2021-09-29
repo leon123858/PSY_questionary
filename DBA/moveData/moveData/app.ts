@@ -2,9 +2,13 @@ const mongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
 const goalArray = [
-	'5f8fbac542e2e007207d72f6',
-	'5f8fbb4742e2e007207d72f8',
-	'5f8fb9604edb7260902e0dcf',
+	'5f88567b17fd124a0884cdf4',
+	'5f8856f317fd124a0884cdf6',
+	'5f88572117fd124a0884cdf8',
+	'5f88572e17fd124a0884cdfa',
+	'5f8fb5de1b45eb5eecb375af',
+	'5f9598e31effbe50888f44bf',
+	'5f985840a902a95460b15603',
 ];
 
 const updateAll = async (db) => {
@@ -29,13 +33,27 @@ const findAll = async (db) => {
 	return;
 };
 
+const getList = async (db) => {
+	const table = db.db('GQ_data').collection('B_one');
+	const result: Array<any> = await table.find({}).toArray();
+	const str =
+		result.reduce((pre, cur) => {
+			console.log(cur.data.length);
+			if (cur.data.length > 238) return `${pre}"${cur._id.toString()}",`;
+			return pre;
+		}, '[') + ']';
+	console.log(str);
+	return;
+};
+
 const main = async () => {
 	const db = await mongoClient.connect('mongodb://localhost:27017/GQ_data', {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
-	await updateAll(db);
-	await findAll(db);
+	//await updateAll(db);
+	//await findAll(db);
+	await getList(db);
 	db.close();
 	process.exit(0);
 };
