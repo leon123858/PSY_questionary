@@ -103,7 +103,7 @@ const namesList_group = {
 	J: ['N', 'Acc', 'Score', 'back_Score2', 'back_Score3'],
 	K: ['Acc', 'RT', 'Positive', 'Negative', 'Middle'],
 	L: [],
-	M: [],
+	M: ['Acc1', 'Acc2', 'Acc3', 'Acc4'],
 };
 
 /**********************
@@ -200,9 +200,9 @@ function saveInDB(type, mode, str) {
 			case 'I':
 			case 'J':
 			case 'K':
+			case 'M':
 				return buildGroupJson(str, namesList_group[type]);
 			case 'L':
-			case 'M':
 				return 'NA';
 			default:
 				return {};
@@ -253,7 +253,6 @@ router.post('/saveData', function (req, res) {
 	var group = req.body.group; //string
 	var type = req.body.type;
 	var date = new Date().toLocaleDateString();
-	//console.log(req.body);
 	MongoClient.connect(
 		Get('mongoPath') + 'EW',
 		{ useNewUrlParser: true, useUnifiedTopology: true },

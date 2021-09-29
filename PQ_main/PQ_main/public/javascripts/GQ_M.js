@@ -90,6 +90,10 @@
 			if (noWrite()) alert('有答案沒填寫');
 			else {
 				let tmp = round + 1;
+				const result1 = data[tmp].win == $('#Select' + 1).val() ? 1 : 0;
+				const result2 = data[tmp].hand == $('#Select' + 2).val() ? 1 : 0;
+				const result3 = data[tmp].ans3 == $('#Select' + 3).val() ? 1 : 0;
+				const result4 = data[tmp].ans4 == $('#Select' + 4).val() ? 1 : 0;
 				one += data[tmp].filepath + '_';
 				one +=
 					data[tmp].names +
@@ -98,32 +102,17 @@
 					'_' +
 					$('#Select' + 1).val() +
 					'_' +
-					(data[tmp].win == $('#Select' + 1).val() ? 1 : 0) +
+					result1 +
 					'_';
 				one +=
-					data[tmp].hand +
-					'_' +
-					$('#Select' + 2).val() +
-					'_' +
-					(data[tmp].hand == $('#Select' + 2).val() ? 1 : 0) +
-					'_';
+					data[tmp].hand + '_' + $('#Select' + 2).val() + '_' + result2 + '_';
 				one +=
-					data[tmp].ans3 +
-					'_' +
-					$('#Select' + 3).val() +
-					'_' +
-					(data[tmp].ans3 == $('#Select' + 3).val() ? 1 : 0) +
-					'_';
-				one +=
-					data[tmp].ans4 +
-					'_' +
-					$('#Select' + 4).val() +
-					'_' +
-					(data[tmp].ans4 == $('#Select' + 4).val() ? 1 : 0);
-				answer[0] += data[tmp].win == $('#Select' + 1).val() ? 1 : 0;
-				answer[1] += data[tmp].hand == $('#Select' + 2).val() ? 1 : 0;
-				answer[2] += data[tmp].ans3 == $('#Select' + 3).val() ? 1 : 0;
-				answer[3] += data[tmp].ans4 == $('#Select' + 4).val() ? 1 : 0;
+					data[tmp].ans3 + '_' + $('#Select' + 3).val() + '_' + result3 + '_';
+				one += data[tmp].ans4 + '_' + $('#Select' + 4).val() + '_' + result4;
+				answer[0] += result1;
+				answer[1] += result2;
+				answer[2] += result3;
+				answer[3] += result4;
 				if (feedback) {
 					var videoAns =
 						(data[tmp].win == $('#Select' + 1).val() ? 'Corr1' : 'InCorr1') +
@@ -167,13 +156,17 @@
 						if (feedback) {
 							localStorage.setItem('GQone', one);
 							localStorage.setItem('GQtype', 'M');
+							let tmpArr = [];
+							answer.forEach((element) => {
+								tmpArr.push((element / origin_round).toFixed(3).toString());
+							});
 							$.post(
 								'/GQ/SQ/saveData',
 								{
 									ID: ID,
 									password: password,
 									one: one,
-									group: 'NA',
+									group: tmpArr.join('_'),
 									type: 'M',
 								},
 								function (result, textStatus, jqXHR) {
