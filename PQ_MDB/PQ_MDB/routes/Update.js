@@ -81,13 +81,14 @@ function CsvToJsonListTable(CsvString, where) {
 			json['Difficulty'] = elements[5];
 			json['human'] = elements[6];
 			jsonList.push(json);
-		} else if (elements.length >= 6) {
+		} else if (elements.length >= 7) {
 			json['filepath'] = elements[0];
 			json['names'] = elements[1];
 			json['win'] = elements[2];
 			json['hand'] = elements[3];
 			json['ans3'] = elements[4];
 			json['ans4'] = elements[5];
+			json['Difficulty'] = elements[6];
 			jsonList.push(json);
 		}
 	}
@@ -116,7 +117,7 @@ router.post('/table', function (req, res) {
 	var password = req.body.password;
 	var data = req.body.data;
 	var where = req.body.where;
-	//console.log(data);
+	//console.log(where);
 	if (core_ID == ID && core_password == password) {
 		MongoClient.connect(
 			Get('mongoPath') + 'data',

@@ -44,6 +44,11 @@
                     </div>
                 </div>
                 <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="1">簡單模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-secondary " value="2">普通測驗</button>
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="3">困難模式</button>
+                </div>
+                <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
                     <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
                 </div>
@@ -113,6 +118,7 @@
     </form>
     <script>
         var mode;
+        var situation;
         const saver = new GQ_SQ("<%=ID%>", "<%=password%>");
         $(document).ready(function () {
             //選擇模式與難度
@@ -122,16 +128,20 @@
                 $(this).removeClass("btn-outline-success").addClass("btn-success");
                 mode = $(this).val();
             });
-
+            $(".btn-outline-secondary").click(function () {
+                $(".btn-secondary").removeClass("btn-secondary").addClass('btn-outline-secondary');
+                $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
+                situation = $(this).val();
+            });
             //若有過去資料,先上傳
             saver.saveDataBefore();
             //開始測驗
             $("#start").click(function () {
-                if (mode == null)
+                if (mode == null || situation == null)
                     alert("請選擇模式");
                 else {
                     var count = mode == "practice" ? 5 : 20;
-                    $.post("/GQ/video/getMtableList", { count: count }, function (result) {
+                    $.post("/GQ/video/getMtableList", { count: count, diff: situation }, function (result) {
                         if (result.result == "success") {
                             var videoList = result.data;
                             //console.log(videoList);
