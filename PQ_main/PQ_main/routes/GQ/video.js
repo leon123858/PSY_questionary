@@ -181,9 +181,10 @@ router.post('/getLtableList', function (req, res) {
 
 function getMList(db, count, diff) {
 	return new Promise((resolve, reject) => {
+		const params = diff == 0 ? {} : { Difficulty: diff };
 		var table = db.db('data').collection('Mtable');
 		table
-			.find({ Difficulty: diff }, { projection: { _id: 0, Difficulty: 0 } })
+			.find(params, { projection: { _id: 0, Difficulty: 0 } })
 			.toArray(function (err, result) {
 				if (err) {
 					reject({ result: '伺服器連線錯誤' });

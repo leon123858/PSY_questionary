@@ -346,19 +346,31 @@
             });
             $("#AllMode").change(function () {
                 if (document.getElementById("AllWhich").options[0].selected == false) {
-                    $.post("/Get/table",
-                        {
-                            ID: "<%=ID%>", password: "<%=password%>",
-                            DB: "GQ_data", collection: $("#AllWhich").val() + '_' + $("#AllMode").val(),
-                            fillterKey: "NA", fillterValue: "NA",
-                            type: 0
-                        }, function (result) {
-                            //console.log(result.data);
-                            if (result.result == 'success')
-                                makeLink($("#All_link"), transferCSV($("#AllWhich").val() + '_' + $("#AllMode").val(), result.data, false), $("#AllWhich").val() + '_' + $("#AllMode").val());
-                            else
-                                alert(result.result);
-                        });
+                    if ($("#AllWhich").val() + '_' + $("#AllMode").val() == "M_one") {
+                        $.post("/Get/MtableWithDiff",
+                            {
+                                ID: "<%=ID%>", password: "<%=password%>", type: "one"
+                            }, function (result) {
+                                //console.log(result.data);
+                                if (result.result == 'success')
+                                    makeLink($("#All_link"), transferCSV($("#AllWhich").val() + '_' + $("#AllMode").val(), result.data, false), $("#AllWhich").val() + '_' + $("#AllMode").val());
+                                else
+                                    alert(result.result);
+                            });
+                    } else
+                        $.post("/Get/table",
+                            {
+                                ID: "<%=ID%>", password: "<%=password%>",
+                                DB: "GQ_data", collection: $("#AllWhich").val() + '_' + $("#AllMode").val(),
+                                fillterKey: "NA", fillterValue: "NA",
+                                type: 0
+                            }, function (result) {
+                                //console.log(result.data);
+                                if (result.result == 'success')
+                                    makeLink($("#All_link"), transferCSV($("#AllWhich").val() + '_' + $("#AllMode").val(), result.data, false), $("#AllWhich").val() + '_' + $("#AllMode").val());
+                                else
+                                    alert(result.result);
+                            });
                 }
                 else
                     alert("請選擇要哪種問卷");
@@ -438,12 +450,9 @@
                 if (document.getElementById("SpecialTableWhich").options[0].selected == false) {
                     switch ($(this).val()) {
                         case "M_video":
-                            $.post("/Get/table",
+                            $.post("/Get/MtableWithDiff",
                                 {
-                                    ID: "<%=ID%>", password: "<%=password%>",
-                                    DB: "GQ_data", collection: 'M_video',
-                                    fillterKey: "NA", fillterValue: "NA",
-                                    type: 0
+                                    ID: "<%=ID%>", password: "<%=password%>", type: 'video'
                                 }, function (result) {
                                     //console.log(result.data);
                                     if (result.result == 'success')

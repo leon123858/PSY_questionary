@@ -70,4 +70,82 @@ router.post('/table', function (req, res) {
 	} else res.json({ result: '帳號或密碼錯誤' });
 });
 
+/********************************
+ * ./Get/MtableWithDiff
+ * 專門給 GQ.M table 用的特殊路由
+ * 1. 抓取影片難度
+ * 2. 把影片難度和併進 Mtable 的全體資料
+ * 注: 標出全體資料內各影片的難度
+ * ******************************/
+
+router.post('/MtableWithDiff', function (req, res) {
+	var ID = req.body.ID;
+	var password = req.body.password;
+	var type = req.body.type;
+	//console.log(req.body);
+	if (core_ID == ID && core_password == password) {
+		MongoClient.connect(
+			Get('mongoPath') + 'data',
+			{ useNewUrlParser: true, useUnifiedTopology: true },
+			async function (err, db) {
+				if (err) {
+					res.json({ result: '伺服器連線錯誤' });
+					throw err;
+				}
+				try {
+					const videoResource = await FindCollection(
+						db,
+						'data',
+						'Mtable',
+						'NA',
+						'NA',
+						0
+					);
+					const MtableData = await FindCollection(
+						db,
+						'GQ_data',
+						'M_' + type,
+						'NA',
+						'NA',
+						0
+					);
+					db.close();
+
+					const filepathToDifficulty = {};
+					videoResource.data.map((value) => {
+						const { filepath, Difficulty } = value;
+						filepathToDifficulty[filepath] = Difficulty;
+					});
+					if (type == 'one') {
+						const union = MtableData.data.map((element) => {
+							const newData = element.data.map((value) => {
+								const tmp = {
+									...value,
+									difficulty: filepathToDifficulty[value.file],
+								};
+								return tmp;
+							});
+							element.data = newData;
+							return element;
+						});
+						res.json({ result: 'success', data: union });
+					} else if (type == 'video') {
+						const union = MtableData.data.map((element) => {
+							const tmp = {
+								...element,
+								difficulty: filepathToDifficulty[element.pathname],
+							};
+							return tmp;
+						});
+						res.json({ result: 'success', data: union });
+					}
+				} catch (err) {
+					console.log(err);
+					res.json({ result: '伺服器連線錯誤' });
+				}
+			}
+		);
+	} else res.json({ result: '帳號或密碼錯誤' });
+});
+
 module.exports = router;
