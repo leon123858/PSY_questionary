@@ -103,7 +103,7 @@ const namesList_group = {
 	J: ['N', 'Acc', 'Score', 'back_Score2', 'back_Score3'],
 	K: ['Acc', 'RT', 'Positive', 'Negative', 'Middle'],
 	L: [],
-	M: ['Acc1', 'Acc2', 'Acc3', 'Acc4'],
+	M: ['difficulty', 'Acc1', 'Acc2', 'Acc3', 'Acc4'],
 };
 
 /**********************

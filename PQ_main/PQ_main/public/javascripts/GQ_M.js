@@ -15,7 +15,7 @@
 	}
 
 	//method
-	Go(round) {
+	Go(round, situation) {
 		//事件流程 => 影片加載完成->播放完畢->點擊答案確認成功->加載影片  ( loop end )
 		//one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
 		var ID;
@@ -156,7 +156,7 @@
 						if (feedback) {
 							localStorage.setItem('GQone', one);
 							localStorage.setItem('GQtype', 'M');
-							let tmpArr = [];
+							let tmpArr = [situation.toString()];
 							answer.forEach((element) => {
 								tmpArr.push((element / origin_round).toFixed(3).toString());
 							});

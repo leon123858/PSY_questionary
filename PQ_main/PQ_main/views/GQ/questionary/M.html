@@ -44,8 +44,9 @@
                     </div>
                 </div>
                 <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="0">綜合模式</button>
                     <button type="button" class=" btn w-100  btn-outline-secondary" value="1">簡單模式</button>
-                    <button type="button" class="  btn w-100  btn-outline-secondary " value="2">普通測驗</button>
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="2">普通測驗</button>
                     <button type="button" class=" btn w-100  btn-outline-secondary" value="3">困難模式</button>
                 </div>
                 <div class="btn-group d-flex p-2">
@@ -148,7 +149,7 @@
                             $('#main-model').modal('hide');
                             var Test = new M(videoList, '<%=ID%>', '<%=password%>', '<%=url%>');
                             if (mode == "reality" && videoList.length >= 20) {
-                                Test.Go(20);
+                                Test.Go(20, situation);
                             }
                             else if (mode == "practice" && videoList.length >= 5) {
                                 Test.Go(5);
