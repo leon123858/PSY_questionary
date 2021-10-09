@@ -19,6 +19,7 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
 		if (type == 1 || type == 2 || type == 3)
 			findThing[fillterKey] = fillterValue;
 		var projection = { _id: 0 };
+		if (type == 5) projection = { filepath: 1, Difficulty: 1 };
 		if (type == 3) projection['data'] = 0;
 		var set = { projection: projection };
 		if (type == 1)
@@ -83,6 +84,10 @@ router.post('/MtableWithDiff', function (req, res) {
 	var password = req.body.password;
 	var type = req.body.type;
 	//console.log(req.body);
+	if (type != 'one' && type != 'video') {
+		res.json({ result: '參數錯誤' });
+		return;
+	}
 	if (core_ID == ID && core_password == password) {
 		MongoClient.connect(
 			Get('mongoPath') + 'data',
@@ -93,15 +98,16 @@ router.post('/MtableWithDiff', function (req, res) {
 					throw err;
 				}
 				try {
-					const videoResource = await FindCollection(
+					const filepathToDifficulty = {};
+					const videoResource = FindCollection(
 						db,
 						'data',
 						'Mtable',
 						'NA',
 						'NA',
-						0
+						5
 					);
-					const MtableData = await FindCollection(
+					const MtableData = FindCollection(
 						db,
 						'GQ_data',
 						'M_' + type,
@@ -109,36 +115,38 @@ router.post('/MtableWithDiff', function (req, res) {
 						'NA',
 						0
 					);
-					db.close();
-
-					const filepathToDifficulty = {};
-					videoResource.data.map((value) => {
-						const { filepath, Difficulty } = value;
-						filepathToDifficulty[filepath] = Difficulty;
-					});
-					if (type == 'one') {
-						const union = MtableData.data.map((element) => {
-							const newData = element.data.map((value) => {
-								const tmp = {
-									...value,
-									difficulty: filepathToDifficulty[value.file],
-								};
-								return tmp;
+					const allResult = await Promise.all([
+						videoResource.then(async (result) => {
+							result.data.map((value) => {
+								const { filepath, Difficulty } = value;
+								filepathToDifficulty[filepath] = Difficulty;
 							});
-							element.data = newData;
-							return element;
-						});
-						res.json({ result: 'success', data: union });
-					} else if (type == 'video') {
-						const union = MtableData.data.map((element) => {
-							const tmp = {
-								...element,
-								difficulty: filepathToDifficulty[element.pathname],
-							};
-							return tmp;
-						});
-						res.json({ result: 'success', data: union });
-					}
+							return;
+						}),
+						MtableData,
+					]);
+					db.close();
+					const union =
+						type == 'one'
+							? allResult[1].data.map((element) => {
+									const newData = element.data.map((value) => {
+										const tmp = {
+											...value,
+											difficulty: filepathToDifficulty[value.file],
+										};
+										return tmp;
+									});
+									element.data = newData;
+									return element;
+							  })
+							: allResult[1].data.map((element) => {
+									const tmp = {
+										...element,
+										difficulty: filepathToDifficulty[element.pathname],
+									};
+									return tmp;
+							  });
+					res.json({ result: 'success', data: union });
 				} catch (err) {
 					console.log(err);
 					res.json({ result: '伺服器連線錯誤' });
