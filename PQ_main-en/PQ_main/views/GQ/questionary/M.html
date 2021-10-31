@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/GQ_M.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/video-js.css" />
+    <script type="text/javascript" src="/javascripts/video.js"></script>
+    <script src="/javascripts/arduino.js"></script>
+    <script src="/javascripts/GQ_SQ.js"></script>
+    <title>M:桌球比賽記錄員檢定測驗</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">說明</h4>
+                </div>
+                <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
+                    <p>歡迎參加本作業。</p>
+                    <p>
+                        請根據影片內容，回答以下問題:
+                    </p>
+                    <div class="row">
+                        <div class="col-md-8">
+                            1.請問得分者是誰?(選擇得分的那位選手)<br>
+                            2.請問得分者擊球手段?(選擇正手或是反手)<br>
+                            3.請問擊球位置?(得分方的1~6號位) <br>
+                            4.請問擊球落點? (對方的1~6號位) <br>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="/image/numberTable.png" width="120%" />
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="0">綜合模式</button>
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="1">簡單模式</button>
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="2">普通測驗</button>
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="3">困難模式</button>
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
+                </div>
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="TestPlace">
+        <!-- class="container" modify 刪除 -->
+        <div>
+            <div class="row" style="display:none">
+                <label class="col-md-3"></label>
+                <video style="text-align:center ;height:50rem" id="MyVideo"
+                    class="video-js vjs-big-play-centered col-md-6"></video>
+                <label class="col-md-3"></label>
+            </div>
+            <h1 id="warning" style="text-align:center"></h1>
+            <div id="question" style="font-size:200%;display:none" class="row">
+                <div class="col-md-8">
+                    <select id="Select1">
+                        <option value="" disabled selected hidden>1.請問得分者是誰?(選擇得分的那位選手)</option>
+                        <option id="Lplayer" value="0"></option>
+                        <option id="Rplayer" value="1"></option>
+                    </select><br /><br />
+                    <select id="Select2">
+                        <option value="" disabled selected hidden>2.請問得分者擊球手段?(選擇正手或是反手)</option>
+                        <option value="0">正手</option>
+                        <option value="1">反手</option>
+                    </select><br /><br />
+                    <select id="Select3">
+                        <option value="" disabled selected hidden>3.請問擊球位置?(得分方的1~6號位) </option>
+                        <option value="1">1號位</option>
+                        <option value="2">2號位</option>
+                        <option value="3">3號位</option>
+                        <option value="4">4號位</option>
+                        <option value="5">5號位</option>
+                        <option value="6">6號位</option>
+                    </select><br /><br />
+                    <select id="Select4">
+                        <option value="" disabled selected hidden>4.請問擊球落點? (對方的1~6號位)</option>
+                        <option value="1">1號位</option>
+                        <option value="2">2號位</option>
+                        <option value="3">3號位</option>
+                        <option value="4">4號位</option>
+                        <option value="5">5號位</option>
+                        <option value="6">6號位</option>
+                    </select><br /><br />
+                    <input id="confirm" type="button" value="confirm" />
+                </div>
+                <div class="col-md-4">
+                    <img src="/image/numberTable.png" width="100%" />
+                </div>
+            </div>
+            <div style="text-align:center;font-size:150%">
+                <pre id="final_result"
+                    style="display:none">答題結果<br />1.請問得分者是誰?<strong id="R1"></strong><br />2.請問得分者擊球手段?<strong id="R2"></strong><br />3.請問擊球位置?<strong id="R3"></strong><br />4.請問擊球落點?<strong id="R4"></strong><br /></pre>
+                <input id="final_confirm" type="button" value="OK" style="display:none" />
+            </div>
+        </div>
+    </div>
+    <!-- post form -->
+    <form method="POST" action="/GQ/EQ" style="display: none;">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
+    </form>
+    <script>
+        var mode;
+        var situation;
+        const saver = new GQ_SQ("<%=ID%>", "<%=password%>");
+        $(document).ready(function () {
+            //選擇模式與難度
+            $('#main-model').modal('show');
+            $(".btn-outline-success").click(function () {
+                $(".btn-success").removeClass("btn-success").addClass('btn-outline-success');
+                $(this).removeClass("btn-outline-success").addClass("btn-success");
+                mode = $(this).val();
+            });
+            $(".btn-outline-secondary").click(function () {
+                $(".btn-secondary").removeClass("btn-secondary").addClass('btn-outline-secondary');
+                $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
+                situation = $(this).val();
+            });
+            //若有過去資料,先上傳
+            saver.saveDataBefore();
+            //開始測驗
+            $("#start").click(function () {
+                if (mode == null || situation == null)
+                    alert("請選擇模式");
+                else {
+                    var count = mode == "practice" ? 5 : 20;
+                    $.post("/GQ/video/getMtableList", { count: count, diff: situation }, function (result) {
+                        if (result.result == "success") {
+                            var videoList = result.data;
+                            //console.log(videoList);
+                            $('#main-model').modal('hide');
+                            var Test = new M(videoList, '<%=ID%>', '<%=password%>', '<%=url%>');
+                            if (mode == "reality" && videoList.length >= 20) {
+                                Test.Go(20, situation);
+                            }
+                            else if (mode == "practice" && videoList.length >= 5) {
+                                Test.Go(5);
+                            }
+                            else
+                                alert("伺服器傳輸有誤, 請再試一次");
+                        }
+                        else
+                            alert(result.result + " 請之後再試");
+                    }).fail(() => {
+                        alert("不可預期錯誤,請確認網路連線");
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>心智評估與訓練系統</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>心智評估與訓練系統</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <br>
+        <div class="row text-center">
+            <label class="col-4"></label>
+            <label name="emotion" class="col-4 btn btn-link" style="font-size:100%">情緒</label>
+            <label class="col-4"></label>
+        </div>
+        <div class="row text-center">
+            <div class="col-4">
+                <br>
+                <label name="attention" class="btn btn-link" style="font-size:100%">注意力</label><br><br>
+                <label name="watch" class="btn btn-link" style="font-size:100%">視知覺</label>
+            </div>
+            <div class="col-4">
+                <img src="/image/sixSide.png" alt="測試結果示意圖" style="width:100%;height:300px" />
+            </div>
+            <div class="col-4">
+                <br>
+                <label name="control" class=" btn btn-link" style="font-size:100%">抑制控制</label><br><br>
+                <label name="memory" class="btn btn-link" style="font-size:100%">記憶力</label>
+            </div>
+        </div>
+        <div class="row text-center">
+            <label class="col-4 btn btn-primary btn-bg" style="font-size:100%">回首頁</label>
+            <label name="null" class="col-4" style="font-size:100%"></label>
+            <label class="col-4" style="font-size:100%"></label>
+        </div>
+        <br>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <p>請點擊您想要前往哪一張問卷</p>
+                    <div class="modal-btn">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+        <form id="form" action="" method="post" style="display:none">
+            <input name="ID" type="text" value="<%=ID%>" /><br />
+            <input name="password" type="password" value="<%=password%>" /><br />
+            <input name="goal" type="text" value="EW5" /><br />
+        </form>
+    </div>
+    <script>
+        var eachDate = {
+            A: '未有填寫紀錄',
+            B: '未有填寫紀錄',
+            C: '未有填寫紀錄',
+            D: '未有填寫紀錄',
+            E: '未有填寫紀錄',
+            F: '未有填寫紀錄',
+            G: '未有填寫紀錄',
+            H: '未有填寫紀錄',
+            I: '',
+            J: '未有填寫紀錄',
+            K: '未有填寫紀錄',
+            L: '未有填寫紀錄',
+            M: '未有填寫紀錄',
+            N: '未有填寫紀錄',
+            O: '未有填寫紀錄',
+            P: '未有填寫紀錄',
+            Q: '未有填寫紀錄',
+            R: '未有填寫紀錄',
+            S: '未有填寫紀錄',
+            T: '未有填寫紀錄',
+        };
+        const boardNameTable = {
+            control: {
+                A: "水果炸彈",
+                B: "汽車行駛作業",
+                C: "打桌球作業",
+                D: "箭頭停止訊號",
+                E: "貓狗作戰",
+            },
+            attention: {
+                F: "漁往哪裡游",
+                G: "捕抓神奇寶貝 1",
+                H: "捕抓神奇寶貝 2",
+                I: "物件追蹤訓練",
+                J: "桌球選邊訓練",
+                K: "桌球顏色反應訓練",
+                L: "桌球特徵轉換訓練",
+                M: "手眼協調訓練",
+            },
+            memory: {
+                N: "運算記憶訓練",
+                O: "順向圖像記憶",
+                P: "逆向圖像記憶",
+                Q: "空間記憶訓練",
+                R: "撲克牌配對",
+            },
+            watch: {
+                S: "蓋博圖像訓練",
+                T: "點協調訓練",
+                SW1: "頻閃眼鏡",
+                SW2: "視覺訓練"
+            },
+            emotion: {
+                SW3: "運動/動作 意象訓練",
+                SW4: "比賽當日計畫",
+                SW5: "目標設定",
+                SW6: "賽前例行性動作",
+                SW7: "最佳覺醒程度",
+                SW8: "神經回饋訓練"
+            }
+        }
+        //跳問卷
+        function movePage(name) {
+            if (Object.keys(eachDate).indexOf(name) > -1) {
+                $("#form").attr("action", "DQ/" + name).submit();
+                return;
+            }
+            $("#form").attr("action", "SW/" + name).submit();
+        }
+        function createTag(which) {
+            return Object.keys(boardNameTable[which]).reduce((pre, cur) => {
+                const date = eachDate[cur] || "";
+                return pre + `<input onclick='movePage(this.name)' type='button' value='${boardNameTable[which][cur]}' name='${cur}' />` + date + "<br>";
+            }, "");
+        }
+        $(document).ready(function () {
+            $.post("/CQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                if (result.result == "success") {
+                    for (var i in result.data) {
+                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                    }
+                }
+                else
+                    alert(result.result + ",無法抓取過去填寫紀錄");
+            })
+            $(".btn-link").click(function () {
+                $('#modal').modal('show');
+                $(".modal-title").html($(this).text());
+                $(".modal-btn").html(createTag($(this).attr("name")));
+            });
+            //跳功能頁
+            $(".btn-primary").click(function () {
+                $("#form").attr("action", "/EW/jumpBoard").submit();
+            });
+        });
+    </script>
+</body>
+
+</html>

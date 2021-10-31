@@ -1,0 +1,39 @@
+#jspsych-survey-html-form-next {
+	display: none;
+}
+
+#list {
+	margin-left: -500px;
+	width: 1000px;
+	height: 100px;
+	position: absolute;
+	bottom: 100px;
+}
+
+.obj {
+	width: 150px;
+	height: 150px;
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+canvas#jspsych-image-keyboard-response-stimulus {
+	animation: fade 100ms;
+	-webkit-animation: fade 100ms;
+}
