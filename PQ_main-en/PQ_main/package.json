@@ -1,0 +1,34 @@
+{
+	"name": "pq_main",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"start": "node app",
+		"dev": "nodemon app",
+		"test": "mocha"
+	},
+	"description": "PQ_main",
+	"author": {
+		"name": ""
+	},
+	"dependencies": {
+		"body-parser": "^1.15.0",
+		"chai": "^4.3.4",
+		"cookie-parser": "^1.4.0",
+		"cuid": "^2.1.8",
+		"debug": "^2.2.0",
+		"dotenv": "^8.2.0",
+		"ejs": "^3.1.5",
+		"express": "^4.14.0",
+		"mongodb": "^3.6.2",
+		"morgan": "^1.7.0",
+		"nodemailer": "^6.5.0",
+		"pug": "^3.0.2",
+		"serve-favicon": "^2.3.0",
+		"should": "^13.2.3"
+	},
+	"devDependencies": {
+		"mocha": "^8.3.2",
+		"nodemon": "^2.0.7"
+	}
+}

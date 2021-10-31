@@ -1,0 +1,244 @@
+html,
+body {
+
+  background-color: var(--backcolor) !important;
+}
+
+:root {
+  --move-direction: MOVE-Right;
+  --size: 0px;
+  --backcolor: rgb(128, 128, 128);
+
+}
+@media(min-device-width: 0px) {
+  .ball-80 {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+}
+@media(min-device-width: 1280px) {
+  .ball-80 {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
+  }
+  .ball-10 {
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 100);
+  }
+  #cross{
+    font-size: 40px;
+    color: black;
+  }
+}
+
+@media(min-device-width: 1920px) {
+
+  .ball-80 {
+    height: 95px;
+    width:  95px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
+  }
+  .ball-10 {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 100);
+  }
+  #cross{
+    font-size: 60px;
+    color: black;
+  }
+}
+
+/* ten style*/
+
+.cross {
+  background: rgb(0, 0, 0);
+  height: 28px;
+  position: relative;
+  width: 8px;
+}
+
+.cross:after {
+  background: rgb(0, 0, 0);
+  content: "";
+  height: 8px;
+  left: -9.7px;
+  position: absolute;
+  top: 10px;
+  width: 28px;
+}
+
+.cross-big {
+  background: rgb(0, 0, 0);
+  height: 45px;
+  position: relative;
+  width: 10px;
+}
+
+.cross-big:after {
+  background: rgb(0, 0, 0);
+  content: "";
+  height: 10px;
+  left: -18px;
+  position: absolute;
+  top: 18px;
+  width: 45px;
+}
+
+
+.center-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rect-20 {
+  height: 20px;
+  width: 20px;
+  /* border-radius: 50%; */
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/* .ball-80 {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
+  } */
+
+/* .ball-10 {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 100);
+} */
+
+/* svg polygon {
+  background-size: 125px 175px;
+  height:"50px" !important;
+    width:"80px"!important;
+} */
+
+.center_circle_constraint {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 700px;
+    width: 700px;
+    border-radius: 50%;
+    display: inline-block;
+    clip-path: circle();
+  }
+
+
+
+.mirrorRotateHorizontal {
+  transform: rotateY(180deg);
+  /* 水平镜像翻转 */
+}
+
+.mirrorRotateVertical {
+  transform: rotateX(180deg);
+  /* 垂直镜像翻转 */
+}
+
+
+.circle {
+  position: fixed;
+  shape-outside: circle();
+  /* background-color: #000000; */
+  width: var(--size);
+  height: var(--size);
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+}
+
+.blink {
+  animation: blinker 0.5s linear infinite;
+}
+@keyframes MOVE-Right {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(60px);
+  }
+}
+
+@keyframes MOVE-Left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-60px);
+  }
+}
+
+
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.bg {
+  position: absolute;
+  left: -100px;
+  right: -100px;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  height: 900px;
+  width: 900px;
+  background: repeating-linear-gradient(to left,
+      /* #ffffff 0px 10px,
+      #000000 10px 20px,
+      #ffffff 20px 30px,
+      #000000 30px 40px,
+      #ffffff 40px 50px,
+      #000000 50px 60px); */
+      #ffffffa8 0px 25px,
+      #000000a8 25px 50px,
+      #ffffffa8 50px 75px,
+      #000000a8 75px 100px,
+      #ffffffa8 100px 125px,
+      #000000a8 125px 150px);
+  animation-name: var(--move-direction);
+  animation-duration: 1.65s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

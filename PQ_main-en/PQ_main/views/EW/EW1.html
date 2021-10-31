@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>心智評估與訓練系統</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>心智評估與訓練系統</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:150%">
+        <div id="btn" style="text-align:center">
+            <button name="Introduce" type="button" class="btn btn-primary col-md-4">計畫介紹</button>
+            <button name="Login" type="button" class="btn btn-secondary col-md-4">測試者登入</button>
+        </div>
+        <br>
+        <div id="Introduce" style="text-align:center">
+            <h1>系統簡介</h1>
+            <div>
+                <p>本系統包含評估與訓練兩大部分。</p>
+                <p>
+                    從五大面向(注意力、視知覺、記憶力、情緒、抑制控制能力)著手，評估使用者心智能力，且每個面向包含數個作業，作每一面向的整合性評估。
+                </p>
+                <p>評估後的報告輸出，可知悉個人強項與弱勢項目，本系統提供數十種遊戲作為各面向的加強訓練。</p>
+                <h1>本系統特點如下：</h1>
+                <p>I、線上評估系統：
+                <p>使用者僅需上網即可進行評估。每個作業僅需數分鐘即可完成。快速給予分析報告，以發現使用者的認知特質。</p>
+                <p>II、線上訓練系統：
+                <p>經過評估後，可以針對使用者的認知狀況提出客製化訓練菜單，進行功能性補強與訓練成效追蹤。</p>
+                <p>III、線上資料庫：
+                <p>本系統在各項作業已收集各年齡層數百人數據，足以作為使用者參照，並以圖像化圖表呈現使用者的認知功能特色，利於使用者了解自身的優劣勢，進行補強。</p>
+            </div>
+            <img src="\image\Ew_intro.jpg" style="width: 80%;" />
+            <br>
+            <br>
+        </div>
+        <div id="Login" style="text-align:center">
+            <form action="/EW/login" method="post">
+                <h3>登入</h3>
+                <input name="ID" type="text" class="col-md-4" placeholder="請輸入您的帳號" required /><br />
+                <input name="password" type="password" class="col-md-4" placeholder="請輸入您的密碼" required /><br />
+                <input type="submit" class="btn btn-success col-md-4" value="登入" />
+            </form>
+            <hr>
+            <div id="register" style="text-align:center">
+                <h3>註冊</h3>
+                <input name="email" type="email" class="col-md-4" placeholder="請輸入您的電子信箱" required /><br />
+                <input type="button" class="btn btn-info col-md-4" value="註冊" />
+            </div>
+        </div>
+    </div>
+    <script>
+        var btnMode = 'Introduce';
+        $("#Login").hide();
+        $(document).ready(function () {
+            // 檢測適配
+            const getBrowser = () => {
+                var UserAgent = navigator.userAgent.toLowerCase();
+                var browserInfo = {};
+                var browserArray = {
+                    IE: window.ActiveXObject || "ActiveXObject" in window, // IE
+                    Chrome: UserAgent.indexOf('chrome') > -1 && UserAgent.indexOf('safari') > -1, // Chrome浏览器
+                    Firefox: UserAgent.indexOf('firefox') > -1, // 火狐浏览器
+                    Opera: UserAgent.indexOf('opera') > -1, // Opera浏览器
+                    Safari: UserAgent.indexOf('safari') > -1 && UserAgent.indexOf('chrome') == -1, // safari浏览器
+                    old_Edge: UserAgent.indexOf('edge') > -1,  // 舊Edge浏览器
+                    Edge: UserAgent.indexOf('edg') > -1 && UserAgent.indexOf('chrome') > -1 && UserAgent.indexOf('safari') > -1, // 新Edge
+                };
+                // console.log(browserArray)
+                for (var i in browserArray) {
+                    if (browserArray[i]) {
+                        var versions = '';
+                        if (i == 'IE') {
+                            versions = UserAgent.match(/(msie\s|trident.*rv:)([\w.]+)/)[2];
+                        } else if (i == 'Chrome') {
+                            versions = UserAgent.match(/chrome\/([\d.]+)/)[1];
+                        } else if (i == 'Firefox') {
+                            versions = UserAgent.match(/firefox\/([\d.]+)/)[1];
+                        } else if (i == 'Opera') {
+                            versions = UserAgent.match(/opera\/([\d.]+)/)[1];
+                        } else if (i == 'Safari') {
+                            versions = UserAgent.match(/version\/([\d.]+)/)[1];
+                        } else if (i == 'Edge') {
+                            versions = UserAgent.match(/edg\/([\d.]+)/)[1];
+                        } else if (i == "old_Edge") {
+                            versions = UserAgent.match(/edge\/([\d.]+)/)[1];
+                        }
+                        browserInfo.type = i;
+                        browserInfo.versions = parseInt(versions);
+                    }
+                }
+                return browserInfo;
+            }
+            const { type, versions } = getBrowser();
+            if (type != "Chrome") {
+                alert("您使用的瀏覽器不為 Chrome , 本網站未對其進行優化, 有可能發生不可預期錯誤, 建議直接停止測試。");
+            }
+            if (type == "Chrome" && versions < 85) {
+                alert("您的瀏覽器版本低於 85, 請至少升級至85再開始進行測試");
+            }
+            console.log({ type, versions });
+            //按鈕外觀切換
+            $('#btn > button').click(function () {
+                if ($(this).attr('name') != btnMode) {
+                    $("#" + btnMode).hide();
+                    btnMode = $(this).attr('name');
+                    $("#" + btnMode).show();
+                    var secondary = $('#btn').find('.btn-secondary');
+                    var primary = $('#btn').find('.btn-primary');
+                    secondary.removeClass("btn-secondary").addClass('btn-primary');
+                    primary.removeClass("btn-primary").addClass('btn-secondary');
+                }
+            });
+            $('#register > input[type=button]').click(function () {
+                alert("正在嘗試寄送註冊信件......請等候幾秒鐘");
+                $.post("/EW/register", { email: $('#register > input[type=email]').val() }, function (result) {
+                    console.log(result);
+                    if (result.result == "success") {
+                        alert(result.message);
+                    } else {
+                        alert("信件無法寄出, 若確認信箱無誤, 請聯絡網站管理人");
+                    }
+                })
+            })
+        });
+    </script>
+</body>
+
+</html>

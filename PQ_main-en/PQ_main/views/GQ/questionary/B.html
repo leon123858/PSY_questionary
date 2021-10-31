@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/arduino.js"></script>
+    <script src="/javascripts/GQ_SQ.js"></script>
+    <title>B:停止訊號作業</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
+                </div>
+                <div class="modal-body m-2 p-0 text-center"
+                    style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
+                    <img src="/image/B.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
+                </div>
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sound div -->
+    <div style="display: none;">
+        <audio id="sound">
+            <source src="/voice/bee.mp3">
+        </audio>
+        <button id="beestart-btn">Play</button>
+        <button id="beestop-btn">Pause</button>
+    </div>
+
+    <!-- cross -->
+    <ten id="cross" class="center-screen ">+</ten>
+    <!-- result label -->
+    <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+        style="display: none;"></label>
+    <!-- finish btn for game -->
+    <button id="finish_btn" style="display: none;"></button>
+    <!-- post form -->
+    <form method="POST" action="/GQ/EQ" style="display: none;">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
+    </form>
+
+    <script type="text/javascript" src="/javascripts/Class_inform.js"></script>
+    <script>
+        var game_get = null;
+        var game;
+        const saver = new GQ_SQ("<%=ID%>", "<%=password%>");
+        $(window).on('load', function () {
+            $('#main-model').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            setArduinoMode("FJ");
+            saver.saveDataBefore();
+        });
+
+        $('#start').on('click', function () {
+            if (game_get == "practice") {
+                game = new B(20);
+                game.process();
+                $('#main-model').modal('hide');
+            } else if (game_get == "reality") {
+                game = new B(240);
+                game.process();
+                $('#main-model').modal('hide');
+            }
+        });
+
+        $('.btn-group').on('click', '.btn', function () {
+            game_get = $(this).val();
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+
+        // sound controller start and stop
+        $('#beestart-btn').on('click', function () {
+            var audioEle = $("#sound")[0];
+            var playPromise = audioEle.play();
+
+            if (playPromise !== undefined) { //chorme restrict
+                playPromise.then(_ => {
+                    video.pause();
+                    video.play();
+                })
+                    .catch(error => {
+
+                    });
+            }
+        });
+        $('#beestop-btn').on('click', function () {
+            var audioEle = document.getElementById('sound');
+            var source = $("#sound")[0];
+            source.pause(); //暫停
+            audioEle.currentTime = 0; //return to initial
+        });
+
+
+        $('#finish_btn').on('click', function () {
+            console.log(game.one);
+            console.log(game.group);
+            console.log(game.pr);
+            if (game_get == "reality") {
+                saver.saveDataAfter(game, 'B');
+            } else {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+
+</html>
