@@ -44,10 +44,7 @@ const deleteFile = async (curPath) => {
 const copyFile = async (source, target) => {
 	try {
 		if (source.indexOf('.png') > -1 && target.indexOf('.jpg') > -1) {
-			return await fs.writeFile(
-				target.replace('.jpg', '.png'),
-				await fs.readFile(source)
-			);
+			return await fs.writeFile(target, await fs.readFile(source));
 		}
 		return await fs.writeFile(target, await fs.readFile(source));
 	} catch (err) {
