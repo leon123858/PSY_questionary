@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>心智評估與訓練系統</title>
+    <title>Mental Assessment And Training System</title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
@@ -14,7 +14,7 @@
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
             <div class="text-center  align-self-center">
-                <h1>心智評估與訓練系統</h1>
+                <h1>Mental Assessment And Training System</h1>
             </div>
         </div>
     </header>
@@ -37,71 +37,72 @@
             <br>
             <h2>基本資料填寫</h2><br>
             <div class="row">
-                <span class="person_data  col-md-5">1.編號:</span><input type="text" readonly name="q1"
+                <span class="person_data  col-md-5">1.No. :</span><input type="text" readonly name="q1"
                     class="in_text col-md-6 " placeholder="ex:S01" maxlength="7"
                     onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">2.姓名:</span><input type="text" name="q2" class="in_text  col-md-6"
+                <span class="person_data  col-md-5">2.Name:</span><input type="text" name="q2" class="in_text  col-md-6"
                     placeholder="ex:王小明">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-4 col-md-5">3.生理性別:</span>
+                <span class="person_data  col-md-4 col-md-5">3.Gender:</span>
                 <select name="q3" class="in_text  col-md-6">
                     <option value="0">男</option>
                     <option value="1">女</option>
                 </select>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">4.年齡:</span><input type="text" name="q4" class="in_text col-md-6"
+                <span class="person_data  col-md-5">4.Age:</span><input type="text" name="q4" class="in_text col-md-6"
                     placeholder="ex:20" input="" onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength="2">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">5.生日:</span><input type="date" name="q5" class="in_text col-md-6">
+                <span class="person_data  col-md-5">5.BirthdDay:</span><input type="date" name="q5"
+                    class="in_text col-md-6">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5 ">6.身分證字號:</span><input type="text" name="q6"
-                    class="in_text col-md-6 " placeholder="ex:A123456789" maxlength="10"
-                    onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+                <span class="person_data  col-md-5 ">6.ID:</span><input type="text" name="q6" class="in_text col-md-6 "
+                    placeholder="ex:A123456789" maxlength="10" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">6.身高 (cm) :</span><input type="text" name="q7"
+                <span class="person_data  col-md-5">6.Height (inch) :</span><input type="text" name="q7"
                     class="in_text col-md-6" placeholder="ex:168.9" onkeyup="if(isNaN(value))execCommand('undo')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">7.體重 (kg) :</span><input type="text" name="q8"
+                <span class="person_data  col-md-5">7.Weight (Ib) :</span><input type="text" name="q8"
                     class="in_text col-md-6" placeholder="ex:70.5" onkeyup="if(isNaN(value))execCommand('undo')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">8.電話 :</span><input type="text" name="q9" class="in_text col-md-6"
-                    placeholder="ex:0912345678" onkeyup="this.value=this.value.replace(/\D/g,'')">
+                <span class="person_data  col-md-5">8.Phone Number :</span><input type="text" name="q9"
+                    class="in_text col-md-6" placeholder="ex:0912345678"
+                    onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">9.聯絡地址 :</span><input type="text" name="q10"
+                <span class="person_data  col-md-5">9.Address :</span><input type="text" name="q10"
                     class="in_text col-md-6" placeholder="">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">10.常用Email :</span><input type="text" name="q11"
+                <span class="person_data  col-md-5">10.Email :</span><input type="text" name="q11"
                     class="in_text col-md-6" placeholder="ex:abcd@gmail.com">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">11.就讀學校 :</span><input type="text" name="q12"
+                <span class="person_data  col-md-5">11.School :</span><input type="text" name="q12"
                     class="in_text col-md-6" placeholder="ex:國立成功大學">
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">12.系級 :</span><input type="text" name="q13" class="in_text col-md-6"
-                    placeholder="ex:心理三">
+                <span class="person_data  col-md-5">12.Department :</span><input type="text" name="q13"
+                    class="in_text col-md-6" placeholder="ex:心理三">
                 <br>
             </div>
             <div class="row" style="display: none;">
@@ -115,14 +116,14 @@
                 <br>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">13.平時慣用手 :</span>
+                <span class="person_data  col-md-5">13.Handedness :</span>
                 <select name="q16" class="in_text  col-md-6">
                     <option value="0">左</option>
                     <option value="1">右</option>
                 </select>
             </div>
             <div class="row">
-                <span class="person_data  col-md-5">14.打球慣用手 :</span>
+                <span class="person_data  col-md-5">14.Handedness Playing Sports :</span>
                 <select name="q17" class="in_text  col-md-6">
                     <option value="0">左</option>
                     <option value="1">右</option>
