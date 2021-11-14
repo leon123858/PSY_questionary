@@ -45,7 +45,7 @@
         <div class="row text-center">
             <label class="col-4 btn btn-primary btn-bg" style="font-size:100%">Back to Homepage</label>
             <label name="see" class="col-4 btn btn-link" style="font-size:100%">Perception</label>
-            <label class="col-4 btn btn-success btn-bg" style="font-size:100%">我的報告</label>
+            <label class="col-4 btn btn-success btn-bg" style="font-size:100%">My Report</label>
         </div>
         <br>
     </div>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -75,19 +75,19 @@
     </div>
     <script>
         var eachDate = {
-            A: '未有填寫紀錄',
-            B: '未有填寫紀錄',
-            C: '未有填寫紀錄',
-            D: '未有填寫紀錄',
-            E: '未有填寫紀錄',
-            F: '未有填寫紀錄',
-            G: '未有填寫紀錄',
-            H: '未有填寫紀錄',
-            I: '未有填寫紀錄',
-            J: '未有填寫紀錄',
-            K: '未有填寫紀錄',
-            L: '未有填寫紀錄',
-            M: '未有填寫紀錄'
+            A: 'No Record Yet',
+            B: 'No Record Yet',
+            C: 'No Record Yet',
+            D: 'No Record Yet',
+            E: 'No Record Yet',
+            F: 'No Record Yet',
+            G: 'No Record Yet',
+            H: 'No Record Yet',
+            I: 'No Record Yet',
+            J: 'No Record Yet',
+            K: 'No Record Yet',
+            L: 'No Record Yet',
+            M: 'No Record Yet'
         };
         //跳問卷
         function movePage(name) {
@@ -97,11 +97,11 @@
             $.post("/GQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
                     for (var i in result.data) {
-                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                        eachDate[i] = "Time last answered" + result.data[i];
                     }
                 }
                 else
-                    alert(result.result + ",無法抓取過去填寫紀錄");
+                    alert(result.result + ",unable to load history record");
             })
             $(".btn-link").click(function () {
                 $('#modal').modal('show');
