@@ -20,25 +20,27 @@
     </header>
     <div class="container" style="font-family:Microsoft JhengHei;font-size:150%">
         <div id="btn" style="text-align:center">
-            <button name="Introduce" type="button" class="btn btn-primary col-md-4">計畫介紹</button>
-            <button name="Login" type="button" class="btn btn-secondary col-md-4">測試者登入</button>
+            <button name="Introduce" type="button" class="btn btn-primary col-md-4">Introduction for Project</button>
+            <button name="Login" type="button" class="btn btn-secondary col-md-4">Participant Log In</button>
         </div>
         <br>
         <div id="Introduce" style="text-align:center">
             <h1>Service Introduction</h1>
-            <div>
-                <p>本系統包含評估與訓練兩大部分。</p>
+            <!--Mental assessment and training system’s literal contents-->
+            <br>
+                <p>About "The System":</p>
                 <p>
-                    從五大面向(注意力、視知覺、記憶力、情緒、抑制控制能力)著手，評估使用者心智能力，且每個面向包含數個作業，作每一面向的整合性評估。
+                    We are urged to build an ideal immanence skills refinement system that is specific for people of all ages , which is also available for the general public’s mental evaluation.
                 </p>
-                <p>評估後的報告輸出，可知悉個人強項與弱勢項目，本系統提供數十種遊戲作為各面向的加強訓練。</p>
-                <h1>本系統特點如下：</h1>
-                <p>I、線上評估系統：
-                <p>使用者僅需上網即可進行評估。每個作業僅需數分鐘即可完成。快速給予分析報告，以發現使用者的認知特質。</p>
-                <p>II、線上訓練系統：
-                <p>經過評估後，可以針對使用者的認知狀況提出客製化訓練菜單，進行功能性補強與訓練成效追蹤。</p>
-                <p>III、線上資料庫：
-                <p>本系統在各項作業已收集各年齡層數百人數據，足以作為使用者參照，並以圖像化圖表呈現使用者的認知功能特色，利於使用者了解自身的優劣勢，進行補強。</p>
+                <p>This system includes integrated assessment and follow-up training functions with multiple personalized settings. All data will be collected based on 5 phases: attention, perception, working memory, emotion, and inhibition control abilities.</p>
+                <br/>
+                <h1>Why choosing "The System" ?</h1>
+                <p>I. User interface friendly:
+                <p>Whole assessments and pieces of training can be held online, the time consumes for the analysis cost less than few minutes. </p>
+                <p>II. High user experience design:
+                <p>The results are presented in a graphical chart, further customized reinforcements and related tracking will be created via the cognitive status and traits of participants. </p>
+                <p>III. Huge online database:
+                <p>There are more than hundreds of people in various age groups records can be referred to. All personal information will be highly protected.</p>
             </div>
             <img src="\image\Ew_intro.jpg" style="width: 80%;" />
             <br>
@@ -46,16 +48,16 @@
         </div>
         <div id="Login" style="text-align:center">
             <form action="/EW/login" method="post">
-                <h3>登入</h3>
-                <input name="ID" type="text" class="col-md-4" placeholder="請輸入您的帳號" required /><br />
-                <input name="password" type="password" class="col-md-4" placeholder="請輸入您的密碼" required /><br />
-                <input type="submit" class="btn btn-success col-md-4" value="登入" />
+                <h3>Log in</h3>
+                <input name="ID" type="text" class="col-md-4" placeholder="Please enter your account" required /><br />
+                <input name="password" type="password" class="col-md-4" placeholder="Please enter your password" required /><br />
+                <input type="submit" class="btn btn-success col-md-4" value="Log in" />
             </form>
             <hr>
             <div id="register" style="text-align:center">
-                <h3>註冊</h3>
-                <input name="email" type="email" class="col-md-4" placeholder="請輸入您的電子信箱" required /><br />
-                <input type="button" class="btn btn-info col-md-4" value="註冊" />
+                <h3>Register</h3>
+                <input name="email" type="email" class="col-md-4" placeholder="Please key in your Email" required /><br />
+                <input type="button" class="btn btn-info col-md-4" value="Sign Up" />
             </div>
         </div>
     </div>
