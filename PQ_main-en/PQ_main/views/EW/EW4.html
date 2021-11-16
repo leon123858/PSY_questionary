@@ -25,10 +25,11 @@
                 <strong>修改密碼</strong><i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
             </button>
             <div id="inform-data" class="row m-auto collapse w-100" style="background-color: rgb(231, 242, 255);">
-                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4" placeholder="新密碼" />
+                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4"
+                        placeholder="New Password" />
                 </div>
                 <div class="col-md-4 mb-1"><input id="passwordConfirm" type="password" class="col-md-4"
-                        placeholder="確認新密碼" /></div>
+                        placeholder="New Password Confirm" /></div>
                 <div class="col-md-4 mb-1"><input id="updatePassword" type="button" class="btn btn-success col-md-4"
                         value="更新" /></div>
             </div>
@@ -44,14 +45,14 @@
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">2.Name:</span><input type="text" name="q2" class="in_text  col-md-6"
-                    placeholder="ex:王小明">
+                    placeholder="ex:John Doe">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-4 col-md-5">3.Gender:</span>
                 <select name="q3" class="in_text  col-md-6">
-                    <option value="0">男</option>
-                    <option value="1">女</option>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
                 </select>
             </div>
             <div class="row">
@@ -112,20 +113,20 @@
             </div>
             <div class="row" style="display: none;">
                 <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15"
-                    class="in_text col-md-6 " placeholder="ex:107 全國大專盃女團第三">
+                    class="in_text col-md-6 " placeholder="ex:107 全國大專盃Female團第三">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">13.Handedness :</span>
                 <select name="q16" class="in_text  col-md-6">
-                    <option value="0">左</option>
+                    <option value="0">left-handed</option>
                     <option value="1">右</option>
                 </select>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">14.Handedness Playing Sports :</span>
                 <select name="q17" class="in_text  col-md-6">
-                    <option value="0">左</option>
+                    <option value="0">left-handed</option>
                     <option value="1">右</option>
                 </select>
             </div>
@@ -191,7 +192,7 @@
                                 alert(result.result);
                             }
                             else {
-                                alert('更新成功');
+                                alert('Update completed');
                                 nowPassword = new_password;
                             }
                         });
@@ -240,7 +241,7 @@
                                 $("#updateData").prop('disabled', false);
                             }
                             else {
-                                alert('更新成功');
+                                alert('Update completed');
                                 $('form').submit();
                             }
                         }).fail(() => {

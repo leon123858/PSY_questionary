@@ -491,9 +491,9 @@
         }
         function init() {
             //數字轉中文
-            $("#Ghand").text() == 0 ? $("#Ghand").text("左手") : $("#Ghand").text("右手");
-            $("#Phand").text() == 0 ? $("#Phand").text("左手") : $("#Phand").text("右手");
-            $("#gender").text() == 0 ? $("#gender").text("男性") : $("#gender").text("女性");
+            $("#Ghand").text() == 0 ? $("#Ghand").text("left-handed手") : $("#Ghand").text("右手");
+            $("#Phand").text() == 0 ? $("#Phand").text("left-handed手") : $("#Phand").text("右手");
+            $("#gender").text() == 0 ? $("#gender").text("Male") : $("#gender").text("Female");
             //呼叫資料
             $.post("/GQ/PR/GetPersonalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
