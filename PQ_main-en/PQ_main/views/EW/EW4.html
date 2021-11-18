@@ -44,7 +44,7 @@
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">2.Name:</span><input type="text" name="q2" class="in_text  col-md-6"
-                    placeholder="ex:王小明">
+                    placeholder="ex:John Doe">
                 <br>
             </div>
             <div class="row">
@@ -112,21 +112,21 @@
             </div>
             <div class="row" style="display: none;">
                 <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15"
-                    class="in_text col-md-6 " placeholder="ex:107 全國大專盃女團第三">
+                    class="in_text col-md-6 " placeholder="ex:107 National Intercollegiate Athletic Games - Female Group 3rd">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">13.Handedness :</span>
                 <select name="q16" class="in_text  col-md-6">
-                    <option value="0">Lefthanded</option>
-                    <option value="1">Righthanded</option>
+                    <option value="0">left-handed</option>
+                    <option value="1">right-handed</option>
                 </select>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">14.Handedness Playing Sports :</span>
                 <select name="q17" class="in_text  col-md-6">
-                    <option value="0">Lefthanded</option>
-                    <option value="1">Righthanded</option>
+                    <option value="0">left-handed</option>
+                    <option value="1">right-handed</option>
                 </select>
             </div>
             <div class="row" style="display: none;">
@@ -191,7 +191,7 @@
                                 alert(result.result);
                             }
                             else {
-                                alert('Update Successfully!');
+                                alert('Update completed');
                                 nowPassword = new_password;
                             }
                         });
@@ -240,7 +240,7 @@
                                 $("#updateData").prop('disabled', false);
                             }
                             else {
-                                alert('Update success');
+                                alert('Update completed');
                                 $('form').submit();
                             }
                         }).fail(() => {
