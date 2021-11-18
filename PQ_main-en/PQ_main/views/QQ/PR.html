@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>心智評估與訓練系統</title>
+    <title>Mental Assessment And Training System</title>
     <script src="../javascripts/chart.js"></script>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="/javascripts/jquery.js"></script>
@@ -15,7 +15,7 @@
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
             <div class="text-center  align-self-center">
-                <h1>心智評估與訓練系統<small>個人報告</small></h1>
+                <h1>Mental Assessment And Training System<small>個人報告</small></h1>
             </div>
         </div>
     </header>
@@ -30,15 +30,15 @@
             <table style="text-align:center" align="center">
                 <tbody class="table table-bordered">
                     <tr>
-                        <td bgcolor="yellow">姓名</td>
+                        <td bgcolor="yellow">Name</td>
                         <td>
                             <%=name%>
                         </td>
-                        <td bgcolor="yellow">性別</td>
+                        <td bgcolor="yellow">Gender</td>
                         <td id="gender">
                             <%=gender%>
                         </td>
-                        <td bgcolor="yellow">年齡</td>
+                        <td bgcolor="yellow">Age</td>
                         <td>
                             <%=age%>
                         </td>
@@ -48,7 +48,7 @@
                         <td>
                             <%=year%>
                         </td>
-                        <td bgcolor="yellow">慣用手</td>
+                        <td bgcolor="yellow">Handedness</td>
                         <td id="Ghand">
                             <%=Ghand%>
                         </td>
@@ -58,7 +58,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="yellow">最佳成績</td>
+                        <td bgcolor="yellow">Handedness Playing Sports</td>
                         <td colspan="5">
                             <%=nice%>
                         </td>
@@ -172,7 +172,7 @@
                             <td>項目</td>
                             <td>因應困境</td>
                             <td>適應壓力</td>
-                            <td>目標設定</td>
+                            <td>Goal Setting</td>
                             <td>專注</td>
                             <td>免於擔憂</td>
                             <td>成就動機</td>
@@ -486,9 +486,9 @@
         }
         function init() {
             //數字轉中文
-            $("#Ghand").text() == 0 ? $("#Ghand").text("左手") : $("#Ghand").text("右手");
-            $("#Phand").text() == 0 ? $("#Phand").text("左手") : $("#Phand").text("右手");
-            $("#gender").text() == 0 ? $("#gender").text("男性") : $("#gender").text("女性");
+            $("#Ghand").text() == 0 ? $("#Ghand").text("left-handed手") : $("#Ghand").text("右手");
+            $("#Phand").text() == 0 ? $("#Phand").text("left-handed手") : $("#Phand").text("右手");
+            $("#gender").text() == 0 ? $("#gender").text("Male") : $("#gender").text("Female");
             //呼叫資料
             $.post("/QQ/PR/getData", { ID: '<%=ID%>', password: "<%=password%>" }, function (result) {
                 if (result.result == "success") {
