@@ -23,14 +23,14 @@ class GQ_SQ {
 							localStorage.removeItem('GQgroup');
 							alert('上次未上傳資料上傳成功');
 						} else {
-							alert('資料上傳失敗,失敗原因 : ' + data.result);
+							alert('Fail to upload data, reason: ' + data.result);
 						}
-					} else alert('與伺服器斷訊');
+					} else alert('The connection to the server failed.');
 				},
 				'json'
 			).fail(() => {
 				alert(
-					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+					'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 				);
 				//location.reload();
 			});
@@ -52,14 +52,14 @@ class GQ_SQ {
 							// localStorage.removeItem('GQtype');
 							console.log('上次未上傳資料上傳成功');
 						} else {
-							console.log('資料上傳失敗,失敗原因 : ' + data.result);
+							console.log('Fail to upload data, reason: ' + data.result);
 						}
-					} else console.log('與伺服器斷訊');
+					} else console.log('The connection to the server failed.');
 				},
 				'json'
 			).fail(() => {
 				alert(
-					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+					'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 				);
 				//location.reload();
 			});
@@ -88,16 +88,16 @@ class GQ_SQ {
 						localStorage.removeItem('GQone');
 						localStorage.removeItem('GQgroup');
 						$('form').submit();
-						alert('資料上傳成功');
+						alert('Data uploaded successfully.');
 					} else {
-						alert('資料上傳失敗,失敗原因 : ' + data.result);
+						alert('Fail to upload data, reason: ' + data.result);
 					}
-				} else alert('與伺服器斷訊');
+				} else alert('The connection to the server failed.');
 			},
 			'json'
 		).fail(() => {
 			alert(
-				'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+				'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 			);
 			location.reload();
 		});
@@ -116,16 +116,16 @@ class GQ_SQ {
 						localStorage.removeItem('pr');
 						// localStorage.removeItem('GQtype');
 						$('form').submit();
-						console.log('資料上傳成功');
+						console.log('Data uploaded successfully.');
 					} else {
-						console.log('資料上傳失敗,失敗原因 : ' + data.result);
+						console.log('Fail to upload data, reason: ' + data.result);
 					}
-				} else console.log('與伺服器斷訊');
+				} else console.log('The connection to the server failed.');
 			},
 			'json'
 		).fail(() => {
 			alert(
-				'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+				'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 			);
 		});
 	}

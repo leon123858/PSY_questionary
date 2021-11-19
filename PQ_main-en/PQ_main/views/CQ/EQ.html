@@ -32,7 +32,7 @@
                 <label name="watch" class="btn btn-link" style="font-size:100%">Perception</label>
             </div>
             <div class="col-4">
-                <img src="/image/sixSide.png" alt="測試結果示意圖" style="width:100%;height:300px" />
+                <img src="/image/sixSide.png" alt="Test result diagram" style="width:100%;height:300px" />
             </div>
             <div class="col-4">
                 <br>
@@ -55,7 +55,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
-                    <p>請點擊您想要前往哪一張問卷</p>
+                    <p>Please choose which questionary you want to go to</p>
                     <div class="modal-btn">
 
                     </div>
@@ -152,11 +152,11 @@
             $.post("/CQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
                     for (var i in result.data) {
-                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                        eachDate[i] = "Last answered time : " + result.data[i];
                     }
                 }
                 else
-                    alert(result.result + ",無法抓取過去填寫紀錄");
+                    alert(result.result + ", could not load the history data");
             })
             $(".btn-link").click(function () {
                 $('#modal').modal('show');

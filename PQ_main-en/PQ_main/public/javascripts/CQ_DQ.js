@@ -52,18 +52,18 @@ class Handler {
 							alert('上次未上傳資料上傳成功');
 							return 'success';
 						} else {
-							alert('資料上傳失敗,失敗原因 : ' + data.result);
+							alert('Fail to upload data, reason: ' + data.result);
 							return 'error';
 						}
 					} else {
-						alert('與伺服器斷訊');
+						alert('The connection to the server failed.');
 						return 'error';
 					}
 				},
 				'json'
 			).fail(() => {
 				alert(
-					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+					'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 				);
 			});
 		}
@@ -97,12 +97,12 @@ class Handler {
 								: resolve(null);
 							return;
 						} else {
-							alert('資料上傳失敗,失敗原因 : ' + data.result);
+							alert('Fail to upload data, reason: ' + data.result);
 							reject('error');
 							return;
 						}
 					} else {
-						alert('與伺服器斷訊');
+						alert('The connection to the server failed.');
 						reject('error');
 						return;
 					}
@@ -110,7 +110,7 @@ class Handler {
 				'json'
 			).fail(() => {
 				alert(
-					'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+					'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 				);
 			});
 		});
@@ -134,7 +134,7 @@ class Handler {
 							resolve(['NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA']);
 						}
 					} else {
-						console.log('與伺服器斷訊');
+						console.log('The connection to the server failed.');
 						resolve(['NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA']);
 					}
 				},

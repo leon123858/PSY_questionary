@@ -30,35 +30,35 @@
             <table style="text-align:center" align="center">
                 <tbody class="table table-bordered">
                     <tr>
-                        <td bgcolor="yellow">姓名</td>
+                        <td bgcolor="yellow">Name</td>
                         <td>
                             <%=name%>
                         </td>
-                        <td bgcolor="yellow">性別</td>
+                        <td bgcolor="yellow">Gender</td>
                         <td id="gender">
                             <%=gender%>
                         </td>
-                        <td bgcolor="yellow">年齡</td>
+                        <td bgcolor="yellow">Age</td>
                         <td>
                             <%=age%>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="yellow">球齡</td>
+                        <td bgcolor="yellow">Years of Playing Sports</td>
                         <td>
                             <%=year%>
                         </td>
-                        <td bgcolor="yellow">慣用手</td>
+                        <td bgcolor="yellow">Handedness</td>
                         <td id="Ghand">
                             <%=Ghand%>
                         </td>
-                        <td bgcolor="yellow">打球慣用手</td>
+                        <td bgcolor="yellow">Handedness Playing Sports</td>
                         <td id="Phand">
                             <%=Phand%>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="yellow">最佳成績</td>
+                        <td bgcolor="yellow">Best Record</td>
                         <td colspan="5">
                             <%=nice%>
                         </td>
@@ -482,6 +482,7 @@
             for (var i in list[1]) {
                 $("#B_" + (1 + parseInt(i)).toString()).text(toIcon(list[1][i]));
             }
+
             for (var i in list[2]) {
                 $("#C_" + (1 + parseInt(i)).toString()).text(toIcon(list[2][i]));
             }
@@ -491,9 +492,9 @@
         }
         function init() {
             //數字轉中文
-            $("#Ghand").text() == 0 ? $("#Ghand").text("左手") : $("#Ghand").text("右手");
-            $("#Phand").text() == 0 ? $("#Phand").text("左手") : $("#Phand").text("右手");
-            $("#gender").text() == 0 ? $("#gender").text("男性") : $("#gender").text("女性");
+            $("#Ghand").text() == 0 ? $("#Ghand").text("left-handed") : $("#Ghand").text("right-handed");
+            $("#Phand").text() == 0 ? $("#Phand").text("left-handed") : $("#Phand").text("right-handed");
+            $("#gender").text() == 0 ? $("#gender").text("male") : $("#gender").text("female");
             //呼叫資料
             $.post("/GQ/PR/GetPersonalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
@@ -514,11 +515,11 @@
                             outputResult();
                         }
                         else
-                            alert(result.result + ",請重新整理後再試");
+                            alert(result.result + ", please reload the page and try again.");
                     });
                 }
                 else
-                    alert(result.result + ",請重新整理後再試");
+                    alert(result.result + ", please reload the page and try again.");
             });
         }
         $(document).ready(function () {
