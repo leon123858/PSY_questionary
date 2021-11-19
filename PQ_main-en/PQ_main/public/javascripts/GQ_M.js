@@ -188,7 +188,7 @@
 								}
 							).fail(() => {
 								alert(
-									'未預期錯誤.已紀錄資料在本電腦, 可先關閉程式, 下次開啟同系統問卷會要求上傳'
+									'Unexpected error. As the data has been save in local, you can leave the system, and the files will be uploaded again next time you enter the program.'
 								);
 							});
 						} else {

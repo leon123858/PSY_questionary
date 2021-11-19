@@ -15,7 +15,7 @@
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
             <div class="text-center  align-self-center">
-                <h1>Mental Assessment And Training System<small>個人報告</small></h1>
+                <h1>Mental Assessment And Training System<small>Individual Report</small></h1>
             </div>
         </div>
     </header>
@@ -44,7 +44,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="yellow">球齡</td>
+                        <td bgcolor="yellow">Years of Playing Sports</td>
                         <td>
                             <%=year%>
                         </td>
@@ -52,13 +52,13 @@
                         <td id="Ghand">
                             <%=Ghand%>
                         </td>
-                        <td bgcolor="yellow">打球慣用手</td>
+                        <td bgcolor="yellow">Handedness Playing Sports</td>
                         <td id="Phand">
                             <%=Phand%>
                         </td>
                     </tr>
                     <tr>
-                        <td bgcolor="yellow">Handedness Playing Sports</td>
+                        <td bgcolor="yellow">Best Record</td>
                         <td colspan="5">
                             <%=nice%>
                         </td>
@@ -486,8 +486,8 @@
         }
         function init() {
             //數字轉中文
-            $("#Ghand").text() == 0 ? $("#Ghand").text("left-handed手") : $("#Ghand").text("右手");
-            $("#Phand").text() == 0 ? $("#Phand").text("left-handed手") : $("#Phand").text("右手");
+            $("#Ghand").text() == 0 ? $("#Ghand").text("left-handed") : $("#Ghand").text("right-handed");
+            $("#Phand").text() == 0 ? $("#Phand").text("left-handed") : $("#Phand").text("right-handed");
             $("#gender").text() == 0 ? $("#gender").text("Male") : $("#gender").text("Female");
             //呼叫資料
             $.post("/QQ/PR/getData", { ID: '<%=ID%>', password: "<%=password%>" }, function (result) {
@@ -497,7 +497,7 @@
                     outputResult();
                 }
                 else
-                    alert(result.result + "請稍後再試");
+                    alert(result.result + "Please try again later");
             })
         }
         $(document).ready(function () {
