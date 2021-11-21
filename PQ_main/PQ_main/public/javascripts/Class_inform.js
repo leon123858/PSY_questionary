@@ -984,12 +984,24 @@ class F {
 		this._one = '';
 		this._group = '';
 		this._pr = '';
-		this.IMG_NAME = {
-			0: '/image/eye.jpg',
-			1: '/image/eye_L.jpg',
-			2: '/image/eye_R.jpg',
-		};
 		this.rect = document.getElementById('rect_div').children; //0:left ,1:right
+		this.eye = document.getElementById('eye');
+		this.width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+		if (this.width > 1900) {
+			this.eye.children[0].setAttribute('cx', 30);
+			this.eye.children[0].setAttribute('r', 12);
+			this.eye.children[0].setAttribute('stroke-width', 13);
+			this.eye.children[1].setAttribute('cx', 170);
+			this.eye.children[1].setAttribute('r', 12);
+			this.eye.children[1].setAttribute('stroke-width', 13);
+		} else {
+			this.eye.children[0].setAttribute('cx', 48);
+			this.eye.children[0].setAttribute('r', 6);
+			this.eye.children[0].setAttribute('stroke-width', 10);
+			this.eye.children[1].setAttribute('cx', 153);
+			this.eye.children[1].setAttribute('r', 6);
+			this.eye.children[1].setAttribute('stroke-width', 10);
+		}
 		this._createQuestion();
 	}
 	_init_item() {}
@@ -1069,11 +1081,14 @@ class F {
 		for (var item of this._question) {
 			let get_group = '';
 			await collapse(cross, 1000); //start 1000
-			this.pic.src = this.IMG_NAME[0];
+			this.eye.style.marginLeft = 0;
+			show(this.eye);
 			await collapse(this.pic, 1000); //eye 1000
-			this.pic.src = this.IMG_NAME[item[0]];
+			if (item[0] == 0) this.eye.style.marginLeft = 0;
+			else if (item[0] == 1) this.eye.style.marginLeft = -10;
+			else if (item[0] == 2) this.eye.style.marginLeft = 10;
 			await collapse(this.pic, 150); //look 150
-			this.pic.src = this.IMG_NAME[0]; //eye
+			this.eye.style.marginLeft = 0;
 			await collapse(this.pic, item[2]); //item[2]
 			this._one +=
 				item[3] + '_' + (item[2] + 150) + '_' + (item[1] + 1).toString() + '_'; //Cue-Soa-target
@@ -1097,6 +1112,7 @@ class F {
 				this._group_num[5] += get_group[0];
 				this._groupset[5] += get_group[1];
 			}
+			hide(this.eye);
 		}
 		this._analyzeData();
 		await collapse(result_label, 2000); //show the result
