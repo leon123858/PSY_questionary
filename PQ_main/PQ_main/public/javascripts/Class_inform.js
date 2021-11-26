@@ -1888,7 +1888,7 @@ class K {
 						quetion_Result += '0_' + (end - start).toString() + '~';
 					}
 				} else {
-					quetion_Result += '0_' + (end - start).toString() + '~';
+					quetion_Result += 'NA_0_' + (end - start).toString() + '~';
 				}
 				//console.log(group_set);
 				hide(item);
