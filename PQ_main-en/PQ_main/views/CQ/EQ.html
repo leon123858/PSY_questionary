@@ -32,7 +32,7 @@
                 <label name="watch" class="btn btn-link" style="font-size:100%">Perception</label>
             </div>
             <div class="col-4">
-                <img src="/image/sixSide.png" alt="測試結果示意圖" style="width:100%;height:300px" />
+                <img src="/image/sixSide.png" alt="Test result diagram" style="width:100%;height:300px" />
             </div>
             <div class="col-4">
                 <br>
@@ -55,7 +55,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
-                    <p>請點擊您想要前往哪一張問卷</p>
+                    <p>Please choose which questionary you want to go to</p>
                     <div class="modal-btn">
 
                     </div>
@@ -73,26 +73,26 @@
     </div>
     <script>
         var eachDate = {
-            A: '未有填寫紀錄',
-            B: '未有填寫紀錄',
-            C: '未有填寫紀錄',
-            D: '未有填寫紀錄',
-            E: '未有填寫紀錄',
-            F: '未有填寫紀錄',
-            G: '未有填寫紀錄',
-            H: '未有填寫紀錄',
+            A: 'No Record Yet',
+            B: 'No Record Yet',
+            C: 'No Record Yet',
+            D: 'No Record Yet',
+            E: 'No Record Yet',
+            F: 'No Record Yet',
+            G: 'No Record Yet',
+            H: 'No Record Yet',
             I: '',
-            J: '未有填寫紀錄',
-            K: '未有填寫紀錄',
-            L: '未有填寫紀錄',
-            M: '未有填寫紀錄',
-            N: '未有填寫紀錄',
-            O: '未有填寫紀錄',
-            P: '未有填寫紀錄',
-            Q: '未有填寫紀錄',
-            R: '未有填寫紀錄',
-            S: '未有填寫紀錄',
-            T: '未有填寫紀錄',
+            J: 'No Record Yet',
+            K: 'No Record Yet',
+            L: 'No Record Yet',
+            M: 'No Record Yet',
+            N: 'No Record Yet',
+            O: 'No Record Yet',
+            P: 'No Record Yet',
+            Q: 'No Record Yet',
+            R: 'No Record Yet',
+            S: 'No Record Yet',
+            T: 'No Record Yet',
         };
         const boardNameTable = {
             control: {
@@ -152,11 +152,11 @@
             $.post("/CQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
                     for (var i in result.data) {
-                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                        eachDate[i] = "Last answered time : " + result.data[i];
                     }
                 }
                 else
-                    alert(result.result + ",無法抓取過去填寫紀錄");
+                    alert(result.result + ", could not load the history data");
             })
             $(".btn-link").click(function () {
                 $('#modal').modal('show');

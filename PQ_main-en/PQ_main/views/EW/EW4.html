@@ -22,21 +22,20 @@
         <div>
             <button class="w-100 list-group-item list-group-item-action list-group-item-primary text-center"
                 data-toggle="collapse" data-target="#inform-data">
-                <strong>修改密碼</strong><i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                <strong>Modifying Password</strong><i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
             </button>
             <div id="inform-data" class="row m-auto collapse w-100" style="background-color: rgb(231, 242, 255);">
-                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4"
-                        placeholder="New Password" />
+                <div class="col-md-4 mb-1"><input id="newpassword" type="password" class="col-md-4" placeholder="New Password" />
                 </div>
                 <div class="col-md-4 mb-1"><input id="passwordConfirm" type="password" class="col-md-4"
-                        placeholder="New Password Confirm" /></div>
+                        placeholder="Confirming New Password" /></div>
                 <div class="col-md-4 mb-1"><input id="updatePassword" type="button" class="btn btn-success col-md-4"
-                        value="更新" /></div>
+                        value="Update" /></div>
             </div>
         </div>
         <div style="font-size:200%;">
             <br>
-            <h2>基本資料填寫</h2><br>
+            <h2>Basic Information</h2><br>
             <div class="row">
                 <span class="person_data  col-md-5">1.No. :</span><input type="text" readonly name="q1"
                     class="in_text col-md-6 " placeholder="ex:S01" maxlength="7"
@@ -98,50 +97,50 @@
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">11.School :</span><input type="text" name="q12"
-                    class="in_text col-md-6" placeholder="ex:國立成功大學">
+                    class="in_text col-md-6" placeholder="ex:National ChengKung University">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">12.Department :</span><input type="text" name="q13"
-                    class="in_text col-md-6" placeholder="ex:心理三">
+                    class="in_text col-md-6" placeholder="ex:Psychology junior">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">14.球齡 (年)(可不填):</span><input type="text" name="q14"
+                <span class="person_data  col-md-5">14.Years of playing sports (Optional):</span><input type="text" name="q14"
                     class="in_text col-md-6" placeholder="ex:10" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15"
-                    class="in_text col-md-6 " placeholder="ex:107 全國大專盃Female團第三">
+                <span class="person_data  col-md-5">15.Best performance in the past two years (Optional):</span><input type="text" name="q15"
+                    class="in_text col-md-6 " placeholder="ex:107 National Intercollegiate Athletic Games - Female Group 3rd">
                 <br>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">13.Handedness :</span>
                 <select name="q16" class="in_text  col-md-6">
                     <option value="0">left-handed</option>
-                    <option value="1">右</option>
+                    <option value="1">right-handed</option>
                 </select>
             </div>
             <div class="row">
                 <span class="person_data  col-md-5">14.Handedness Playing Sports :</span>
                 <select name="q17" class="in_text  col-md-6">
                     <option value="0">left-handed</option>
-                    <option value="1">右</option>
+                    <option value="1">right-handed</option>
                 </select>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">18.教練(可不填) :</span><input type="text" name="q18"
-                    class="in_text col-md-6" placeholder="ex:張大強">
+                <span class="person_data  col-md-5">18.Coach (Optional):</span><input type="text" name="q18"
+                    class="in_text col-md-6" placeholder="ex:Jane Bowe">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">19.一對一練習時數(可不填) :</span><input type="text" name="q19"
+                <span class="person_data  col-md-5">19.One-by-One Practicing Hours (Optional):</span><input type="text" name="q19"
                     class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">20.團練時數(可不填) :</span><input type="text" name="q20"
+                <span class="person_data  col-md-5">20.Group Training Hours (Optional):</span><input type="text" name="q20"
                     class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
@@ -149,7 +148,7 @@
         </div>
         <div>
             <div>
-                <input id="updateData" type="button" class="btn btn-success col-md-12" value="更新個人資料" />
+                <input id="updateData" type="button" class="btn btn-success col-md-12" value="Update Personal Information" />
             </div>
             <br>
             <br>
@@ -198,7 +197,7 @@
                         });
                 }
                 else {
-                    alert('密碼與確認密碼不符合, 或是密碼不可為空');
+                    alert("new password is not with confirming', or the passord cannot be null.");
                 }
             });
             //更新資料
@@ -210,7 +209,7 @@
                     if (NoNeedList.indexOf(i) > - 1) {
                         //允許部分題目不填
                         if ($('input[name="q' + i.toString() + '"]').val() == '')
-                            $('input[name="q' + i.toString() + '"]').val("未填");
+                            $('input[name="q' + i.toString() + '"]').val("NA");
                     }
                     else {
                         if ($('input[name="q' + i.toString() + '"]').val() == '')
@@ -218,7 +217,7 @@
                     }
                 }
                 if (unWrite.length > 0) {
-                    var uneriteList = '未填寫的題目 : ';
+                    var uneriteList = ' Trials not been answered yet. ';
                     for (var i in unWrite)
                         uneriteList += unWrite[i] + ','
                     alert(uneriteList);
@@ -246,7 +245,7 @@
                             }
                         }).fail(() => {
                             alert(
-                                '未預期錯誤, 請聯絡系統管理者'
+                                "Oops, there's an unexpected error , please contact with Administrater."
                             );
                             $("#updateData").prop('disabled', false);
                         });

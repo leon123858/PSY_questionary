@@ -111,10 +111,10 @@
             }
             const { type, versions } = getBrowser();
             if (type != "Chrome") {
-                alert("您使用的瀏覽器不為 Chrome , 本網站未對其進行優化, 有可能發生不可預期錯誤, 建議直接停止測試。");
+                alert("You're not using Chrome as browser, which may lead to unexpected errors, please stop the test right away.");
             }
             if (type == "Chrome" && versions < 85) {
-                alert("您的瀏覽器版本低於 85, 請至少升級至85再開始進行測試");
+                alert("Your browser version is lower than 85, please at least update to 85 and begin the test.");
             }
             console.log({ type, versions });
             //按鈕外觀切換
@@ -130,13 +130,13 @@
                 }
             });
             $('#register > input[type=button]').click(function () {
-                alert("正在嘗試寄送註冊信件......請等候幾秒鐘");
+                alert("Trying to send the registering mail...please wait a moment");
                 $.post("/EW/register", { email: $('#register > input[type=email]').val() }, function (result) {
                     console.log(result);
                     if (result.result == "success") {
                         alert(result.message);
                     } else {
-                        alert("信件無法寄出, 若確認信箱無誤, 請聯絡網站管理人");
+                        alert("Could not send the mail. If the destination is correct, please contact the website administrator.");
                     }
                 })
             })

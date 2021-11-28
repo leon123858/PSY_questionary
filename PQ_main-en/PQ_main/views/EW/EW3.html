@@ -1,32 +1,34 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Mental Assessment And Training System</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
     <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div name="Title" class="jumbotron  mb-0 ">
-            <div class="text-center  align-self-center">
-                <h1>Mental Assessment And Training System</h1>
-            </div>
+      <div name="Title" class="jumbotron mb-0">
+        <div class="text-center align-self-center">
+          <h1>Mental Assessment And Training System</h1>
         </div>
+      </div>
     </header>
-    <div class="conrainer" style="color:red">
-        <br>
-        <h3 style="text-align:center">您尚未輸入過個人資料, 基於安全請修改你的密碼</h3>
-        <br>
+    <div class="conrainer" style="color: red">
+      <br />
+      <h3 style="text-align: center">
+        You haven't edited your personal information yet. Due to safety issues,
+        please change your password.
+      </h3>
+      <br />
     </div>
     <div id="Login" style="text-align:center">
-        <input id="password" type="password" class="col-md-4" placeholder="新密碼" /><br />
-        <input id="passwordConfirm" type="password" class="col-md-4" placeholder="確認新密碼" /><br />
-        <input id="update" type="button" class="btn btn-success col-md-4" value="更新" />
+        <input id="password" type="password" class="col-md-4" placeholder="New Password" /><br />
+        <input id="passwordConfirm" type="password" class="col-md-4" placeholder="Confirming New Password" /><br />
+        <input id="update" type="button" class="btn btn-success col-md-4" value="Update" />
         <form action="/EW/jumpBoard" method="post">
             <input name="ID" type="text" value="<%=ID%>" style="display:none" />
             <input name="password" type="password" value="<%=password%>" style="display:none" />
@@ -34,6 +36,7 @@
         </form>
     </div>
     <script>
+      //寄出換密碼API
         //寄出換密碼API
         function changePassword() {
             var Npassword = $("#passwordConfirm").val();
@@ -52,15 +55,16 @@
             } else {
                 $("#password").val('');
                 $("#passwordConfirm").val('');
-                alert('新密碼與確認不相符, 或密碼不可為空');
-            }
+          alert(
+            'Your new password is different from the confirmed one, or one of which is null.'
+          )
         }
-        $(document).ready(function () {
-            $('#update').click(function () {
-                changePassword();
-            });
-        });
+      }
+      $(document).ready(function () {
+        $('#update').click(function () {
+          changePassword()
+        })
+      })
     </script>
-</body>
-
+  </body>
 </html>

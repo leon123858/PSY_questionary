@@ -235,18 +235,18 @@ function CheckPasswordAndLicence(db, ID, password, type) {
 			{ ID: ID },
 			{ projection: { _id: 0 } },
 			function (err, result) {
-				if (err) {
-					reject({ result: '伺服器連線錯誤' });
-					throw err;
-				}
-				if (result == null) reject({ result: '不存在此帳號' });
-				else if (result.password == password)
-					if (type_licence.indexOf(type) > -1) resolve(1);
-					else reject({ result: '無此操作權限' });
-				else reject({ result: '密碼錯誤' });
-			}
-		);
-	});
+        if (err) {
+          reject({ result: "Connection to server failed" });
+          throw err;
+        }
+        if (result == null) reject({ result: "Account does not exist." });
+        else if (result.password == password)
+          if (type_licence.indexOf(type) > -1) resolve(1);
+          else reject({ result: "Access denied to this operation." });
+        else reject({ result: "Wrong Password" });
+      }
+    )
+  })
 }
 
 function saveInDB(type, mode, str) {
@@ -260,39 +260,39 @@ function saveInDB(type, mode, str) {
 }
 
 function insertData(db, ID, type, date, mode, data) {
-	return new Promise((resolve, reject) => {
-		var table = db.db('CQ_data').collection(type + '_' + mode);
-		table.insertOne(
-			{ ID: ID, Date: date, data: saveInDB(type, mode, data) },
-			function (err, result) {
-				if (err) {
-					reject({ result: '伺服器連線錯誤' });
-					throw err;
-				}
-				resolve({ result: 'success' });
-			}
-		);
-	});
+  return new Promise((resolve, reject) => {
+    var table = db.db("CQ_data").collection(type + "_" + mode);
+    table.insertOne(
+      { ID: ID, Date: date, data: saveInDB(type, mode, data) },
+      function (err, result) {
+        if (err) {
+          reject({ result: "Connection to server failed" });
+          throw err;
+        }
+        resolve({ result: "success" });
+      }
+    );
+  });
 }
 
 function updateDate(db, ID, date, type) {
-	return new Promise((resolve, reject) => {
-		var table = db.db('CQ_personal').collection('personal_Date');
-		var updateThing = {};
-		updateThing[type] = date;
-		table.updateOne(
-			{ ID: ID },
-			{ $set: updateThing },
-			{ upsert: true },
-			function (err, result) {
-				if (err) {
-					reject({ result: '伺服器連線錯誤' });
-					throw err;
-				}
-				resolve({ result: 'success' });
-			}
-		);
-	});
+  return new Promise((resolve, reject) => {
+    var table = db.db("CQ_personal").collection("personal_Date");
+    var updateThing = {};
+    updateThing[type] = date;
+    table.updateOne(
+      { ID: ID },
+      { $set: updateThing },
+      { upsert: true },
+      function (err, result) {
+        if (err) {
+          reject({ result: 'Connection to server failed' });
+          throw err;
+        }
+        resolve({ result: 'success' });
+      }
+    );
+  });
 }
 
 router.post('/saveData', function (req, res) {
@@ -307,7 +307,7 @@ router.post('/saveData', function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		function (err, db) {
 			if (err) {
-				res.json({ result: '伺服器連線錯誤' });
+				res.json({ result: 'Connection to server failed' });
 				throw err;
 			}
 			//var PromiseList = [];
