@@ -628,7 +628,6 @@ class D {
 		let last_timer = [80, 140, 205];
 		let garbo;
 		let ppp = 0;
-		let accGlobal = 0;
 		for (let session = 0; session < this._question.length; ++session) {
 			let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //0-2:各garbo題數 3-5:答對garbo題數 6-8:timer時間
 			for (var item of this._question[session]) {
@@ -660,7 +659,6 @@ class D {
 					this.correct = data[1];
 					if (this.correct == 1) {
 						console.log('correct');
-						accGlobal++;
 					}
 					this.correct == 0
 						? (timer[garbo[0]] =
@@ -729,12 +727,12 @@ class D {
 			await collapse(null, 1000); //wait  1000 ms
 		}
 		//analyzedata
-		this._analyzeData(accGlobal);
+		this._analyzeData();
 		await collapse(result_label, 2000); //show the result
 		//finish process
 		finish_btn.click();
 	}
-	_analyzeData(accGlobal) {
+	_analyzeData() {
 		let mt1 = Math.round((this.averagebox[0] / 3) * 100) / 100;
 		let mt5 = Math.round((this.averagebox[1] / 3) * 100) / 100;
 		let mt10 = Math.round((this.averagebox[2] / 3) * 100) / 100;
@@ -746,10 +744,7 @@ class D {
 			Math.round((this._acc / 9) * 100) / 100 +
 			'_' +
 			Math.round((mt10 / mt1) * 100) / 100;
-		result_label.textContent =
-			'測驗結束: 正確率' +
-			Math.round((accGlobal / (this.game_set[0] * this.game_set[1])) * 100) +
-			'%';
+		result_label.textContent = '測驗結束: 抑制指數' + SI + '%';
 	}
 	get one() {
 		return this._one;
@@ -1888,7 +1883,7 @@ class K {
 						quetion_Result += '0_' + (end - start).toString() + '~';
 					}
 				} else {
-					quetion_Result += 'NA_0_' + (end - start).toString() + '~';
+					quetion_Result += '0_' + (end - start).toString() + '~';
 				}
 				//console.log(group_set);
 				hide(item);
