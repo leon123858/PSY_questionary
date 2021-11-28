@@ -38,15 +38,15 @@ function logincheckID(db, ID, password) {
 			{ projection: { _id: 0 } },
 			function (err, result) {
 				if (err) {
-					reject({ message: '伺服器連線錯誤' });
+					reject({ message: 'Server connection error' });
 					throw err;
 				}
-				if (result == null) reject({ message: '不存在此帳號' });
+				if (result == null) reject({ message: 'Account does not exist' });
 				else if (result.password == password)
 					result.first
 						? resolve({ walk: 'first' })
 						: resolve({ walk: 'Notfirst' });
-				else reject({ message: '密碼錯誤' });
+				else reject({ message: 'Wrong password' });
 			}
 		);
 	});
@@ -59,7 +59,7 @@ function loginFirstRender(db, res, ID, password) {
 			{ $set: { first: false } },
 			function (err, result) {
 				if (err) {
-					reject({ message: '伺服器連線錯誤' });
+					reject({ message: 'Server connection error' });
 					throw err;
 				}
 				res.render('EW/EW2', { ID: ID, password: password });
@@ -76,7 +76,7 @@ function loginNotFirstRender(db, res, ID, password) {
 			{ projection: { _id: 0 } },
 			function (err, result) {
 				if (err) {
-					reject({ message: '伺服器連線錯誤' });
+					reject({ message: 'Server connection error' });
 					throw err;
 				}
 				if (result != null) {
@@ -101,7 +101,7 @@ router.post('/login', function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		function (err, db) {
 			if (err) {
-				res.render('warming', { message: '伺服器連線錯誤' });
+				res.render('warming', { message: 'Server connection error' });
 				throw err;
 			}
 			logincheckID(db, ID, password)
@@ -133,13 +133,13 @@ function jumpBoardCheckPassword(db, ID, password) {
 			{ projection: { _id: 0 } },
 			function (err, result) {
 				if (err) {
-					reject({ message: '伺服器連線錯誤' });
+					reject({ message: 'Server connection error' });
 					throw err;
 				}
-				if (result == null) reject({ message: '不存在此帳號' });
+				if (result == null) reject({ message: 'Account does not exist' });
 				else if (result.password == password)
 					resolve({ ID: ID, password: password, data: 'NA' });
-				else reject({ message: '密碼錯誤' });
+				else reject({ message: 'Wrong password' });
 			}
 		);
 	});
@@ -155,7 +155,7 @@ router.post('/jumpBoard', function (req, res) {
 			{ useNewUrlParser: true, useUnifiedTopology: true },
 			function (err, db) {
 				if (err) {
-					res.render('warming', { message: '伺服器連線錯誤' });
+					res.render('warming', { message: 'Server connection error' });
 					throw err;
 				}
 				jumpBoardCheckPassword(db, ID, password)
@@ -164,7 +164,7 @@ router.post('/jumpBoard', function (req, res) {
 					.finally((pkg) => db.close());
 			}
 		);
-	else res.render('warming', { message: '非法操作, 請聯絡網站管理員' });
+	else res.render('warming', { message: 'Illegal operation, please contact the administrator.' });
 });
 
 /**********************
@@ -180,12 +180,12 @@ function changePasswordCheckPassword(db, ID, password) {
 			{ projection: { _id: 0 } },
 			function (err, result) {
 				if (err) {
-					reject({ result: '伺服器連線錯誤' });
+					reject({ result: 'Server connection error' });
 					throw err;
 				}
-				if (result == null) reject({ result: '不存在此帳號' });
+				if (result == null) reject({ result: 'Account does not exist' });
 				else if (result.password == password) resolve(1);
-				else reject({ result: '密碼錯誤' });
+				else reject({ result: 'Wrong password' });
 			}
 		);
 	});
@@ -198,7 +198,7 @@ function changePasswordUpdatePassword(db, ID, new_password) {
 			{ $set: { password: new_password } },
 			function (err, result) {
 				if (err) {
-					reject({ result: '伺服器連線錯誤' });
+					reject({ result: 'Server connection error' });
 					throw err;
 				}
 				resolve({ result: 'success' });
@@ -215,7 +215,7 @@ router.post('/changePassword', function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		function (err, db) {
 			if (err) {
-				res.json({ result: '伺服器連線錯誤' });
+				res.json({ result: 'Server connection error' });
 				throw err;
 			}
 			changePasswordCheckPassword(db, ID, password)
@@ -242,7 +242,7 @@ function updateDataUpdate(db, ID, data) {
 				goal[json[0]] = json[1];
 			});
 		} catch (e) {
-			reject({ result: '傳遞格式錯誤' });
+			reject({ result: 'Incorrect delivery format' });
 			throw e;
 		}
 		table.updateOne(
@@ -251,7 +251,7 @@ function updateDataUpdate(db, ID, data) {
 			{ upsert: true },
 			function (err, result) {
 				if (err) {
-					reject({ result: '伺服器連線錯誤' });
+					reject({ result: 'Server connection error' });
 					throw err;
 				}
 				resolve({ result: 'success' });
@@ -269,7 +269,7 @@ router.post('/updateData', function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		function (err, db) {
 			if (err) {
-				res.json({ result: '伺服器連線錯誤' });
+				res.json({ result: 'Server connection error' });
 				throw err;
 			}
 			//此處因功能相同, 續用前一個API的function
@@ -292,8 +292,8 @@ const recordMail = (email) => {
 	const mailOtions = {
 		form: sendMailer, // 發信者是誰
 		to: email, // 發給誰，用逗號分開
-		subject: '心智評估與訓練系統 系統管理員信件', // 信件標題
-		text: '系統定期回報：主系統,影片系統及郵件系統正常', // 單純文字內容
+		subject: 'Mental Assessment and Training System System - Administrator Letter', // 信件標題
+		text: 'The system regular reports: The main system, video system and mail system are functional', // 單純文字內容
 	};
 	return new Promise((resolve, reject) => {
 		mailTransport.sendMail(mailOtions, function (error, info) {
@@ -323,7 +323,7 @@ const ifEmailExistAndActivity = (db, email) => {
 	return new Promise((resolve, reject) => {
 		table.findOne(goal, (err, result) => {
 			if (err) {
-				reject({ result: '伺服器連線錯誤' });
+				reject({ result: 'Server connection error' });
 				return;
 			}
 			result == null
@@ -345,7 +345,7 @@ const saveToken = (db, email) => {
 			{ upsert: true },
 			function (err, result) {
 				if (err) {
-					reject({ result: '伺服器連線錯誤' });
+					reject({ result: 'Server connection error' });
 					return;
 				}
 				resolve({ result: 'success', token: token });
@@ -360,13 +360,13 @@ const sendMail = (token, email) => {
 	const mailOtions = {
 		form: sendMailer, // 發信者是誰
 		to: email, // 發給誰，用逗號分開
-		subject: '心智評估與訓練系統 帳號啟用信', // 信件標題
+		subject: 'Mental Assessment and Training System - Account Activation Letter', // 信件標題
 		//text: 'XXXX', // 單純文字內容
 		html:
-			'<h1>親愛的使用者您好</h1><h2>我們是心智評估與訓練系統, 若您想使用本平台, 可點擊下方連接, 會獲得您的實驗編號與臨時密碼。</h2>' +
+			'<h1>To whom it may concern, </h1><h2>this is mental assessment and training system. If you want to use this platform, please click the link below, and you will get your experiment ID and temporary password.</h2>' +
 			'<a href="' +
 			URL +
-			'">請點我(Click ME) [跳轉後即可看見您的實驗編號與臨時密碼]</a>', // 可寫入 HTML 格式
+			'">Please click here(Click ME) [After re-directing the page you can see your experiment ID and temporary password. ]</a>', // 可寫入 HTML 格式
 	};
 	return new Promise((resolve, reject) => {
 		mailTransport.sendMail(mailOtions, function (error, info) {
@@ -386,36 +386,36 @@ router.post('/register', async function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		async function (err, db) {
 			if (err) {
-				res.json({ result: '伺服器連線錯誤' });
+				res.json({ result: 'Server connection error' });
 				throw err;
 			}
 			let situation;
 			try {
 				situation = await ifEmailExistAndActivity(db, email);
 			} catch (err) {
-				res.json({ result: 'success', message: '資料庫網路連接錯誤' });
+				res.json({ result: 'success', message: 'Connecting to the database failed' });
 				return;
 			}
 			if (situation.exist && situation.activity) {
-				res.json({ result: 'success', message: '該信箱已被使用' });
+				res.json({ result: 'success', message: 'This email has already been used' });
 				return;
 			}
 			const saveTokenResult = await saveToken(db, email);
 			if (saveTokenResult.result != 'success') {
-				res.json({ result: 'success', message: '資料庫網路連接錯誤' });
+				res.json({ result: 'success', message: 'Connecting to the database failed' });
 				return;
 			}
 			try {
 				const sendMailResult = await sendMail(saveTokenResult.token, email);
 				if (sendMailResult.result == 'success') {
-					res.json({ result: 'success', message: '已成功寄出郵件' });
+					res.json({ result: 'success', message: 'The email has been sent successfully.' });
 					return;
 				}
 				throw new Error('send err');
 			} catch (err) {
 				res.json({
 					result: 'success',
-					message: '信件無法寄出, 若確認信箱無誤, 請聯絡網站管理人',
+					message: 'Could not send the email. If you confirm that the email address is correct, please contact the administrator',
 				});
 				return;
 			}
@@ -434,7 +434,7 @@ const ifTokenExistAndNotActivity = (token, db) => {
 	return new Promise((resolve, reject) => {
 		table.findOne(goal, (err, result) => {
 			if (err) {
-				reject('伺服器連線錯誤');
+				reject('Server connection error');
 				return;
 			}
 			result == null
@@ -454,7 +454,7 @@ const setActivity = (token, db) => {
 	return new Promise((resolve, reject) => {
 		table.updateOne(filter, { $set: goal }, (err, result) => {
 			if (err) {
-				reject('伺服器連線錯誤');
+				reject('Server connection error');
 				return;
 			}
 			resolve('success');
@@ -475,7 +475,7 @@ function FindAndUpdateUsersNumber(db) {
 				throw err;
 			}
 			if (result.ok == 1) resolve({ result: result.value.count });
-			else reject({ result: '系統錯誤,無法取得新使用者的編號' });
+			else reject({ result: 'System error, unable to obtain new user ID' });
 		});
 	});
 }
