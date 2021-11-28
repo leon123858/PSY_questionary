@@ -37,29 +37,24 @@
     </div>
     <script>
       //寄出換密碼API
-      function changePassword() {
-        var Npassword = $('#passwordConfirm').val()
-        if (Npassword == $('#password').val() && Npassword != '') {
-          $.post(
-            '/EW/changePassword',
-            {
-              ID: '<%=ID%>',
-              password: '<%=password%>',
-              new_password: Npassword,
-            },
-            function (result) {
-              console.log(result.result)
-              if (result.result != 'success') {
-                alert(result.result)
-              } else {
-                $('form').find('input[name="password"]').val(Npassword)
-                $('form').submit()
-              }
-            }
-          )
-        } else {
-          $('#password').val('')
-          $('#passwordConfirm').val('')
+        //寄出換密碼API
+        function changePassword() {
+            var Npassword = $("#passwordConfirm").val();
+            if (Npassword == $("#password").val() && Npassword != '') {
+                $.post('/EW/changePassword', { ID: '<%=ID%>', password: '<%=password%>', new_password: Npassword },
+                    function (result) {
+                        console.log(result.result);
+                        if (result.result != 'success') {
+                            alert(result.result);
+                        }
+                        else {
+                            $('form').find('input[name="password"]').val(Npassword);
+                            $('form').submit();
+                        }
+                    });
+            } else {
+                $("#password").val('');
+                $("#passwordConfirm").val('');
           alert(
             'Your new password is different from the confirmed one, or one of which is null.'
           )

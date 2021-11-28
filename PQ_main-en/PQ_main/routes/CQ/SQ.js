@@ -235,12 +235,6 @@ function CheckPasswordAndLicence(db, ID, password, type) {
 			{ ID: ID },
 			{ projection: { _id: 0 } },
 			function (err, result) {
-  return new Promise((resolve, reject) => {
-    var table = db.db("EW").collection("personal_information");
-    table.findOne(
-      { ID: ID },
-      { projection: { _id: 0 } },
-      function (err, result) {
         if (err) {
           reject({ result: "Connection to server failed" });
           throw err;
@@ -251,8 +245,8 @@ function CheckPasswordAndLicence(db, ID, password, type) {
           else reject({ result: "Access denied to this operation." });
         else reject({ result: "Wrong Password" });
       }
-    );
-  });
+    )
+  })
 }
 
 function saveInDB(type, mode, str) {
@@ -292,10 +286,10 @@ function updateDate(db, ID, date, type) {
       { upsert: true },
       function (err, result) {
         if (err) {
-          reject({ result: "Connection to server failed" });
+          reject({ result: 'Connection to server failed' });
           throw err;
         }
-        resolve({ result: "success" });
+        resolve({ result: 'success' });
       }
     );
   });
@@ -313,6 +307,7 @@ router.post('/saveData', function (req, res) {
 		{ useNewUrlParser: true, useUnifiedTopology: true },
 		function (err, db) {
 			if (err) {
+				res.json({ result: 'Connection to server failed' });
 				throw err;
 			}
 			//var PromiseList = [];
@@ -327,33 +322,6 @@ router.post('/saveData', function (req, res) {
 				.finally((pkg) => db.close());
 		}
 	);
-router.post("/saveData", function (req, res) {
-  var ID = req.body.ID;
-  var password = req.body.password;
-  var one = req.body.one; //string
-  var group = req.body.group; //string
-  var type = req.body.type;
-  var date = new Date().toLocaleDateString();
-  MongoClient.connect(
-    Get("mongoPath") + "EW",
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, db) {
-      if (err) {
-        res.json({ result: "Connection to server failed" });
-        throw err;
-      }
-      //var PromiseList = [];
-      //PromiseList.push(insertData(db, ID, type, date, "one",one));
-      //PromiseList.push(insertData(db, ID, type, date, "group", group));
-      CheckPasswordAndLicence(db, ID, password, type)
-        .then((pkg) => insertData(db, ID, type, date, "one", one))
-        .then((pkg) => insertData(db, ID, type, date, "group", group))
-        .then((pkg) => updateDate(db, ID, date, type))
-        .then((pkg) => res.json({ result: "success" }))
-        .catch((error) => res.json(error))
-        .finally((pkg) => db.close());
-    }
-  );
 });
 
 module.exports = router;

@@ -471,7 +471,7 @@ function FindAndUpdateUsersNumber(db) {
 		var set = { projection: { _id: 0 } };
 		table.findOneAndUpdate(findThing, updateThing, set, function (err, result) {
 			if (err) {
-				reject('伺服器連線錯誤');
+				reject('Server connection error');
 				throw err;
 			}
 			if (result.ok == 1) resolve({ result: result.value.count });
@@ -502,7 +502,7 @@ function InsertNewUser(db, pkg, tag) {
 			},
 			function (err, result) {
 				if (err) {
-					reject('伺服器連線錯誤');
+					reject('Server connection error');
 					throw err;
 				}
 				resolve({ result: 'success', ID: new_ID, password: random_password });

@@ -97,7 +97,7 @@
             $.post("/GQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
                     for (var i in result.data) {
-                        eachDate[i] = "Time last answered" + result.data[i];
+                        eachDate[i] = "Time last answered : " + result.data[i];
                     }
                 }
                 else
