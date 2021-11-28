@@ -106,12 +106,12 @@
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">14.球齡 (年)(可不填):</span><input type="text" name="q14"
+                <span class="person_data  col-md-5">14.Years of playing sports (Optional):</span><input type="text" name="q14"
                     class="in_text col-md-6" placeholder="ex:10" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">15.近兩年最佳表現(可不填) :</span><input type="text" name="q15"
+                <span class="person_data  col-md-5">15.Best performance in the past two years (Optional):</span><input type="text" name="q15"
                     class="in_text col-md-6 " placeholder="ex:107 National Intercollegiate Athletic Games - Female Group 3rd">
                 <br>
             </div>
@@ -135,12 +135,12 @@
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">19.一對一練習時數(可不填) :</span><input type="text" name="q19"
+                <span class="person_data  col-md-5">19.One-by-One Practicing Hours (Optional):</span><input type="text" name="q19"
                     class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
             <div class="row" style="display: none;">
-                <span class="person_data  col-md-5">20.團練時數(可不填) :</span><input type="text" name="q20"
+                <span class="person_data  col-md-5">20.Group Training Hours (Optional):</span><input type="text" name="q20"
                     class="in_text col-md-6" placeholder="ex:12" onkeyup="this.value=this.value.replace(/\D/g,'')">
                 <br>
             </div>
@@ -209,7 +209,7 @@
                     if (NoNeedList.indexOf(i) > - 1) {
                         //允許部分題目不填
                         if ($('input[name="q' + i.toString() + '"]').val() == '')
-                            $('input[name="q' + i.toString() + '"]').val("未填");
+                            $('input[name="q' + i.toString() + '"]').val("NA");
                     }
                     else {
                         if ($('input[name="q' + i.toString() + '"]').val() == '')

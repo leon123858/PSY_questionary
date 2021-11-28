@@ -48,7 +48,7 @@
 <script>
     $(document).ready(() => {
         $("#downloadbtn").click(function () {
-            const result = confirm("使用步驟:\n1.請同意下載\n2.請插上外接按鈕保持連接狀態\n3.插上外接按鈕後運行該執行檔\n注意:若是連接有誤程式會自行關閉\n注意:進行測驗時請保持該程式為開啟狀態")
+            const result = confirm("Usage steps:\n1.Please agree to download\n2.Please plug in the external button to keep the connection\n3.Plug in the external button and run the executable file\nNote: If the connection is failed, the program will close automatically\nNotice:Please keep the program open when taking the test")
 
             if (result)
                 $(this).parent("form").submit();

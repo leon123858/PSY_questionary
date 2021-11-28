@@ -29,18 +29,16 @@
                 <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
                     <p>Welcome To This Task</p>
                     <p>
-
-                        螢幕中，會出現一段桌球選手發球影片，請觀看完影片，直接在球桌圖片上點出
+                        There will be a video of a table tennis player serving a ball.
                     </p>
                     <p>
-
-                        過網後落點。並判斷球的旋轉。
+                        After watching the video, pleace click one the position of table where the ball falls after the net, and judge the rotation of the ball.
                     </p>
-                    <strong>模式可以選擇要多位還是一位發球選手, 數字表示難度, 越大越難</strong>
+                    <strong>You can select the multiple or single server's mode. The number indicates the difficulty, the bigger the more difficult</strong>
                 </div>
                 <div class="btn-group d-flex p-2">
-                    <button type="button" class=" btn w-100  btn-outline-success" value="one">單一選手發球模式</button>
-                    <button type="button" class="  btn w-100  btn-outline-success " value="all">混合選手發球模式</button>
+                    <button type="button" class=" btn w-100  btn-outline-success" value="one">Single player serving mode</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="all">Mixed player serving mode</button>
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-danger" value="1">1</button>
@@ -82,17 +80,17 @@
         </div>
         <div style="text-align:center;font-size:200%">
             <select id="Select" style="display:none">
-                <option value="1">上旋</option>
-                <option value="2">下旋</option>
-                <option value="3">不轉</option>
-                <option value="4">右旋側上旋</option>
-                <option value="5">右旋側下旋</option>
-                <option value="6">左旋側上旋</option>
-                <option value="7">左旋側下旋</option>
+                <option value="1">Topspin</option>
+                <option value="2">Downspin</option>
+                <option value="3">No spin</option>
+                <option value="4">Right-hand side-up</option>
+                <option value="5">Right-hand side-down</option>
+                <option value="6">Left-hand side-up</option>
+                <option value="7">Left-hand side-down</option>
             </select>
             <input id="confirm" type="button" value="confirm" style="display:none" />
         </div>
-        <input type="button" value="當影片無法播放,請點擊本按鈕" id="pass" style="display:none">
+        <input type="button" value="When the video cannot be played, please click this button." id="pass" style="display:none">
     </div>
     <!-- post form -->
     <form method="POST" action="/GQ/EQ" style="display: none;">
@@ -127,7 +125,7 @@
             //Start測驗
             $("#start").click(function () {
                 if (Difficulty == null || mode == null || situation == null)
-                    alert("請選擇模式與難度");
+                    alert("Please select mode and difficulty");
                 else {
                     $.post("/GQ/video/getLtableList", { mode: mode, Difficulty: Difficulty, situation: situation }, function (result, textStatus, jqXHR) {
                         if (textStatus == "success") {
@@ -145,13 +143,13 @@
                                     Test.Go(5);
                                 }
                                 else
-                                    alert("伺服器傳輸有誤, 請再試一次");
+                                    alert("There was an error in the server transmission, please try again");
                             }
                             else
                                 alert(result.result + ", please try again.");
                         }
                         else
-                            alert("伺服器傳輸有誤, 請稍後試一次");
+                            alert("There is an error in the server transmission, please try again later");
                     }).fail(() => {
                         alert("Unexpected error, please check the network connection.");
                     });
