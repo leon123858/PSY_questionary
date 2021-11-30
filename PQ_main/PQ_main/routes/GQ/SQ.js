@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 const { Get } = require('../GetConst');
+const { setRedis, saveCache } = require('../cache');
 const type_licence = [
 	'A',
 	'B',
@@ -246,34 +247,41 @@ function updateDate(db, ID, date, type) {
 	});
 }
 
-router.post('/saveData', function (req, res) {
-	var ID = req.body.ID;
-	var password = req.body.password;
-	var one = req.body.one; //string
-	var group = req.body.group; //string
-	var type = req.body.type;
-	var date = new Date().toLocaleDateString();
-	MongoClient.connect(
-		Get('mongoPath') + 'EW',
-		{ useNewUrlParser: true, useUnifiedTopology: true },
-		function (err, db) {
-			if (err) {
-				res.json({ result: '伺服器連線錯誤' });
-				throw err;
+router.post(
+	'/saveData',
+	async function (req, res, next) {
+		await saveCache(req.body.ID, req.body.group, res, next);
+	},
+	function (req, res) {
+		var ID = req.body.ID;
+		var password = req.body.password;
+		var one = req.body.one; //string
+		var group = req.body.group; //string
+		var type = req.body.type;
+		var date = new Date().toLocaleDateString();
+		MongoClient.connect(
+			Get('mongoPath') + 'EW',
+			{ useNewUrlParser: true, useUnifiedTopology: true },
+			function (err, db) {
+				if (err) {
+					res.json({ result: '伺服器連線錯誤' });
+					throw err;
+				}
+				//var PromiseList = [];
+				//PromiseList.push(insertData(db, ID, type, date, "one",one));
+				//PromiseList.push(insertData(db, ID, type, date, "group", group));
+				CheckPasswordAndLicence(db, ID, password, type)
+					.then((pkg) => insertData(db, ID, type, date, 'one', one))
+					.then((pkg) => insertData(db, ID, type, date, 'group', group))
+					.then((pkg) => updateDate(db, ID, date, type))
+					.then((pkg) => setRedis(ID, group))
+					.then((pkg) => res.json({ result: 'success' }))
+					.catch((error) => res.json(error))
+					.finally((pkg) => db.close());
 			}
-			//var PromiseList = [];
-			//PromiseList.push(insertData(db, ID, type, date, "one",one));
-			//PromiseList.push(insertData(db, ID, type, date, "group", group));
-			CheckPasswordAndLicence(db, ID, password, type)
-				.then((pkg) => insertData(db, ID, type, date, 'one', one))
-				.then((pkg) => insertData(db, ID, type, date, 'group', group))
-				.then((pkg) => updateDate(db, ID, date, type))
-				.then((pkg) => res.json({ result: 'success' }))
-				.catch((error) => res.json(error))
-				.finally((pkg) => db.close());
-		}
-	);
-});
+		);
+	}
+);
 
 /**********************
  ./GQ/SQ/videoResult
