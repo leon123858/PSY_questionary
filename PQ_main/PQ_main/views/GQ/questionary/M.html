@@ -51,6 +51,7 @@
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class=" btn w-100  btn-outline-success" value="debug">除錯模式</button>
                     <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
                 </div>
                 <div class="d-flex m-2">
@@ -150,6 +151,9 @@
                             var Test = new M(videoList, '<%=ID%>', '<%=password%>', '<%=url%>');
                             if (mode == "reality" && videoList.length >= 20) {
                                 Test.Go(20, situation);
+                            }
+                            else if (mode == 'debug' && videoList.length >= 20) {
+                                Test.Go(20, situation, true);
                             }
                             else if (mode == "practice" && videoList.length >= 5) {
                                 Test.Go(5);
