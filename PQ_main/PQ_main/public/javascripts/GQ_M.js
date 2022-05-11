@@ -15,7 +15,7 @@
 	}
 
 	//method
-	Go(round, situation) {
+	Go(round, situation, isDebug = false) {
 		//事件流程 => 影片加載完成->播放完畢->點擊答案確認成功->加載影片  ( loop end )
 		//one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
 		var ID;
@@ -135,12 +135,25 @@
 						}
 					);
 				}
+				if (isDebug) {
+					$('#R' + 1).text(result1 ? '正確' : '錯誤');
+					$('#R' + 2).text(result2 ? '正確' : '錯誤');
+					$('#R' + 3).text(result3 ? '正確' : '錯誤');
+					$('#R' + 4).text(result4 ? '正確' : '錯誤');
+					$('#final_result').show();
+					$('#final_confirm').show();
+					$('#final_confirm').one('click', function () {
+						$('#final_result').hide();
+						$('#final_confirm').hide();
+						$('#MyVideo').show();
+					});
+				}
 				//完成填答,進入下一題
 				if (round > -1) {
 					one += '~';
 					$('#Lplayer').text(data[round].names.split('/')[0]);
 					$('#Rplayer').text(data[round].names.split('/')[1]);
-					$('#MyVideo').show();
+					isDebug || $('#MyVideo').show();
 					$('#question').hide();
 					$('#warning').text('影片只能播放一次, 請等縮圖出現後再進行播放');
 				} else {
