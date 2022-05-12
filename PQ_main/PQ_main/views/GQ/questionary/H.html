@@ -67,8 +67,19 @@
                     </a>
                 </div>
                 <div class="btn-group d-flex p-2">
+                    <% if(String(isFirst)=="true") { %>
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
                     <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
+                    <% } %>
+                    <% else { %>
+                    <button type="button" class=" btn w-30  btn-outline-success" value="practice">全部練習</button>
+                    <button type="button" class=" btn w-20  btn-outline-success" value="p_1">練習1</button>
+                    <button type="button" class=" btn w-20  btn-outline-success" value="p_2">練習2</button>
+                    <button type="button" class=" btn w-20  btn-outline-success" value="P_3">練習3</button>
+                    <button type="button" class="  btn w-30  btn-outline-success " value="reality">實際測驗</button>
+                    <% } %>
+                    <!-- <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button> -->
                 </div>
                 <div class="d-flex m-2">
                     <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
@@ -125,9 +136,26 @@
     });
 
     $('#start').on('click', function () {
-        // $('#remind_btn').siblings("h3").text("已做完此問卷，請去做K問卷");
-        // $('#remind_btn').click();
-        console.log("mide");
+        switch (game_get) {
+            case "practice":
+            case "reality":
+                game = new H([10, 20, 20]); 
+                break
+            case "p_1":
+                game = new H([10, 0, 0],1); 
+                break
+            case "p_2":
+                game = new H([0, 20, 0],2); 
+                break
+            case "p_3":
+                game = new H([0, 0, 20],3); 
+                break
+            default:
+                break
+        }
+        game.process();
+        $('#main-model').modal('hide');
+       /* console.log("mide");
         if (game_get == "practice") {
             game = new H([10, 20, 20]); //10,20,20
             game.process();
@@ -136,7 +164,7 @@
             game = new H([20, 60, 60]);
             game.process();
             $('#main-model').modal('hide');
-        }
+        }*/
     });
 
     $('.btn-group').on('click', '.btn', function () {
@@ -153,12 +181,12 @@
             localStorage.setItem("GQgroup", game.group);
             localStorage.setItem('GQtype', "H");
             $.post("/GQ/SQ/saveData", {
-                ID: "<%=ID%>",
-                password: "<%=password%>",
-                one: game.one,
-                group: game.group,
-                type: 'H',
-            },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: game.one,
+                    group: game.group,
+                    type: 'H',
+                },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {

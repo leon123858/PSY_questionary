@@ -468,7 +468,7 @@ class C {
 				await new Promise((resolve) => {
 					this.remind_btn.click();
 					this.remind_btn.nextElementSibling.textContent =
-						'共三回合 接下來是第' + (session + 2) + '回合';
+						'共二回合 接下來是第' + (session + 2) + '回合';
 
 					function keyhandle(e) {
 						if (e.key == 'Enter') {
@@ -714,7 +714,7 @@ class D {
 				await new Promise((resolve) => {
 					this.remind_btn.click();
 					this.remind_btn.nextElementSibling.textContent =
-						'共三回合 接下來是第' + (session + 2) + '回合';
+						'共二回合 接下來是第' + (session + 2) + '回合';
 
 					function keyhandle(e) {
 						if (e.key == 'Enter') {
@@ -1289,7 +1289,8 @@ class G {
 3 PART number_set: game_set[part 1,part 2,part 3];
 */
 class H {
-	constructor(game_set) {
+	constructor(game_set,round = 0) {
+        this.round = round
 		this.game_set = game_set;
 		this.remind_btn = document.querySelector('button[name="remind_btn"]');
 		this.ball = add_ball(['ball-80', 'center-screen']);
@@ -1306,14 +1307,39 @@ class H {
 		body.appendChild(this.ball);
 	}
 	_createQuestion() {
-		this._question = [
-			competitor([Color_Set.green], this.ratio[0]),
-			competitor([Color_Set.green, Color_Set.red], this.ratio[1]),
-			competitor(
-				[Color_Set.green, Color_Set.red, Color_Set.blue, Color_Set.yellow],
-				this.ratio[2]
-			),
-		];
+		// this._question = [
+		// 	competitor([Color_Set.green], this.ratio[0]),
+		// 	competitor([Color_Set.green, Color_Set.red], this.ratio[1]),
+		// 	competitor(
+		// 		[Color_Set.green, Color_Set.red, Color_Set.blue, Color_Set.yellow],
+		// 		this.ratio[2]
+		// 	),
+		// ];
+        switch (this.round) {
+            case 1:
+                this._question = [
+                    competitor([Color_Set.green], this.ratio[0]),
+                ]
+                break
+            case 2:
+                this._question = [
+                    competitor([Color_Set.green, Color_Set.red], this.ratio[1]),
+                ]
+                break
+            case 3:
+                this._question = [
+                    competitor([Color_Set.green, Color_Set.red, Color_Set.blue, Color_Set.yellow], this.ratio[2]),
+                ]
+                break
+            case 0:
+            default:
+                this._question = [
+                    competitor([Color_Set.green], this.ratio[0]),
+                    competitor([Color_Set.green, Color_Set.red], this.ratio[1]),
+                    competitor([Color_Set.green, Color_Set.red, Color_Set.blue, Color_Set.yellow], this.ratio[2]),
+                ]
+                break
+        }
 	}
 	_generateAnswer = (item, range_min, range_max) => {
 		let interval = range_min;
@@ -1769,7 +1795,8 @@ class J {
 }
 
 class K {
-	constructor(game_set) {
+	constructor(game_set,textnumber = 10) {
+        this.textnumber = textnumber
 		this.game_set = game_set;
 		this.word = document.getElementById('text_label');
 		//this.ball = add_ball( [ 'ball-80', 'center-screen' ]);
@@ -1830,16 +1857,17 @@ class K {
 		body.appendChild(this.word);
 	}
 	_createQuestion() {
-		let wordlength = this._worddict[0].length;
-		let wordkind = this._worddict.length;
-		for (var colortype of Object.values(Color_Set)) {
-			for (let kind = 0; kind < wordkind; ++kind) {
-				for (let i = 0; i < wordlength; ++i) {
-					this.question.push([this._worddict[kind][i], colortype, kind]); //word color kind
-				}
-			}
-		}
-		this.question = competitor(this.question, 1);
+        let wordkind = this._worddict.length;
+        for (var colortype of Object.values(Color_Set)) {
+            for (let kind = 0; kind < wordkind; ++kind) {
+                let selected = this._worddict[kind].slice(0, this.textnumber);
+                for (let i = 0; i < this.textnumber; ++i) {
+                    this.question.push([selected[i], colortype, kind]); //word color kind
+                }
+            }
+        }
+        this.question = competitor(this.question, 1);
+        console.log(this.question);
 		//console.log(this.question);
 	}
 	_generateAnswer = (item, range_min, range_max) => {
