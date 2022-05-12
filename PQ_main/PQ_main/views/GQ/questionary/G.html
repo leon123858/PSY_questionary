@@ -174,7 +174,7 @@
   // }
   const saver = new GQ_SQ("<%=ID%>", "<%=password%>");
   $(window).on('load', function () {
-    createBall(apawn_div, 6, true); ///pass ten ball 
+   // createBall(apawn_div, 6, true); ///pass ten ball 
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
@@ -190,10 +190,12 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
+      createBall(apawn_div, 6, true); ///pass ten ball 
       game = new G(4, false);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
+      createBall(apawn_div, 8, true); ///pass 8 ball  (5:blue 3:yellow)
       game = new G(4, true);
       game.process();
       $('#main-model').modal('hide');
