@@ -233,7 +233,7 @@
         <button name="remind_btn" type="button" class="btn btn-primary" onclick="$('#remind_modal').modal('toggle')"
           style="display: none;">
         </button>
-        <h3>[共三回合,接下來是第2回合]</h3>
+        <h3>[共二回合,接下來是第2回合]</h3>
         <br>
         請按Enter鍵繼續.....
       </div>
@@ -317,7 +317,7 @@
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new D([3, 120]);
+      game = new D([2, 120]);
       game.process();
       $('#main-model').modal('hide');
     }

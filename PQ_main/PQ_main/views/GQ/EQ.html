@@ -68,6 +68,7 @@
         <form id="form" action="" method="post" style="display:none">
             <input name="ID" type="text" value="<%=ID%>" /><br />
             <input name="password" type="password" value="<%=password%>" /><br />
+            <input name="isFirst" type="text" value="" /><br />
             <input name="goal" type="text" value="EW5" /><br />
         </form>
     </div>
@@ -89,6 +90,11 @@
         };
         //跳問卷
         function movePage(name) {
+            if (eachDate[name] == "未有填寫紀錄") {
+                $("#form").children('input[name="isFirst"]').val("true")
+            } else {
+                $("#form").children('input[name="isFirst"]').val("false")
+            }
             $("#form").attr("action", "Questionary/" + name).submit();
         }
         $(document).ready(function () {
